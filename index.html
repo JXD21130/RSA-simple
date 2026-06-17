@@ -1,3 +1,4 @@
+
 <html lang="es"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,7 +45,7 @@ html,body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ── LAYOUT ── */
+/* â”€â”€ LAYOUT â”€â”€ */
 #app { min-height: 100vh; display: flex; flex-direction: column; }
 
 header {
@@ -84,12 +85,12 @@ header {
 
 main { flex: 1; padding: 48px 32px; max-width: 680px; margin: 0 auto; width: 100%; }
 
-/* ── VIEWS ── */
+/* â”€â”€ VIEWS â”€â”€ */
 .view { display: none; animation: fadein 0.2s ease; }
 .view.active { display: block; }
 @keyframes fadein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 
-/* ── HOME ── */
+/* â”€â”€ HOME â”€â”€ */
 .home-title {
   font-size: 32px;
   font-weight: 300;
@@ -161,7 +162,7 @@ main { flex: 1; padding: 48px 32px; max-width: 680px; margin: 0 auto; width: 100
 .card-full:hover { border-color: var(--border2); background: var(--bg2); }
 .card-full-text .card-title { margin-bottom: 2px; }
 
-/* ── SECTION HEADER ── */
+/* â”€â”€ SECTION HEADER â”€â”€ */
 .section-header {
   margin-bottom: 32px;
 }
@@ -188,7 +189,7 @@ main { flex: 1; padding: 48px 32px; max-width: 680px; margin: 0 auto; width: 100
 }
 .section-sub { font-size: 14px; color: var(--text2); }
 
-/* ── FORM ELEMENTS ── */
+/* â”€â”€ FORM ELEMENTS â”€â”€ */
 .field { margin-bottom: 20px; }
 .field-label {
   display: block;
@@ -240,7 +241,7 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
 .file-drop-name { font-family: var(--mono); font-size: 11px; color: var(--green); margin-top: 4px; display: none; }
 .file-drop-name.show { display: block; }
 
-/* ── BUTTONS ── */
+/* â”€â”€ BUTTONS â”€â”€ */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -267,7 +268,7 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
 .btn-full { width: 100%; }
 .btn-row { display: flex; gap: 10px; margin-top: 8px; flex-wrap: wrap; }
 
-/* ── RESULT BOX ── */
+/* â”€â”€ RESULT BOX â”€â”€ */
 .result-box {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -301,7 +302,7 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
 }
 .result-actions { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
 
-/* ── ALERT ── */
+/* â”€â”€ ALERT â”€â”€ */
 .alert {
   border-radius: var(--radius);
   padding: 12px 16px;
@@ -315,7 +316,7 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
 .alert-info    { background: var(--blue-bg);   color: var(--blue);  border: 1px solid #bfdbfe; }
 .alert-warn    { background: var(--amber-bg);  color: var(--amber); border: 1px solid #fde68a; }
 
-/* ── DIVIDER ── */
+/* â”€â”€ DIVIDER â”€â”€ */
 .divider {
   height: 1px;
   background: var(--border);
@@ -333,7 +334,7 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
   content: ''; flex: 1; height: 1px; background: var(--border);
 }
 
-/* ── KEY SIZE SELECTOR ── */
+/* â”€â”€ KEY SIZE SELECTOR â”€â”€ */
 .size-group { display: flex; gap: 8px; }
 .size-opt {
   flex: 1;
@@ -351,7 +352,7 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
 .size-opt-name { font-size: 13px; font-weight: 500; }
 .size-opt-sub { font-size: 11px; opacity: 0.65; margin-top: 2px; }
 
-/* ── PROGRESS ── */
+/* â”€â”€ PROGRESS â”€â”€ */
 .progress-bar {
   height: 2px;
   background: var(--border);
@@ -375,7 +376,7 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
 .generating-msg { font-size: 13px; color: var(--text2); margin-top: 10px; display: none; }
 .generating-msg.show { display: block; }
 
-/* ── ADVANCED: PANEL GRID ── */
+/* â”€â”€ ADVANCED: PANEL GRID â”€â”€ */
 .adv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 28px; }
 .adv-card {
   background: var(--surface);
@@ -392,7 +393,7 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
 .adv-card-text .adv-title { font-size: 13px; font-weight: 500; margin-bottom: 2px; }
 .adv-card-text .adv-sub { font-size: 12px; color: var(--text2); }
 
-/* ── TOGGLE ── */
+/* â”€â”€ TOGGLE â”€â”€ */
 .toggle-row {
   display: flex;
   align-items: center;
@@ -425,7 +426,7 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
 }
 .toggle.on::after { transform: translateX(18px); }
 
-/* ── PEM DISPLAY ── */
+/* â”€â”€ PEM DISPLAY â”€â”€ */
 .pem-block {
   font-family: var(--mono);
   font-size: 10.5px;
@@ -441,12 +442,12 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
   overflow-y: auto;
 }
 
-/* ── SCROLLBAR ── */
+/* â”€â”€ SCROLLBAR â”€â”€ */
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
 
-/* ── SEED TOGGLE ── */
+/* â”€â”€ SEED TOGGLE â”€â”€ */
 .seed-toggle-row {
   display: flex;
   align-items: center;
@@ -490,7 +491,7 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
 }
 .seed-input-field.show { display: block; }
 
-/* ── RESPONSIVE ── */
+/* â”€â”€ RESPONSIVE â”€â”€ */
 @media (max-width: 600px) {
   header { padding: 16px 20px; }
   main { padding: 32px 20px; }
@@ -501,7 +502,7 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
   .btn-row { flex-direction: column; }
   .btn-row .btn { width: 100%; }
 }
-/* ── KEY EXCHANGE ── */
+/* â”€â”€ KEY EXCHANGE â”€â”€ */
 .kx-role-grid {
   display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px;
 }
@@ -555,6 +556,103 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
   background: var(--bg2); border: 1px solid var(--border); border-radius: 20px;
   padding: 4px 12px; margin-bottom: 12px; color: var(--text2);
 }
+.kx-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 14px;
+}
+.kx-panel-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+.kx-inline {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.kx-inline input { flex: 1; }
+.kx-chat-list {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.kx-chat-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 12px;
+}
+.kx-chat-code {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--text2);
+}
+.kx-chat-meta {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.kx-pending-list,
+.kx-member-list,
+.kx-history {
+  display: grid;
+  gap: 8px;
+}
+.kx-pending-item,
+.kx-member-item,
+.kx-message {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  background: var(--bg);
+}
+.kx-pending-item,
+.kx-member-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+.kx-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.kx-message-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  color: var(--text2);
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+.kx-message-type {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+.kx-message-content {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.kx-empty {
+  color: var(--text3);
+  font-size: 13px;
+}
+.kx-status-line {
+  color: var(--text2);
+  font-size: 13px;
+  margin-top: 8px;
+}
 
 </style>
 </head>
@@ -564,48 +662,48 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
 <header>
   <a class="logo" href="#" onclick="goHome();return false;">ciphr</a>
   <div class="lang-sw">
-    <button class="lang-btn active" id="lang-es" onclick="setLang('es')" title="Español">🇪🇸</button>
-    <button class="lang-btn" id="lang-en" onclick="setLang('en')" title="English">🇺🇸</button>
+    <button class="lang-btn active" id="lang-es" onclick="setLang('es')" title="EspaÃ±ol">ðŸ‡ªðŸ‡¸</button>
+    <button class="lang-btn" id="lang-en" onclick="setLang('en')" title="English">ðŸ‡ºðŸ‡¸</button>
   </div>
 </header>
 
 <main>
 
-<!-- ══════════ HOME ══════════ -->
+<!-- â•â•â•â•â•â•â•â•â•â• HOME â•â•â•â•â•â•â•â•â•â• -->
 <div class="view active" id="view-home">
   <div class="home-title" id="home-main-title">Cifra mensajes.<br><em>Sin complicaciones.</em></div>
-  <p class="home-sub" id="home-main-sub">Cada uno guarda una clave. Nadie más sabe ninguna de las dos.</p>
+  <p class="home-sub" id="home-main-sub">Cada uno guarda una clave. Nadie mÃ¡s sabe ninguna de las dos.</p>
   <div class="home-cards">
     <button class="card" onclick="showView('genkeys')">
-      <div class="card-icon">🔑</div>
+      <div class="card-icon">ðŸ”‘</div>
       <div class="card-title" id="home-card-gen-title">Generar claves</div>
-      <div class="card-desc" id="home-card-gen-desc">Genera las dos claves. Cada uno se queda con la suya, sin compartirla con nadie más.</div>
+      <div class="card-desc" id="home-card-gen-desc">Genera las dos claves. Cada uno se queda con la suya, sin compartirla con nadie mÃ¡s.</div>
     </button>
     <button class="card" onclick="showView('encrypt')">
-      <div class="card-icon">🔒</div>
+      <div class="card-icon">ðŸ”’</div>
       <div class="card-title" id="home-card-enc-title">Cifrar</div>
-      <div class="card-desc" id="home-card-enc-desc">Cifra un mensaje con tu clave. Solo el receptor podrá leerlo con su clave.</div>
+      <div class="card-desc" id="home-card-enc-desc">Cifra un mensaje con tu clave. Solo el receptor podrÃ¡ leerlo con su clave.</div>
     </button>
     <button class="card" onclick="showView('decrypt')">
-      <div class="card-icon">🔓</div>
+      <div class="card-icon">ðŸ”“</div>
       <div class="card-title" id="home-card-dec-title">Descifrar</div>
       <div class="card-desc" id="home-card-dec-desc">Lee un mensaje que te han enviado. Usa tu propia clave para descifrarlo.</div>
     </button>
     <button class="card" onclick="showView('sign')">
-      <div class="card-icon">✍️</div>
+      <div class="card-icon">âœï¸</div>
       <div class="card-title" id="home-card-sign-title">Firmar</div>
       <div class="card-desc" id="home-card-sign-desc">Demuestra que un mensaje es tuyo, o verifica si es de alguien.</div>
     </button>
   </div>
   <button class="card-full" onclick="showView('advanced')">
-    <div class="card-icon">⚙️</div>
+    <div class="card-icon">âš™ï¸</div>
     <div class="card-full-text">
       <div class="card-title" id="home-card-adv-title">Avanzado</div>
       <div class="card-desc" id="home-card-adv-desc">Control total: claves, PEM, seeds y operaciones manuales.</div>
     </div>
   </button>
   <button class="card-full" onclick="showView('keyexchange')">
-    <div class="card-icon">🤝</div>
+    <div class="card-icon">ðŸ¤</div>
     <div class="card-full-text">
       <div class="card-title" id="home-card-kx-title">Intercambiar claves</div>
       <div class="card-desc" id="home-card-kx-desc">Comparte tu clave B de forma segura, sin enviarla directamente.</div>
@@ -613,19 +711,19 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
   </button>
 </div>
 
-<!-- ══════════ GENKEYS ══════════ -->
+<!-- â•â•â•â•â•â•â•â•â•â• GENKEYS â•â•â•â•â•â•â•â•â•â• -->
 <div class="view" id="view-genkeys">
-  <button class="section-back" data-back="" onclick="goHome()">← volver</button>
+  <button class="section-back" data-back="" onclick="goHome()">â† volver</button>
   <div class="section-header">
     <div class="section-title" id="gen-title">Generar claves</div>
-    <div class="section-sub" id="gen-sub">Genera las dos claves. Tú te quedas con una, tu receptor con la otra. Ninguno se la da a nadie más — ni siquiera entre vosotros.</div>
+    <div class="section-sub" id="gen-sub">Genera las dos claves. TÃº te quedas con una, tu receptor con la otra. Ninguno se la da a nadie mÃ¡s â€” ni siquiera entre vosotros.</div>
   </div>
 
   <div class="field">
-    <label class="field-label" id="gen-size-lbl">Tamaño de clave</label>
+    <label class="field-label" id="gen-size-lbl">TamaÃ±o de clave</label>
     <div class="size-group">
       <div class="size-opt selected" data-bits="512" onclick="selectSize(this)">
-        <div class="size-opt-name" id="gen-fast">Rápido</div>
+        <div class="size-opt-name" id="gen-fast">RÃ¡pido</div>
         <div class="size-opt-sub" id="gen-fast-s">~2s</div>
       </div>
       <div class="size-opt" data-bits="1024" onclick="selectSize(this)">
@@ -637,27 +735,27 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
         <div class="size-opt-sub" id="gen-secure-s">~2min</div>
       </div>
     </div>
-    <div class="field-sub">Normal es más que suficiente para la mayoría de usos.</div>
+    <div class="field-sub">Normal es mÃ¡s que suficiente para la mayorÃ­a de usos.</div>
   </div>
 
   <div class="progress-bar" id="gen-progress"><div class="progress-fill"></div></div>
   <div class="generating-msg" id="gen-msg">Generando primos aleatorios...</div>
 
   <div class="alert alert-success" id="gen-ok">
-  <span>✓</span>
-  <span id="gen-ok-text">Listo. Descarga las dos claves — cada uno guarda la suya.</span>
+  <span>âœ“</span>
+  <span id="gen-ok-text">Listo. Descarga las dos claves â€” cada uno guarda la suya.</span>
 </div>
 
   <div class="btn-row">
     <button class="btn btn-primary" id="btn-gen" onclick="doGenKeys()">Generar</button>
-    <button class="btn btn-secondary" id="btn-dl-pub" style="display:none" onclick="dlPub()">↓ Clave B</button>
-    <button class="btn btn-secondary" id="btn-dl-priv" style="display:none" onclick="dlPriv()">↓ Clave A</button>
+    <button class="btn btn-secondary" id="btn-dl-pub" style="display:none" onclick="dlPub()">â†“ Clave B</button>
+    <button class="btn btn-secondary" id="btn-dl-priv" style="display:none" onclick="dlPriv()">â†“ Clave A</button>
   </div>
 </div>
 
-<!-- ══════════ ENCRYPT ══════════ -->
+<!-- â•â•â•â•â•â•â•â•â•â• ENCRYPT â•â•â•â•â•â•â•â•â•â• -->
 <div class="view" id="view-encrypt">
-  <button class="section-back" data-back="" onclick="goHome()">← volver</button>
+  <button class="section-back" data-back="" onclick="goHome()">â† volver</button>
   <div class="section-header">
     <div class="section-title" id="enc-title">Cifrar mensaje</div>
   </div>
@@ -680,7 +778,7 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
     <label class="field-label" id="enc-key-label">Tu clave</label>
     <div class="file-drop">
       <input type="file" accept=".txt,.pem" onchange="loadEncKey(this)">
-      <div class="file-drop-icon">📄</div>
+      <div class="file-drop-icon">ðŸ“„</div>
       <div id="enc-drop-text">Arrastra el archivo o haz clic para seleccionar</div>
       <div class="file-drop-name" id="enc-key-name"></div>
     </div>
@@ -696,7 +794,7 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
   </div>
 
   <div class="seed-toggle-row" onclick="toggleEncSeed()">
-    <div class="seed-toggle-label" id="enc-seed-lbl"><strong>Seed</strong> — abecedario personalizado</div>
+    <div class="seed-toggle-label" id="enc-seed-lbl"><strong>Seed</strong> â€” abecedario personalizado</div>
     <div class="sw" id="enc-seed-sw"></div>
   </div>
   <div class="seed-input-field" id="enc-seed-field">
@@ -712,14 +810,14 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
     <div class="result-text mono" id="enc-result-text"></div>
     <div class="result-actions">
       <button class="btn btn-secondary" id="enc-copy-btn" onclick="copyResult('enc-result-text')">Copiar</button>
-      <button class="btn btn-secondary" id="enc-download-btn" onclick="dlResult('enc-result-text','mensaje_cifrado.txt')">↓ Descargar</button>
+      <button class="btn btn-secondary" id="enc-download-btn" onclick="dlResult('enc-result-text','mensaje_cifrado.txt')">â†“ Descargar</button>
     </div>
   </div>
 </div>
 
-<!-- ══════════ DECRYPT ══════════ -->
+<!-- â•â•â•â•â•â•â•â•â•â• DECRYPT â•â•â•â•â•â•â•â•â•â• -->
 <div class="view" id="view-decrypt">
-  <button class="section-back" data-back="" onclick="goHome()">← volver</button>
+  <button class="section-back" data-back="" onclick="goHome()">â† volver</button>
   <div class="section-header">
     <div class="section-title" id="dec-title">Descifrar mensaje</div>
   </div>
@@ -742,7 +840,7 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
     <label class="field-label" id="dec-key-label">Tu clave</label>
     <div class="file-drop">
       <input type="file" accept=".txt,.pem" onchange="loadDecKey(this)">
-      <div class="file-drop-icon">🔐</div>
+      <div class="file-drop-icon">ðŸ”</div>
       <div id="dec-key-drop-text">Arrastra el archivo o haz clic para seleccionar</div>
       <div class="file-drop-name" id="dec-key-name"></div>
     </div>
@@ -756,7 +854,7 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
     <label class="field-label" id="dec-cipher-lbl">Mensaje cifrado</label>
     <div class="file-drop" id="dec-cipher-drop">
       <input type="file" accept=".txt,.pem" onchange="loadCipherFile(this)">
-      <div class="file-drop-icon">📨</div>
+      <div class="file-drop-icon">ðŸ“¨</div>
       <div id="dec-cipher-drop-text">Arrastra el archivo o haz clic para seleccionar</div>
       <div class="file-drop-name" id="dec-cipher-name"></div>
     </div>
@@ -767,7 +865,7 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
   </div>
 
   <div class="seed-toggle-row" onclick="toggleDecSeed()">
-    <div class="seed-toggle-label" id="dec-seed-lbl"><strong>Seed</strong> — abecedario personalizado</div>
+    <div class="seed-toggle-label" id="dec-seed-lbl"><strong>Seed</strong> â€” abecedario personalizado</div>
     <div class="sw" id="dec-seed-sw"></div>
   </div>
   <div class="seed-input-field" id="dec-seed-field">
@@ -787,22 +885,22 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
   </div>
 </div>
 
-<!-- ══════════ SIGN ══════════ -->
+<!-- â•â•â•â•â•â•â•â•â•â• SIGN â•â•â•â•â•â•â•â•â•â• -->
 <div class="view" id="view-sign">
-  <button class="section-back" data-back="" onclick="goHome()">← volver</button>
+  <button class="section-back" data-back="" onclick="goHome()">â† volver</button>
   <div class="section-header">
     <div class="section-title" id="sign-title">Verificar identidad</div>
   </div>
   <div class="adv-grid" style="margin-bottom:0">
     <button class="adv-card" onclick="showView('sign-create')">
-      <div class="adv-card-icon">✍️</div>
+      <div class="adv-card-icon">âœï¸</div>
       <div class="adv-card-text">
         <div class="adv-title" id="sign-create-card-title">Firmar mensaje</div>
         <div class="adv-sub" id="sign-create-card-sub">Demuestra con tu clave que el mensaje es tuyo</div>
       </div>
     </button>
     <button class="adv-card" onclick="showView('sign-verify')">
-      <div class="adv-card-icon">🔍</div>
+      <div class="adv-card-icon">ðŸ”</div>
       <div class="adv-card-text">
         <div class="adv-title" id="sign-verify-card-title">Verificar firma</div>
         <div class="adv-sub" id="sign-verify-card-sub">Verifica si una firma es real</div>
@@ -811,18 +909,18 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
   </div>
 </div>
 
-<!-- ══════════ SIGN CREATE ══════════ -->
+<!-- â•â•â•â•â•â•â•â•â•â• SIGN CREATE â•â•â•â•â•â•â•â•â•â• -->
 <div class="view" id="view-sign-create">
-  <button class="section-back" data-back="" onclick="showView('sign')">← volver</button>
+  <button class="section-back" data-back="" onclick="showView('sign')">â† volver</button>
   <div class="section-header">
     <div class="section-title" id="sign-create-title">Firmar mensaje</div>
-    <div class="section-sub" id="sign-create-sub">Usa tu clave A para firmar. Los demás podrán comprobar que eres tú.</div>
+    <div class="section-sub" id="sign-create-sub">Usa tu clave A para firmar. Los demÃ¡s podrÃ¡n comprobar que eres tÃº.</div>
   </div>
   <div class="field">
     <label class="field-label" id="sign-key-lbl">Tu clave</label>
     <div class="file-drop">
       <input type="file" accept=".txt,.pem" onchange="loadPrivKey(this,'sign')">
-      <div class="file-drop-icon">🔐</div>
+      <div class="file-drop-icon">ðŸ”</div>
       <div id="sign-priv-drop-text">Arrastra el archivo o haz clic</div>
       <div class="file-drop-name" id="sign-priv-name"></div>
     </div>
@@ -842,14 +940,14 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
     <div class="result-text mono" id="sign-result-text"></div>
     <div class="result-actions">
       <button class="btn btn-secondary" id="sign-copy-btn" onclick="copyResult('sign-result-text')">Copiar</button>
-      <button class="btn btn-secondary" id="sign-download-btn" onclick="dlResult('sign-result-text','firma.txt')">↓ Descargar</button>
+      <button class="btn btn-secondary" id="sign-download-btn" onclick="dlResult('sign-result-text','firma.txt')">â†“ Descargar</button>
     </div>
   </div>
 </div>
 
-<!-- ══════════ SIGN VERIFY ══════════ -->
+<!-- â•â•â•â•â•â•â•â•â•â• SIGN VERIFY â•â•â•â•â•â•â•â•â•â• -->
 <div class="view" id="view-sign-verify">
-  <button class="section-back" data-back="" onclick="showView('sign')">← volver</button>
+  <button class="section-back" data-back="" onclick="showView('sign')">â† volver</button>
   <div class="section-header">
     <div class="section-title" id="sign-verify-title">Verificar firma</div>
     <div class="section-sub" id="sign-verify-sub">Comprueba que el mensaje es realmente del que tiene la clave A.</div>
@@ -862,7 +960,7 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
     <label class="field-label" id="sign-file-lbl">Firma</label>
     <div class="file-drop">
       <input type="file" accept=".txt,.pem" onchange="loadSignFile(this)">
-      <div class="file-drop-icon">📋</div>
+      <div class="file-drop-icon">ðŸ“‹</div>
       <div id="verify-sign-drop-text">Arrastra el archivo de firma o haz clic</div>
       <div class="file-drop-name" id="verify-sign-name"></div>
     </div>
@@ -875,7 +973,7 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
     <label class="field-label" id="sign-pub-lbl">Clave B del firmante</label>
     <div class="file-drop">
       <input type="file" accept=".txt,.pem" onchange="loadVerifyPubKey(this)">
-      <div class="file-drop-icon">🔑</div>
+      <div class="file-drop-icon">ðŸ”‘</div>
       <div id="verify-pub-drop-text">Arrastra el archivo o haz clic</div>
       <div class="file-drop-name" id="verify-pub-name"></div>
     </div>
@@ -889,9 +987,9 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
   <div class="alert" id="verify-result" style="margin-top:16px"></div>
 </div>
 
-<!-- ══════════ ADVANCED ══════════ -->
+<!-- â•â•â•â•â•â•â•â•â•â• ADVANCED â•â•â•â•â•â•â•â•â•â• -->
 <div class="view" id="view-advanced">
-  <button class="section-back" data-back="" onclick="goHome()">← volver</button>
+  <button class="section-back" data-back="" onclick="goHome()">â† volver</button>
   <div class="section-header">
     <div class="section-title" id="adv-title">Avanzado</div>
     <div class="section-sub" id="adv-sub">Operaciones manuales con control total.</div>
@@ -900,27 +998,27 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
     
     
     <button class="adv-card" onclick="showView('adv-pem')">
-      <div class="adv-card-icon">📜</div>
+      <div class="adv-card-icon">ðŸ“œ</div>
       <div class="adv-card-text"><div class="adv-title" id="adv-pem-title">PEM universal</div><div class="adv-sub" id="adv-pem-sub">Codificar y decodificar cualquier PEM</div></div>
     </button>
     <button class="adv-card" onclick="showView('adv-seeds')">
-      <div class="adv-card-icon">🌱</div>
+      <div class="adv-card-icon">ðŸŒ±</div>
       <div class="adv-card-text"><div class="adv-title" id="adv-seeds-title">Seeds</div><div class="adv-sub" id="adv-seeds-sub">Crear y explorar abecedarios personalizados</div></div>
     </button>
     <button class="adv-card" onclick="showView('adv-genkeys')">
-      <div class="adv-card-icon">⚙️</div>
-      <div class="adv-card-text"><div class="adv-title" id="adv-genkeys-title">Generar claves</div><div class="adv-sub" id="adv-genkeys-sub">Con control de cifras y parámetros</div></div>
+      <div class="adv-card-icon">âš™ï¸</div>
+      <div class="adv-card-text"><div class="adv-title" id="adv-genkeys-title">Generar claves</div><div class="adv-sub" id="adv-genkeys-sub">Con control de cifras y parÃ¡metros</div></div>
     </button>
     
   </div>
 </div>
 
 
-<!-- ══════════ ADV: NUMS ══════════ -->
+<!-- â•â•â•â•â•â•â•â•â•â• ADV: NUMS â•â•â•â•â•â•â•â•â•â• -->
 <div class="view" id="view-adv-nums">
-  <button class="section-back" onclick="showView('advanced')">← volver</button>
+  <button class="section-back" onclick="showView('advanced')">â† volver</button>
   <div class="section-header">
-    <div class="section-title" id="adv-nums-title">Cifrar / Descifrar número</div>
+    <div class="section-title" id="adv-nums-title">Cifrar / Descifrar nÃºmero</div>
   </div>
   <div class="field">
     <label class="field-label" id="adv-nums-mode-lbl">Modo</label>
@@ -931,8 +1029,8 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
       <option value="dec-d" id="adv-num-opt-dec-d">Descifrar con d</option>
     </select>
   </div>
-  <div class="field"><label class="field-label" id="adv-nums-num-lbl">Número</label><input type="text" id="adv-num-input" placeholder="12345"></div>
-  <div class="field"><label class="field-label">n</label><input type="text" id="adv-num-n" placeholder="módulo"></div>
+  <div class="field"><label class="field-label" id="adv-nums-num-lbl">NÃºmero</label><input type="text" id="adv-num-input" placeholder="12345"></div>
+  <div class="field"><label class="field-label">n</label><input type="text" id="adv-num-n" placeholder="mÃ³dulo"></div>
   <div class="field"><label class="field-label" id="adv-nums-exp-lbl">Exponente (e o d)</label><input type="text" id="adv-num-exp" placeholder="exponente"></div>
   <div class="alert alert-error" id="adv-num-err"></div>
   <button class="btn btn-primary" id="adv-nums-btn" onclick="doAdvNum()">Calcular</button>
@@ -943,9 +1041,9 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
   </div>
 </div>
 
-<!-- ══════════ ADV: TEXT ══════════ -->
+<!-- â•â•â•â•â•â•â•â•â•â• ADV: TEXT â•â•â•â•â•â•â•â•â•â• -->
 <div class="view" id="view-adv-text">
-  <button class="section-back" onclick="showView('advanced')">← volver</button>
+  <button class="section-back" onclick="showView('advanced')">â† volver</button>
   <div class="section-header"><div class="section-title" id="adv-text-title">Cifrar / Descifrar texto</div></div>
   <div class="field">
     <label class="field-label" id="adv-text-mode-lbl">Modo</label>
@@ -956,13 +1054,13 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
       <option value="dec-d" id="adv-text-opt-dec-d">Descifrar con d</option>
     </select>
   </div>
-  <div class="field"><label class="field-label" id="adv-text-input-lbl">Texto / Números cifrados</label><textarea id="adv-text-input" placeholder="Texto a cifrar o números separados por espacios..."></textarea></div>
-  <div class="field"><label class="field-label">n</label><input type="text" id="adv-text-n" placeholder="módulo"></div>
+  <div class="field"><label class="field-label" id="adv-text-input-lbl">Texto / NÃºmeros cifrados</label><textarea id="adv-text-input" placeholder="Texto a cifrar o nÃºmeros separados por espacios..."></textarea></div>
+  <div class="field"><label class="field-label">n</label><input type="text" id="adv-text-n" placeholder="mÃ³dulo"></div>
   <div class="field"><label class="field-label" id="adv-text-exp-lbl">Exponente (e o d)</label><input type="text" id="adv-text-exp" placeholder="exponente"></div>
   <div class="field">
     <label class="field-label" id="adv-text-seed-lbl">Seed (opcional)</label>
-    <input type="text" id="adv-text-seed" placeholder="vacío = abecedario normal">
-    <div class="field-sub" id="adv-text-seed-sub">Genera un abecedario personalizado para mayor ofuscación.</div>
+    <input type="text" id="adv-text-seed" placeholder="vacÃ­o = abecedario normal">
+    <div class="field-sub" id="adv-text-seed-sub">Genera un abecedario personalizado para mayor ofuscaciÃ³n.</div>
   </div>
   <div class="alert alert-error" id="adv-text-err"></div>
   <button class="btn btn-primary" id="adv-text-btn" onclick="doAdvText()">Ejecutar</button>
@@ -973,31 +1071,31 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
   </div>
 </div>
 
-<!-- ══════════ ADV: PEM ══════════ -->
+<!-- â•â•â•â•â•â•â•â•â•â• ADV: PEM â•â•â•â•â•â•â•â•â•â• -->
 <div class="view" id="view-adv-pem">
-  <button class="section-back" onclick="showView('advanced')">← volver</button>
+  <button class="section-back" onclick="showView('advanced')">â† volver</button>
   <div class="section-header"><div class="section-title" id="adv-pem-page-title">PEM universal</div></div>
   <div class="adv-grid" style="margin-bottom:0">
     <button class="adv-card" onclick="showView('adv-pem-decode')">
-      <div class="adv-card-icon">🔍</div>
-      <div class="adv-card-text"><div class="adv-title" id="adv-pem-dec-title">Decodificar</div><div class="adv-sub" id="adv-pem-dec-sub">PEM → valores</div></div>
+      <div class="adv-card-icon">ðŸ”</div>
+      <div class="adv-card-text"><div class="adv-title" id="adv-pem-dec-title">Decodificar</div><div class="adv-sub" id="adv-pem-dec-sub">PEM â†’ valores</div></div>
     </button>
     <button class="adv-card" onclick="showView('adv-pem-encode')">
-      <div class="adv-card-icon">📝</div>
-      <div class="adv-card-text"><div class="adv-title" id="adv-pem-enc-title">Codificar</div><div class="adv-sub" id="adv-pem-enc-sub">Valores → PEM</div></div>
+      <div class="adv-card-icon">ðŸ“</div>
+      <div class="adv-card-text"><div class="adv-title" id="adv-pem-enc-title">Codificar</div><div class="adv-sub" id="adv-pem-enc-sub">Valores â†’ PEM</div></div>
     </button>
   </div>
 </div>
 
-<!-- ══════════ ADV: PEM DECODE ══════════ -->
+<!-- â•â•â•â•â•â•â•â•â•â• ADV: PEM DECODE â•â•â•â•â•â•â•â•â•â• -->
 <div class="view" id="view-adv-pem-decode">
-  <button class="section-back" onclick="showView('adv-pem')">← volver</button>
+  <button class="section-back" onclick="showView('adv-pem')">â† volver</button>
   <div class="section-header"><div class="section-title" id="adv-pem-decode-title">Decodificar PEM</div></div>
   <div class="field">
     <label class="field-label" id="adv-pem-file-lbl">Archivo PEM</label>
     <div class="file-drop">
       <input type="file" accept=".txt,.pem" onchange="loadPEMFile(this)">
-      <div class="file-drop-icon">📄</div><div id="adv-pem-drop-text">Arrastra el archivo o haz clic</div>
+      <div class="file-drop-icon">ðŸ“„</div><div id="adv-pem-drop-text">Arrastra el archivo o haz clic</div>
       <div class="file-drop-name" id="pem-decode-name"></div>
     </div>
     <div class="or-divider" data-i18n="or_paste">o pega el contenido</div>
@@ -1014,9 +1112,9 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
   </div>
 </div>
 
-<!-- ══════════ ADV: PEM ENCODE ══════════ -->
+<!-- â•â•â•â•â•â•â•â•â•â• ADV: PEM ENCODE â•â•â•â•â•â•â•â•â•â• -->
 <div class="view" id="view-adv-pem-encode">
-  <button class="section-back" onclick="showView('adv-pem')">← volver</button>
+  <button class="section-back" onclick="showView('adv-pem')">â† volver</button>
   <div class="section-header"><div class="section-title" id="adv-pem-encode-title">Codificar PEM</div></div>
   <div class="field">
     <label class="field-label" id="adv-pem-type-lbl">Tipo</label>
@@ -1027,7 +1125,7 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
       <option value="sign" id="adv-pem-type-sign">RSA SIGN (firma)</option>
     </select>
   </div>
-  <div id="pem-enc-fields"><div class="field"><label class="field-label">n</label><input type="text" id="pem-enc-n" placeholder="módulo"></div><div class="field"><label class="field-label">e</label><input type="text" id="pem-enc-e" placeholder="exponente público"></div></div>
+  <div id="pem-enc-fields"><div class="field"><label class="field-label">n</label><input type="text" id="pem-enc-n" placeholder="mÃ³dulo"></div><div class="field"><label class="field-label">e</label><input type="text" id="pem-enc-e" placeholder="exponente pÃºblico"></div></div>
   <div class="alert alert-error" id="pem-enc-err"></div>
   <button class="btn btn-primary" id="adv-pem-encode-btn" onclick="doEncodePEM()">Generar PEM</button>
   <div class="result-box" id="pem-enc-result">
@@ -1035,14 +1133,14 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
     <div class="result-text mono" id="pem-enc-result-text"></div>
     <div class="result-actions">
       <button class="btn btn-secondary" id="adv-pem-encode-copy-btn" onclick="copyResult('pem-enc-result-text')">Copiar</button>
-      <button class="btn btn-secondary" id="adv-pem-encode-dl-btn" onclick="dlResult('pem-enc-result-text','output.txt')">↓ Descargar</button>
+      <button class="btn btn-secondary" id="adv-pem-encode-dl-btn" onclick="dlResult('pem-enc-result-text','output.txt')">â†“ Descargar</button>
     </div>
   </div>
 </div>
 
-<!-- ══════════ ADV: SEEDS ══════════ -->
+<!-- â•â•â•â•â•â•â•â•â•â• ADV: SEEDS â•â•â•â•â•â•â•â•â•â• -->
 <div class="view" id="view-adv-seeds">
-  <button class="section-back" onclick="showView('advanced')">← volver</button>
+  <button class="section-back" onclick="showView('advanced')">â† volver</button>
   <div class="section-header"><div class="section-title" id="adv-seeds-page-title">Seeds</div></div>
   <div class="field">
     <label class="field-label" id="adv-seeds-lbl">Seed</label>
@@ -1050,7 +1148,7 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
       <input type="text" id="seed-input" placeholder="escribe una seed o genera aleatoria" style="flex:1">
       <button class="btn btn-secondary" id="adv-seeds-random-btn" onclick="genRandomSeedUI()">Aleatoria</button>
     </div>
-    <div class="field-sub" id="adv-seeds-sub-text">Una seed personaliza el abecedario numérico. Compatible con el programa Python.</div>
+    <div class="field-sub" id="adv-seeds-sub-text">Una seed personaliza el abecedario numÃ©rico. Compatible con el programa Python.</div>
   </div>
   <button class="btn btn-primary" id="adv-seeds-view-btn" onclick="showSeedABC()">Ver abecedario</button>
   <div class="result-box" id="seed-result">
@@ -1064,7 +1162,7 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
   <div id="custom-seed-swaps"></div>
   <div style="display:flex;gap:8px;margin-bottom:16px">
     <input type="text" id="custom-seed-input" placeholder="ej: a z" style="flex:1" onkeydown="if(event.key==='Enter')addSwap()">
-    <button class="btn btn-secondary" id="adv-seeds-add-btn" onclick="addSwap()">Añadir</button>
+    <button class="btn btn-secondary" id="adv-seeds-add-btn" onclick="addSwap()">AÃ±adir</button>
   </div>
   <div style="display:flex;gap:8px">
     <button class="btn btn-primary" id="adv-seeds-gen-btn" onclick="buildCustomSeed()">Generar seed</button>
@@ -1077,18 +1175,18 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
   </div>
 </div>
 
-<!-- ══════════ ADV: GENKEYS ══════════ -->
+<!-- â•â•â•â•â•â•â•â•â•â• ADV: GENKEYS â•â•â•â•â•â•â•â•â•â• -->
 <div class="view" id="view-adv-genkeys">
-  <button class="section-back" onclick="showView('advanced')">← volver</button>
+  <button class="section-back" onclick="showView('advanced')">â† volver</button>
   <div class="section-header"><div class="section-title" id="adv-genkeys-page-title">Generar claves (avanzado)</div></div>
   <div class="field">
     <label class="field-label" id="adv-genkeys-digits-n-lbl">Cifras de n</label>
     <input type="number" id="adv-gen-digits-n" placeholder="ej: 200" min="10" max="5000">
-    <div class="field-sub" id="adv-genkeys-digits-n-sub">Deja vacío para aleatorio (10-30 cifras).</div>
+    <div class="field-sub" id="adv-genkeys-digits-n-sub">Deja vacÃ­o para aleatorio (10-30 cifras).</div>
   </div>
   <div class="field">
     <label class="field-label" id="adv-genkeys-digits-e-lbl">Cifras de e</label>
-    <input type="number" id="adv-gen-digits-e" placeholder="vacío = 65537" min="1" max="5000">
+    <input type="number" id="adv-gen-digits-e" placeholder="vacÃ­o = 65537" min="1" max="5000">
   </div>
   <div class="progress-bar" id="adv-gen-progress"><div class="progress-fill"></div></div>
   <div class="generating-msg" id="adv-gen-msg">Generando primos...</div>
@@ -1151,135 +1249,126 @@ oUERjBVfuHuy/EslhhnjRqED0+wk8I7E+qHVvRNUu85Y4IfmgkVOC617+C7rJR1G
 z50jPFsWIBylX4w1
 -----END RSA PRIVATE KEY-----</div>
     <div class="result-actions">
-      <button class="btn btn-secondary" id="adv-genkeys-dl-pub-btn" onclick="dlAdvPub()">↓ Clave B</button>
-      <button class="btn btn-secondary" id="adv-genkeys-dl-priv-btn" onclick="dlAdvPriv()">↓ Clave A</button>
+      <button class="btn btn-secondary" id="adv-genkeys-dl-pub-btn" onclick="dlAdvPub()">â†“ Clave B</button>
+      <button class="btn btn-secondary" id="adv-genkeys-dl-priv-btn" onclick="dlAdvPriv()">â†“ Clave A</button>
     </div>
   </div>
 </div>
 
-<!-- ══════════ ADV: SIGN ══════════ -->
+<!-- â•â•â•â•â•â•â•â•â•â• ADV: SIGN â•â•â•â•â•â•â•â•â•â• -->
 <div class="view" id="view-adv-sign">
-  <button class="section-back" onclick="showView('advanced')">← volver</button>
+  <button class="section-back" onclick="showView('advanced')">â† volver</button>
   <div class="section-header"><div class="section-title" id="adv-sign-title">Firma digital (avanzado)</div></div>
   <div class="adv-grid" style="margin-bottom:0">
     <button class="adv-card" onclick="showView('sign-create')">
-      <div class="adv-card-icon">✍️</div>
+      <div class="adv-card-icon">âœï¸</div>
       <div class="adv-card-text"><div class="adv-title" id="adv-sign-create-title">Firmar</div><div class="adv-sub" id="adv-sign-create-sub">Firma un mensaje</div></div>
     </button>
     <button class="adv-card" onclick="showView('sign-verify')">
-      <div class="adv-card-icon">🔍</div>
+      <div class="adv-card-icon">ðŸ”</div>
       <div class="adv-card-text"><div class="adv-title" id="adv-sign-verify-title">Verificar</div><div class="adv-sub" id="adv-sign-verify-sub">Comprueba una firma</div></div>
     </button>
   </div>
 </div>
 
 
-<!-- ══════════ KEY EXCHANGE ══════════ -->
+<!-- â•â•â•â•â•â•â•â•â•â• KEY EXCHANGE â•â•â•â•â•â•â•â•â•â• -->
 <div class="view" id="view-keyexchange">
-  <button class="section-back" data-back="" onclick="goHome()">← volver</button>
+  <button class="section-back" data-back="" onclick="goHome()">volver</button>
   <div class="section-header">
-    <div class="section-title" id="kx-title">Intercambiar Claves</div>
-    <div class="section-sub" id="kx-sub">Envía claves, mensajes cifrados, firmas o cualquier texto. El receptor lo descarga con un código de 6 letras. Expira en 15 min.</div>
+    <div class="section-title" id="kx-title">Ciphr chat</div>
+    <div class="section-sub" id="kx-sub">Crea un chat con codigo unico, acepta solicitudes y comparte claves, mensajes cifrados, firmas o texto libre.</div>
   </div>
 
-  <!-- PASO 0: elegir rol -->
-  <div id="kx-step-role" style="display: block;">
-    <div class="kx-role-grid">
-      <button class="kx-role-btn" onclick="kxSetRole('sender')">
-        <div class="kx-role-icon">📤</div>
-        <div class="kx-role-name" id="kx-role-sender-name">Enviar</div>
-        <div class="kx-role-sub" id="kx-role-sender-sub">Subo el contenido y comparto el código</div>
-      </button>
-      <button class="kx-role-btn" onclick="kxSetRole('receiver')">
-        <div class="kx-role-icon">📥</div>
-        <div class="kx-role-name" id="kx-role-receiver-name">Recibir</div>
-        <div class="kx-role-sub" id="kx-role-receiver-sub">Introduzco el código que me han dado</div>
-      </button>
+  <div class="kx-panel">
+    <div class="field" style="margin-bottom:12px">
+      <label class="field-label">Username</label>
+      <div class="kx-inline">
+        <input type="text" id="kx-username" placeholder="Alba" maxlength="32">
+        <button class="btn btn-secondary" onclick="kxSaveUsername()">Guardar</button>
+      </div>
+      <div class="kx-status-line" id="kx-user-status"></div>
     </div>
   </div>
 
-  <!-- PASO 1 SENDER: elegir tipo -->
-  <div id="kx-step-sender" style="display:none">
-    <div class="field">
-      <label class="field-label" id="kx-type-lbl">Tipo de contenido</label>
-      <div class="kx-type-grid">
-        <button class="kx-type-btn active" id="kx-type-key" onclick="kxSetType('key')">🔑 Clave B</button>
-        <button class="kx-type-btn" id="kx-type-cipher" onclick="kxSetType('cipher')">🔒 Mensaje cifrado</button>
-        <button class="kx-type-btn" id="kx-type-sign" onclick="kxSetType('sign')">✍️ Firma</button>
-        <button class="kx-type-btn" id="kx-type-text" onclick="kxSetType('text')">📝 Texto libre</button>
+  <div id="kx-lobby">
+    <div class="kx-panel">
+      <div class="kx-panel-title">Mis chats</div>
+      <div class="kx-chat-list" id="kx-my-chats"></div>
+      <div class="kx-actions">
+        <button class="btn btn-primary" onclick="kxCreateChat()">Crear chat</button>
+        <button class="btn btn-secondary" onclick="kxRefreshMyChats()">Actualizar</button>
       </div>
     </div>
-    <div class="field">
-      <label class="field-label" id="kx-sender-content-lbl">Contenido</label>
-      <div class="file-drop" onclick="document.getElementById('kx-file-input').click()">
-        <input type="file" id="kx-file-input" accept=".txt,.pem" style="display:none" onchange="kxLoadFile(this)">
-        <div class="file-drop-icon">📄</div>
-        <div id="kx-drop-text">Arrastra el archivo o haz clic</div>
-        <div class="file-drop-name" id="kx-file-name"></div>
+
+    <div class="kx-panel">
+      <div class="kx-panel-title">Unirse a un chat</div>
+      <div class="field" style="margin-bottom:12px">
+        <label class="field-label">Codigo de chat</label>
+        <input type="text" id="kx-join-code" maxlength="12" placeholder="ABC123" style="font-family:var(--mono);letter-spacing:0.12em;text-transform:uppercase" oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'')">
       </div>
-      <div class="or-divider">o pega el contenido</div>
-      <textarea class="mono" id="kx-sender-key-input" rows="6" placeholder="-----BEGIN RSA PUBLIC KEY-----
-...
------END RSA PUBLIC KEY-----"></textarea>
+      <button class="btn btn-primary" onclick="kxRequestJoin()">Solicitar unirse</button>
     </div>
-    <div class="alert" id="kx-sender-err"></div>
-    <button class="btn btn-primary" id="kx-sender-btn" onclick="kxCreateRoom()">
-      <span id="kx-sender-btn-text">Crear sala</span>
-    </button>
   </div>
 
-  <!-- PASO 2 SENDER: mostrar código -->
-  <div id="kx-step-sender-wait" style="display:none">
+  <div id="kx-chat" style="display:none">
     <div class="kx-code-block">
-      <div class="kx-code-label" id="kx-code-label">Código de sala</div>
+      <div class="kx-code-label">Codigo de chat</div>
       <div class="kx-code" id="kx-room-code">------</div>
-      <button class="kx-copy-code" onclick="kxCopyCode()" id="kx-copy-code-btn">Copiar</button>
+      <button class="kx-copy-code" onclick="kxCopyCode()">Copiar</button>
     </div>
-    <div class="kx-waiting">
-      <div class="kx-spinner"></div>
-      <div id="kx-waiting-text">Listo. Comparte el código con tu contacto.</div>
-    </div>
-    <div class="alert alert-success" id="kx-sender-ok" style="display:none"></div>
-    <button class="btn btn-ghost" style="margin-top:12px" onclick="kxSendAnother()"><span id="kx-send-another">↑ Enviar otro</span></button>
-  </div>
 
-  <!-- PASO 1 RECEIVER: introducir código -->
-  <div id="kx-step-receiver" style="display: none;">
-    <div class="field">
-      <label class="field-label" id="kx-receiver-code-lbl">Código de sala</label>
-      <input type="text" id="kx-code-input" maxlength="6" placeholder="ABC123" style="font-family:var(--mono);font-size:28px;letter-spacing:0.15em;text-align:center" oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'')">
-    </div>
-    <div class="alert" id="kx-receiver-err"></div>
-    <button class="btn btn-primary" id="kx-receiver-btn" onclick="kxFetchKey()">
-      <span id="kx-receiver-btn-text">Descargar</span>
-    </button>
-  </div>
+    <div class="alert" id="kx-sync-alert"></div>
 
-  <!-- PASO 2 RECEIVER: contenido recibido -->
-  <div id="kx-step-receiver-done" style="display: none;">
-    <div class="kx-received-type" id="kx-received-type-badge" style="display: none;">📝 Texto libre</div>
-    <div class="result-box show" id="kx-result-box">
-      <div class="result-label" id="kx-result-lbl">Contenido recibido</div>
-      <div class="result-text mono" id="kx-received-key">Holaa</div>
-      <div class="result-actions">
-        <button class="btn btn-secondary" id="kx-copy-btn" onclick="kxCopyKey()">Copiar</button>
-        <button class="btn btn-secondary" id="kx-dl-btn" onclick="kxDownloadKey()">↓ Descargar</button>
+    <div class="kx-panel" id="kx-pending-panel" style="display:none">
+      <div class="kx-panel-title">Solicitudes pendientes</div>
+      <div class="kx-pending-list" id="kx-pending-list"></div>
+    </div>
+
+    <div class="kx-panel">
+      <div class="kx-panel-title">Miembros</div>
+      <div class="kx-member-list" id="kx-member-list"></div>
+    </div>
+
+    <div class="kx-panel">
+      <div class="kx-panel-title">Historial</div>
+      <div class="kx-history" id="kx-history"></div>
+    </div>
+
+    <div class="kx-panel">
+      <div class="field">
+        <label class="field-label">Tipo de contenido</label>
+        <div class="kx-type-grid">
+          <button class="kx-type-btn active" id="kx-type-key" onclick="kxSetType('key')">Clave B</button>
+          <button class="kx-type-btn" id="kx-type-cipher" onclick="kxSetType('cipher')">Mensaje cifrado</button>
+          <button class="kx-type-btn" id="kx-type-sign" onclick="kxSetType('sign')">Firma</button>
+          <button class="kx-type-btn" id="kx-type-text" onclick="kxSetType('text')">Texto libre</button>
+        </div>
       </div>
+      <div class="field">
+        <label class="field-label">Contenido</label>
+        <div class="file-drop" onclick="document.getElementById('kx-file-input').click()">
+          <input type="file" id="kx-file-input" accept=".txt,.pem" style="display:none" onchange="kxLoadFile(this)">
+          <div class="file-drop-icon">Archivo</div>
+          <div id="kx-drop-text">Arrastra el archivo o haz clic</div>
+          <div class="file-drop-name" id="kx-file-name"></div>
+        </div>
+        <div class="or-divider">o pega el contenido</div>
+        <textarea class="mono" id="kx-message-input" rows="6" placeholder="Escribe o pega el contenido..."></textarea>
+      </div>
+      <button class="btn btn-primary" onclick="kxSendMessage()">Enviar al chat</button>
     </div>
-    <div class="alert alert-success" id="kx-receiver-ok">✓ Recibido correctamente. Puedes volver a descargarlo mientras no expire.</div>
-    <button class="btn btn-ghost" style="margin-top:12px" onclick="kxReceiveAnother()"><span id="kx-receive-another">↓ Recibir otro</span></button>
+
+    <button class="btn btn-ghost" onclick="kxLeaveChat()">Volver a mis chats</button>
   </div>
-
-  <button class="btn btn-ghost" id="kx-reset-btn" onclick="kxReset()" style="display: none; margin-top: 16px;">↩ Volver a empezar</button>
 </div>
-
 </main>
 </div>
 
 <script>
-// ═══════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  BIG INTEGER HELPERS (native BigInt)
-// ═══════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 function modPow(base, exp, mod) {
   if (mod === 1n) return 0n;
@@ -1374,9 +1463,9 @@ function digitsToN(digits) {
   return Math.ceil(digits * 3.32193);
 }
 
-// ═══════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  ABECEDARIO
-// ═══════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 const DEFAULT_ABC = {
   a:1,b:2,c:3,d:4,e:5,f:6,g:7,h:8,i:9,j:10,
@@ -1388,7 +1477,7 @@ let ABECEDARIO = {...DEFAULT_ABC};
 let NUMERO_A_LETRA = Object.fromEntries(Object.entries(ABECEDARIO).map(([k,v])=>[v,k]));
 
 const MARCADOR_DIGITO = 27;
-const OFFSET_DIGITO  = 28;  // dígitos: 28(0) 29(1) ... 37(9)
+const OFFSET_DIGITO  = 28;  // dÃ­gitos: 28(0) 29(1) ... 37(9)
 const ESPACIO        = 0;   // espacio sigue siendo 0
 
 function resetAbc() {
@@ -1410,7 +1499,7 @@ function genAbcWithSeed(seed) {
     const letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
     return Object.fromEntries(letters.map((l, i) => [l, nums[i]]));
   }
-  // String seed → seeded shuffle
+  // String seed â†’ seeded shuffle
   const letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
   const nums = Array.from({length:26}, (_,i) => i+1);
   // LCG seeded shuffle
@@ -1431,9 +1520,9 @@ function randomSeed(len = 8) {
   return s;
 }
 
-// ═══════════════════════════════════════════════════════
-//  TEXTO ↔ NÚMEROS
-// ═══════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  TEXTO â†” NÃšMEROS
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 function textoANumeros(txt) {
   const out = [];
@@ -1459,9 +1548,9 @@ function numerosATexto(nums) {
   return out;
 }
 
-// ═══════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  DER / PEM ENCODING
-// ═══════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 function bigIntToBytes(n) {
   if (n === 0n) return new Uint8Array([0]);
@@ -1586,7 +1675,7 @@ function parsePrivKeyPEM(pem) {
 }
 
 // Encrypted message PEM
-// (compatibilidad interna — los nuevos archivos usan RSA CIPHER)
+// (compatibilidad interna â€” los nuevos archivos usan RSA CIPHER)
 function pemToNums(pem) {
   const data = stripPEM(pem);
   const nums = [];
@@ -1602,13 +1691,13 @@ function pemToNums(pem) {
   return nums;
 }
 
-// ═══════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  NUEVO SISTEMA PEM UNIFICADO
-//  RSA PUBLIC KEY   → DER(n, e)
-//  RSA PRIVATE KEY  → DER(0, n, e, d, p, q, dp, dq, qInv)
-//  RSA CIPHER       → MPI(n) + MPI(e) [+ MPI(d) si cifrado con d] + mensaje_raw
-//  RSA SIGN         → MPI(firma) + MPI(n) + MPI(e)
-// ═══════════════════════════════════════════════════════
+//  RSA PUBLIC KEY   â†’ DER(n, e)
+//  RSA PRIVATE KEY  â†’ DER(0, n, e, d, p, q, dp, dq, qInv)
+//  RSA CIPHER       â†’ MPI(n) + MPI(e) [+ MPI(d) si cifrado con d] + mensaje_raw
+//  RSA SIGN         â†’ MPI(firma) + MPI(n) + MPI(e)
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 function encodeMPI(n) {
   const b = bigIntToBytes(n);
@@ -1654,7 +1743,7 @@ function genCipherPEM(nums, n, e, d_val, modoCifrado, seed, incluirClaves, inclu
     new DataView(seedLen.buffer).setUint16(0, seedBytes.length, false);
     seedPart = concat([seedLen, seedBytes]);
   }
-  // mensaje raw — cada número: 4B(len) + nB(value); 0n = espacio
+  // mensaje raw â€” cada nÃºmero: 4B(len) + nB(value); 0n = espacio
   const parts = [];
   for (const num of nums) {
     const nb = num === 0n ? new Uint8Array([0]) : bigIntToBytes(num);
@@ -1684,7 +1773,7 @@ function parseCipherPEM(pem) {
     const seedBytes = data.slice(off, off + seedLen); off += seedLen;
     seed = new TextDecoder().decode(seedBytes);
   }
-  // parse nums — 4B(len) + nB(value)
+  // parse nums â€” 4B(len) + nB(value)
   const nums = [];
   while (off < data.length) {
     const len = new DataView(data.buffer, data.byteOffset + off, 4).getUint32(0, false); off += 4;
@@ -1713,9 +1802,9 @@ function extraerPEM(content, label) {
   return content.slice(start, end + endTag.length);
 }
 
-// ═══════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  SHA-256 (Web Crypto)
-// ═══════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 async function sha256BigInt(msg) {
   const enc = new TextEncoder().encode(msg);
@@ -1726,9 +1815,9 @@ async function sha256BigInt(msg) {
   return n;
 }
 
-// ═══════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  FILE SYSTEM (in-memory)
-// ═══════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 let files = {}; // { name: content }
 let activeFile = null;
@@ -1739,13 +1828,13 @@ function renderFileList() {
   list.innerHTML = '';
   const names = Object.keys(files).sort();
   if (names.length === 0) {
-    list.innerHTML = '<div style="padding:12px;font-size:11px;color:var(--muted)">vacío</div>';
+    list.innerHTML = '<div style="padding:12px;font-size:11px;color:var(--muted)">vacÃ­o</div>';
     return;
   }
   for (const name of names) {
     const div = document.createElement('div');
     div.className = 'file-item' + (name === activeFile ? ' active' : '');
-    div.innerHTML = `<span class="fi-icon">▸</span><span class="fi-name" title="${name}">${name}</span><span class="fi-del" onclick="deleteFile('${name}',event)">✕</span>`;
+    div.innerHTML = `<span class="fi-icon">â–¸</span><span class="fi-name" title="${name}">${name}</span><span class="fi-del" onclick="deleteFile('${name}',event)">âœ•</span>`;
     div.onclick = (e) => { if (!e.target.classList.contains('fi-del')) openFile(name); };
     list.appendChild(div);
   }
@@ -1770,7 +1859,7 @@ function saveCurrentFile() {
   if (!activeFile) return;
   files[activeFile] = document.getElementById('editor-area').value;
   editorDirty = false;
-  print(`✓ guardado: ${activeFile}`, 'success');
+  print(`âœ“ guardado: ${activeFile}`, 'success');
 }
 
 function newFile() {
@@ -1784,7 +1873,7 @@ function newFile() {
 
 function deleteFile(name, e) {
   e.stopPropagation();
-  if (!confirm(`¿Eliminar ${name}?`)) return;
+  if (!confirm(`Â¿Eliminar ${name}?`)) return;
   delete files[name];
   if (activeFile === name) {
     activeFile = null;
@@ -1819,7 +1908,7 @@ function handleUpload(e) {
     reader.onload = (ev) => {
       files[f.name] = ev.target.result;
       renderFileList();
-      print(`✓ importado: ${f.name}`, 'success');
+      print(`âœ“ importado: ${f.name}`, 'success');
     };
     reader.readAsText(f);
   }
@@ -1840,9 +1929,9 @@ function listFiles() {
   return Object.keys(files).sort();
 }
 
-// ═══════════════════════════════════════════════════════
-//  DETECT PEM IN TXT — nuevo sistema unificado
-// ═══════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  DETECT PEM IN TXT â€” nuevo sistema unificado
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 function parsearTxtUnificado(content) {
   // Intenta detectar cualquiera de los 4 tipos de PEM
@@ -1902,19 +1991,22 @@ function detectMessageInTxt(content) {
   return { tipo: null, datos: null };
 }
 
-// ── VIEW ROUTING ──
+// â”€â”€ VIEW ROUTING â”€â”€
 function showView(id) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   const el = document.getElementById('view-' + id);
   if (el) { el.classList.add('active'); window.scrollTo(0,0); }
   // nav active
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  if (id === 'advanced' || id.startsWith('adv-')) document.getElementById('nav-adv').classList.add('active');
-  else document.getElementById('nav-home').classList.add('active');
+  const navAdv = document.getElementById('nav-adv');
+  const navHome = document.getElementById('nav-home');
+  if ((id === 'advanced' || id.startsWith('adv-')) && navAdv) navAdv.classList.add('active');
+  else if (navHome) navHome.classList.add('active');
+  if (id === 'keyexchange' && typeof kxInit === 'function') kxInit();
 }
 function goHome() { showView('home'); }
 
-// ── STATE ──
+// â”€â”€ STATE â”€â”€
 let _genPubPEM = null, _genPrivPEM = null;
 let _advGenPubPEM = null, _advGenPrivPEM = null;
 let _encPubKey = null;
@@ -1933,12 +2025,12 @@ let _customSwaps = [];
 let _keySize = 512;
 let _advGenN = null, _advGenE = null, _advGenD = null;
 
-// ── HELPERS ──
+// â”€â”€ HELPERS â”€â”€
 function showAlert(id, msg, type) {
   const el = document.getElementById(id);
   if (!el) return;
   el.className = 'alert alert-' + type + ' show';
-  el.innerHTML = (type==='success'?'<span>✓</span>':type==='error'?'<span>✗</span>':'<span>ℹ</span>') + '<span>' + msg + '</span>';
+  el.innerHTML = (type==='success'?'<span>âœ“</span>':type==='error'?'<span>âœ—</span>':'<span>â„¹</span>') + '<span>' + msg + '</span>';
 }
 function hideAlert(id) {
   const el = document.getElementById(id);
@@ -1993,14 +2085,14 @@ function setBusy(btnId, progressId, msgId, busy) {
   if (msg) msg.classList.toggle('show', busy);
 }
 
-// ── SIZE SELECTOR ──
+// â”€â”€ SIZE SELECTOR â”€â”€
 function selectSize(el) {
   document.querySelectorAll('.size-opt').forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
   _keySize = parseInt(el.dataset.bits);
 }
 
-// ── LOAD KEY FILES ──
+// â”€â”€ LOAD KEY FILES â”€â”€
 function setEncMode(mode) {
   _encMode = mode;
   _encPubKey = null; _encPrivKey = null;
@@ -2034,7 +2126,7 @@ function setDecMode(mode) {
     lbl.textContent='Tu clave';
     if(ta) ta.placeholder=t('dec_key_priv_ph');
   } else {
-    lbl.textContent='Clave pública del emisor';
+    lbl.textContent='Clave pÃºblica del emisor';
     if(ta) ta.placeholder=t('dec_key_pub_ph');
   }
 }
@@ -2047,7 +2139,7 @@ async function loadEncKey(input) {
     if (_encMode==='pub') {
       if (tipo==='RSA PUBLIC KEY') { const r=parsePubKeyPEM(extraerPEM(text,'RSA PUBLIC KEY')); _encPubKey={n:r.n,e:r.e}; }
       else if (tipo==='RSA PRIVATE KEY') { const r=parsePrivKeyPEM(extraerPEM(text,'RSA PRIVATE KEY')); _encPubKey={n:r.n,e:r.e}; }
-      else throw new Error('se necesita una clave pública');
+      else throw new Error('se necesita una clave pÃºblica');
     } else {
       if (tipo!=='RSA PRIVATE KEY') throw new Error('se necesita la clave privada');
       _encPrivKey = parsePrivKeyPEM(extraerPEM(text,'RSA PRIVATE KEY'));
@@ -2067,7 +2159,7 @@ async function loadDecKey(input) {
     } else {
       if (tipo==='RSA PUBLIC KEY') { const r=parsePubKeyPEM(extraerPEM(text,'RSA PUBLIC KEY')); _decPubKey={n:r.n,e:r.e}; }
       else if (tipo==='RSA PRIVATE KEY') { const r=parsePrivKeyPEM(extraerPEM(text,'RSA PRIVATE KEY')); _decPubKey={n:r.n,e:r.e}; }
-      else throw new Error('se necesita una clave pública');
+      else throw new Error('se necesita una clave pÃºblica');
     }
     setDropName('dec-key-name', fname); hideAlert('dec-err');
   } catch(ex) { showAlert('dec-err','Error: '+ex.message,'error'); }
@@ -2081,7 +2173,7 @@ async function loadPubKey(input, prefix) {
     let n, e;
     if (tipo==='RSA PUBLIC KEY') { const r=parsePubKeyPEM(extraerPEM(text,'RSA PUBLIC KEY')); n=r.n; e=r.e; }
     else if (tipo==='RSA PRIVATE KEY') { const r=parsePrivKeyPEM(extraerPEM(text,'RSA PRIVATE KEY')); n=r.n; e=r.e; }
-    else throw new Error('no se reconoció el archivo');
+    else throw new Error('no se reconociÃ³ el archivo');
     if (prefix==='enc') { _encPubKey={n,e}; setDropName('enc-key-name', fname); hideAlert('enc-err'); }
   } catch(ex) { showAlert(prefix+'-err','Error: '+ex.message,'error'); }
 }
@@ -2103,7 +2195,7 @@ async function loadCipherFile(input) {
   const fname = input.files[0].name;
   try {
     const pem = extraerPEM(text,'RSA CIPHER');
-    if (!pem) throw new Error('no se encontró RSA CIPHER en el archivo');
+    if (!pem) throw new Error('no se encontrÃ³ RSA CIPHER en el archivo');
     _cipherData = parseCipherPEM(pem);
     setDropName('dec-cipher-name', fname);
     hideAlert('dec-err');
@@ -2115,7 +2207,7 @@ async function loadSignFile(input) {
   const fname = input.files[0].name;
   try {
     const pem = extraerPEM(text,'RSA SIGN');
-    if (!pem) throw new Error('no se encontró RSA SIGN en el archivo');
+    if (!pem) throw new Error('no se encontrÃ³ RSA SIGN en el archivo');
     _verifySignData = parseSignPEM(pem);
     setDropName('verify-sign-name', fname);
     hideAlert('verify-err');
@@ -2128,7 +2220,7 @@ async function loadVerifyPubKey(input) {
     const tipo = detectarTipoPEM(text);
     if (tipo==='RSA PUBLIC KEY') { const r=parsePubKeyPEM(extraerPEM(text,'RSA PUBLIC KEY')); _verifyPubKey={n:r.n,e:r.e}; }
     else if (tipo==='RSA PRIVATE KEY') { const r=parsePrivKeyPEM(extraerPEM(text,'RSA PRIVATE KEY')); _verifyPubKey={n:r.n,e:r.e}; }
-    else throw new Error('se necesita una clave pública');
+    else throw new Error('se necesita una clave pÃºblica');
     setDropName('verify-pub-name', fname); hideAlert('verify-err');
   } catch(ex) { showAlert('verify-err','Error: '+ex.message,'error'); }
 }
@@ -2139,7 +2231,7 @@ async function loadPEMFile(input) {
   setDropName('pem-decode-name', input.files[0].name);
 }
 
-// ── PASTE HANDLERS ──
+// â”€â”€ PASTE HANDLERS â”€â”€
 function onEncKeyPaste() {
   const text = document.getElementById('enc-key-paste').value;
   try {
@@ -2198,7 +2290,7 @@ function onVerifyPubPaste() {
   } catch(ex) { _verifyPubKey=null; }
 }
 
-// ── GENKEYS (EASY) ──
+// â”€â”€ GENKEYS (EASY) â”€â”€
 async function doGenKeys() {
   hideAlert('gen-ok'); hideResult('gen-result');
   document.getElementById('btn-dl-pub').style.display='none';
@@ -2229,8 +2321,8 @@ async function doGenKeys() {
 function dlPub() { if(_genPubPEM) dlText(_genPubPEM,'clave_B.txt'); }
 function dlPriv() { if(_genPrivPEM) dlText(_genPrivPEM,'clave_A.txt'); }
 
-// ── ENCRYPT (EASY) ──
-// ── SEED TOGGLES ──
+// â”€â”€ ENCRYPT (EASY) â”€â”€
+// â”€â”€ SEED TOGGLES â”€â”€
 let _encSeedOn = false, _decSeedOn = false;
 
 function toggleEncSeed() {
@@ -2274,13 +2366,13 @@ async function doEncrypt() {
       return modPow(BigInt(v), exp, n);
     });
     resetAbc();
-    // La seed NO se guarda en el PEM — es un secreto aparte entre los dos
+    // La seed NO se guarda en el PEM â€” es un secreto aparte entre los dos
     const pem = genCipherPEM(cifrados, null, null, null, modo, '', false, false);
     showResult('enc-result', pem);
   } catch(ex) { resetAbc(); showAlert('enc-err',t('err_encrypt_prefix')+ex.message,'error'); }
 }
 
-// ── DECRYPT (EASY) ──
+// â”€â”€ DECRYPT (EASY) â”€â”€
 async function doDecrypt() {
   hideAlert('dec-err'); hideResult('dec-result');
   const pasteTxt = document.getElementById('dec-priv-paste').value.trim();
@@ -2301,7 +2393,7 @@ async function doDecrypt() {
       n = nCipher ?? key.n;
       exp = eCipher ?? key.e;
     }
-    // Seed: solo del toggle manual — nunca del PEM (la seed es un secreto aparte)
+    // Seed: solo del toggle manual â€” nunca del PEM (la seed es un secreto aparte)
     let seedUsada = '';
     if (_decSeedOn) {
       const manualSeed = document.getElementById('dec-seed-val').value.trim();
@@ -2319,7 +2411,7 @@ async function doDecrypt() {
   } catch(ex) { resetAbc(); showAlert('dec-err',t('err_decrypt_prefix')+ex.message,'error'); }
 }
 
-// ── SIGN ──
+// â”€â”€ SIGN â”€â”€
 async function doSign() {
   hideAlert('sign-err'); hideResult('sign-result');
   const privPaste = document.getElementById('sign-priv-paste').value.trim();
@@ -2336,7 +2428,7 @@ async function doSign() {
   } catch(ex) { showAlert('sign-err',t('err_sign_prefix')+ex.message,'error'); }
 }
 
-// ── VERIFY ──
+// â”€â”€ VERIFY â”€â”€
 async function doVerify() {
   hideAlert('verify-err');
   document.getElementById('verify-result').className='alert';
@@ -2357,15 +2449,15 @@ async function doVerify() {
     const el = document.getElementById('verify-result');
     if (resultado === hashMod) {
       el.className='alert alert-success show';
-      el.innerHTML='<span>✓</span><span>'+t('valid')+'</span>';
+      el.innerHTML='<span>âœ“</span><span>'+t('valid')+'</span>';
     } else {
       el.className='alert alert-error show';
-      el.innerHTML='<span>✗</span><span>'+t('invalid')+'</span>';
+      el.innerHTML='<span>âœ—</span><span>'+t('invalid')+'</span>';
     }
   } catch(ex) { showAlert('verify-err',t('err_verify_prefix')+ex.message,'error'); }
 }
 
-// ── ADV: NUM ──
+// â”€â”€ ADV: NUM â”€â”€
 function doAdvNum() {
   hideAlert('adv-num-err'); hideResult('adv-num-result');
   try {
@@ -2378,7 +2470,7 @@ function doAdvNum() {
   } catch(ex) { showAlert('adv-num-err', 'Error: '+ex.message, 'error'); }
 }
 
-// ── ADV: TEXT ──
+// â”€â”€ ADV: TEXT â”€â”€
 function doAdvText() {
   hideAlert('adv-text-err'); hideResult('adv-text-result');
   try {
@@ -2409,7 +2501,7 @@ function doAdvText() {
   } catch(ex) { resetAbc(); showAlert('adv-text-err','Error: '+ex.message,'error'); }
 }
 
-// ── ADV: PEM DECODE ──
+// â”€â”€ ADV: PEM DECODE â”€â”€
 function doDecoPEM() {
   hideAlert('pem-decode-err'); hideResult('pem-decode-result');
   const text = document.getElementById('pem-decode-input').value.trim();
@@ -2417,7 +2509,7 @@ function doDecoPEM() {
   try {
     const label = (text.match(/-----BEGIN ([A-Z0-9 ]+)-----/)||[])[1]?.trim();
     if (!label) throw new Error(t('err_pem_invalid_header'));
-    let out = `${t('pem_out_type')}: ${label}\n${'─'.repeat(40)}\n`;
+    let out = `${t('pem_out_type')}: ${label}\n${'â”€'.repeat(40)}\n`;
     if (label==='RSA PUBLIC KEY') {
       const {n,e}=parsePubKeyPEM(extraerPEM(text,'RSA PUBLIC KEY'));
       out+=`n = ${n}\ne = ${e}`;
@@ -2438,7 +2530,7 @@ function doDecoPEM() {
   } catch(ex) { showAlert('pem-decode-err',t('err_prefix')+ex.message,'error'); }
 }
 
-// ── ADV: PEM ENCODE ──
+// â”€â”€ ADV: PEM ENCODE â”€â”€
 function updatePEMEncFields() {
   const type = document.getElementById('pem-enc-type').value;
   const c = document.getElementById('pem-enc-fields');
@@ -2484,7 +2576,7 @@ function doEncodePEM() {
   } catch(ex) { showAlert('pem-enc-err','Error: '+ex.message,'error'); }
 }
 
-// ── ADV: GENKEYS ──
+// â”€â”€ ADV: GENKEYS â”€â”€
 async function doAdvGenKeys() {
   hideAlert('adv-gen-err'); hideResult('adv-gen-result');
   setBusy('btn-adv-gen','adv-gen-progress','adv-gen-msg',true);
@@ -2522,7 +2614,7 @@ async function doAdvGenKeys() {
 function dlAdvPub() { if(_advGenPubPEM) dlText(_advGenPubPEM,'clave_B.txt'); }
 function dlAdvPriv() { if(_advGenPrivPEM) dlText(_advGenPrivPEM,'clave_A.txt'); }
 
-// ── ADV: SEEDS ──
+// â”€â”€ ADV: SEEDS â”€â”€
 function genRandomSeedUI() {
   const s = randomSeed(8);
   document.getElementById('seed-input').value = s;
@@ -2550,8 +2642,8 @@ function renderSwaps() {
   if (!_customSwaps.length) { c.innerHTML=''; return; }
   c.innerHTML = _customSwaps.map((sw,i)=>`
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:13px">
-      <code style="font-family:var(--mono);background:var(--bg2);padding:3px 8px;border-radius:4px">${sw[0]} ↔ ${sw[1]}</code>
-      <button onclick="removeSwap(${i})" style="background:none;border:none;color:var(--text3);cursor:pointer;font-size:14px">✕</button>
+      <code style="font-family:var(--mono);background:var(--bg2);padding:3px 8px;border-radius:4px">${sw[0]} â†” ${sw[1]}</code>
+      <button onclick="removeSwap(${i})" style="background:none;border:none;color:var(--text3);cursor:pointer;font-size:14px">âœ•</button>
     </div>`).join('');
 }
 function addSwap() {
@@ -2582,7 +2674,7 @@ function buildCustomSeed() {
   box.classList.add('show');
 }
 
-// ── DRAG & DROP ──
+// â”€â”€ DRAG & DROP â”€â”€
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.file-drop').forEach(drop => {
     drop.addEventListener('dragover', e=>{e.preventDefault();drop.classList.add('drag');});
@@ -2601,49 +2693,49 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-// ══════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  i18n ES / EN
-// ══════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 const TR = {
   es: {
-    back:'← volver',
+    back:'â† volver',
     home_title:'Cifra mensajes.<br><em>Sin complicaciones.</em>',
-    home_sub:'Cada uno guarda una clave. Nadie más sabe ninguna de las dos.',
-    home_card_gen_title:'Generar claves', home_card_gen_desc:'Genera las dos claves. Cada uno se queda con la suya, sin compartirla con nadie más.',
-    home_card_enc_title:'Cifrar', home_card_enc_desc:'Cifra un mensaje con tu clave. Solo el receptor podrá leerlo con su clave.',
+    home_sub:'Cada uno guarda una clave. Nadie mÃ¡s sabe ninguna de las dos.',
+    home_card_gen_title:'Generar claves', home_card_gen_desc:'Genera las dos claves. Cada uno se queda con la suya, sin compartirla con nadie mÃ¡s.',
+    home_card_enc_title:'Cifrar', home_card_enc_desc:'Cifra un mensaje con tu clave. Solo el receptor podrÃ¡ leerlo con su clave.',
     home_card_dec_title:'Descifrar', home_card_dec_desc:'Lee un mensaje que te han enviado. Usa tu propia clave para descifrarlo.',
     home_card_sign_title:'Firmar', home_card_sign_desc:'Demuestra que un mensaje es tuyo, o verifica si es de alguien.',
     home_card_adv_title:'Avanzado', home_card_adv_desc:'Control total: claves, PEM, seeds y operaciones manuales.',
     home_card_kx_title:'Intercambiar claves', home_card_kx_desc:'Comparte tu clave B de forma segura, sin enviarla directamente.',
     kx_title:'Intercambiar claves',
-    kx_sub:'Comparte tu clave B sin enviarla directamente. Usa un código de sala efímero.',
-    kx_role_sender_name:'Enviar mi clave B', kx_role_sender_sub:'Creo la sala y comparto el código',
-    kx_role_receiver_name:'Recibir clave B', kx_role_receiver_sub:'Introduzco el código que me han dado',
-    kx_sender_key_lbl:'Tu clave B (pública)', kx_sender_btn:'Crear sala',
-    kx_code_label:'Código de sala', kx_copy_code:'Copiar',
+    kx_sub:'Comparte tu clave B sin enviarla directamente. Usa un cÃ³digo de sala efÃ­mero.',
+    kx_role_sender_name:'Enviar mi clave B', kx_role_sender_sub:'Creo la sala y comparto el cÃ³digo',
+    kx_role_receiver_name:'Recibir clave B', kx_role_receiver_sub:'Introduzco el cÃ³digo que me han dado',
+    kx_sender_key_lbl:'Tu clave B (pÃºblica)', kx_sender_btn:'Crear sala',
+    kx_code_label:'CÃ³digo de sala', kx_copy_code:'Copiar',
     kx_waiting:'Esperando a que descarguen la clave...',
-    kx_receiver_code_lbl:'Código de sala', kx_receiver_btn:'Descargar clave',
-    kx_result_lbl:'Clave B recibida', kx_copy_key:'Copiar', kx_download_key:'↓ Descargar', kx_reset:'↩ Volver a empezar',
+    kx_receiver_code_lbl:'CÃ³digo de sala', kx_receiver_btn:'Descargar clave',
+    kx_result_lbl:'Clave B recibida', kx_copy_key:'Copiar', kx_download_key:'â†“ Descargar', kx_reset:'â†© Volver a empezar',
     kx_drop_text:'Arrastra el archivo o haz clic',
-    gen_title:'Generar claves', gen_size:'Tamaño de clave',
-    gen_fast:'Rápido', gen_fast_s:'~2s', gen_normal:'Normal', gen_normal_s:'~15s',
+    gen_title:'Generar claves', gen_size:'TamaÃ±o de clave',
+    gen_fast:'RÃ¡pido', gen_fast_s:'~2s', gen_normal:'Normal', gen_normal_s:'~15s',
     gen_secure:'Seguro', gen_secure_s:'~2min',
-    gen_hint:'Para uso personal, "Normal" es más que suficiente.',
-    gen_btn:'Generar', gen_dl_pub:'↓ Clave B', gen_dl_priv:'↓ Clave A',
-    gen_sub:'Genera las dos claves. Tú te quedas con una, tu receptor con la otra. Ninguno se la da a nadie más — ni siquiera entre vosotros.',
+    gen_hint:'Para uso personal, "Normal" es mÃ¡s que suficiente.',
+    gen_btn:'Generar', gen_dl_pub:'â†“ Clave B', gen_dl_priv:'â†“ Clave A',
+    gen_sub:'Genera las dos claves. TÃº te quedas con una, tu receptor con la otra. Ninguno se la da a nadie mÃ¡s â€” ni siquiera entre vosotros.',
     or_paste:'o pega el contenido',
     drop_text:'Arrastra el archivo o haz clic para seleccionar',
     drop_text_short:'Arrastra el archivo o haz clic',
     drop_sign:'Arrastra el archivo de firma o haz clic',
-    seed_desc:' — abecedario personalizado',
+    seed_desc:' â€” abecedario personalizado',
     seed_ph:'escribe tu seed...',
-    gen_ok:'Claves generadas. Descarga ambos archivos y guárdalos bien.',
+    gen_ok:'Claves generadas. Descarga ambos archivos y guÃ¡rdalos bien.',
     enc_title:'Cifrar mensaje', enc_mode:'Modo',
     enc_pub_name:'Con clave B', enc_pub_sub:'Cifras con la B, el receptor descifra con la A',
     enc_priv_name:'Con clave A', enc_priv_sub:'Cifras con la A, el receptor descifra con la B',
     enc_key_lbl:'Tu clave', enc_msg_lbl:'Mensaje', enc_msg_ph:'Escribe el mensaje a cifrar...',
-    enc_seed_lbl:'Seed — abecedario personalizado', enc_btn:'Cifrar',
-    enc_result_lbl:'Mensaje cifrado — compártelo',
+    enc_seed_lbl:'Seed â€” abecedario personalizado', enc_btn:'Cifrar',
+    enc_result_lbl:'Mensaje cifrado â€” compÃ¡rtelo',
     enc_key_pub_ph:'-----BEGIN RSA PUBLIC KEY-----\n...\n-----END RSA PUBLIC KEY-----',
     enc_key_priv_ph:'-----BEGIN RSA PRIVATE KEY-----\n...\n-----END RSA PRIVATE KEY-----',
     dec_title:'Descifrar mensaje',
@@ -2659,7 +2751,7 @@ const TR = {
     sign_create_card_title:'Firmar mensaje', sign_create_card_sub:'Demuestra con tu clave que el mensaje es tuyo',
     sign_verify_card_title:'Verificar firma', sign_verify_card_sub:'Confirma que un mensaje es de tu alguien',
     sign_create_title:'Firmar mensaje',
-    sign_create_sub:'Usa tu clave A para firmar. Los demás podrán comprobar que eres tú.',
+    sign_create_sub:'Usa tu clave A para firmar. Los demÃ¡s podrÃ¡n comprobar que eres tÃº.',
     sign_key_lbl:'Tu clave', sign_msg_lbl:'Mensaje a firmar', sign_msg_ph:'Escribe el mensaje...',
     sign_btn:'Firmar', sign_result_lbl:'Firma digital',
     sign_verify_title:'Verificar firma',
@@ -2673,21 +2765,21 @@ const TR = {
     adv_title:'Avanzado', adv_sub:'Operaciones manuales con control total.',
     adv_pem_title:'PEM universal', adv_pem_sub:'Codificar y decodificar cualquier PEM',
     adv_seeds_title:'Seeds', adv_seeds_sub:'Crear y explorar abecedarios personalizados',
-    adv_genkeys_title:'Generar claves', adv_genkeys_sub:'Con control de cifras y parámetros',
-    adv_nums_title:'Cifrar / Descifrar número', adv_nums_mode_lbl:'Modo',
+    adv_genkeys_title:'Generar claves', adv_genkeys_sub:'Con control de cifras y parÃ¡metros',
+    adv_nums_title:'Cifrar / Descifrar nÃºmero', adv_nums_mode_lbl:'Modo',
     adv_num_opt_enc_e:'Cifrar con e', adv_num_opt_enc_d:'Cifrar con d',
     adv_num_opt_dec_e:'Descifrar con e', adv_num_opt_dec_d:'Descifrar con d',
-    adv_nums_num_lbl:'Número', adv_nums_exp_lbl:'Exponente (e o d)',
-    adv_num_n_ph:'módulo', adv_num_exp_ph:'exponente',
+    adv_nums_num_lbl:'NÃºmero', adv_nums_exp_lbl:'Exponente (e o d)',
+    adv_num_n_ph:'mÃ³dulo', adv_num_exp_ph:'exponente',
     adv_nums_btn:'Calcular', adv_nums_result_lbl:'Resultado', copy:'Copiar',
     adv_text_title:'Cifrar / Descifrar texto', adv_text_mode_lbl:'Modo',
-    adv_text_input_lbl:'Texto / Números cifrados', adv_text_exp_lbl:'Exponente (e o d)',
-    adv_text_input_ph:'Texto a cifrar o números separados por espacios...',
+    adv_text_input_lbl:'Texto / NÃºmeros cifrados', adv_text_exp_lbl:'Exponente (e o d)',
+    adv_text_input_ph:'Texto a cifrar o nÃºmeros separados por espacios...',
     adv_text_seed_lbl:'Seed (opcional)',
-    adv_text_seed_ph:'vacío = abecedario normal',
-    adv_text_seed_sub:'Genera un abecedario personalizado para mayor ofuscación.',
+    adv_text_seed_ph:'vacÃ­o = abecedario normal',
+    adv_text_seed_sub:'Genera un abecedario personalizado para mayor ofuscaciÃ³n.',
     adv_text_btn:'Ejecutar', adv_text_result_lbl:'Resultado',
-    adv_pem_page_title:'PEM universal', adv_pem_dec_title:'Decodificar', adv_pem_dec_sub:'PEM → valores', adv_pem_enc_title:'Codificar', adv_pem_enc_sub:'Valores → PEM',
+    adv_pem_page_title:'PEM universal', adv_pem_dec_title:'Decodificar', adv_pem_dec_sub:'PEM â†’ valores', adv_pem_enc_title:'Codificar', adv_pem_enc_sub:'Valores â†’ PEM',
     adv_pem_decode_title:'Decodificar PEM', adv_pem_file_lbl:'Archivo PEM',
     adv_pem_drop_text:'Arrastra el archivo o haz clic',
     adv_pem_decode_ph:'-----BEGIN ...-----\n...\n-----END ...-----',
@@ -2696,54 +2788,54 @@ const TR = {
     adv_pem_type_pub:'RSA PUBLIC KEY (n, e)', adv_pem_type_priv:'RSA PRIVATE KEY (n, e, d, p, q)',
     adv_pem_type_sign:'RSA SIGN (firma)',
     adv_pem_type_cipher:'RSA CIPHER (mensaje cifrado)',
-    pem_ph_mod:'módulo', pem_ph_pub_exp:'exponente público', pem_ph_priv_exp:'exponente privado',
-    pem_lbl_msg_nums:'Números cifrados', pem_ph_msg_nums:'separados por espacios',
+    pem_ph_mod:'mÃ³dulo', pem_ph_pub_exp:'exponente pÃºblico', pem_ph_priv_exp:'exponente privado',
+    pem_lbl_msg_nums:'NÃºmeros cifrados', pem_ph_msg_nums:'separados por espacios',
     pem_lbl_cipher_mode:'Modo de cifrado', pem_opt_cipher_e:'Cifrado con e', pem_opt_cipher_d:'Cifrado con d',
     pem_lbl_seed:'Seed', pem_ph_seed:'opcional',
-    pem_lbl_include_seed:'¿Incluir seed en el PEM?', yes:'Sí', no:'No',
-    adv_pem_encode_btn:'Generar PEM', adv_pem_encode_result_lbl:'PEM generado', download:'↓ Descargar',
+    pem_lbl_include_seed:'Â¿Incluir seed en el PEM?', yes:'SÃ­', no:'No',
+    adv_pem_encode_btn:'Generar PEM', adv_pem_encode_result_lbl:'PEM generado', download:'â†“ Descargar',
     adv_seeds_page_title:'Seeds', adv_seeds_lbl:'Seed',
     adv_seeds_ph:'escribe una seed o genera aleatoria',
     adv_seeds_random_btn:'Aleatoria', adv_seeds_result_lbl:'Abecedario',
     adv_seeds_copy_btn:'Copiar seed',
-    adv_seeds_sub_text:'Una seed personaliza el abecedario numérico. Compatible con el programa Python.',
+    adv_seeds_sub_text:'Una seed personaliza el abecedario numÃ©rico. Compatible con el programa Python.',
     adv_seeds_custom_title:'Crear seed personalizada',
     adv_seeds_custom_sub:'Intercambia letras manualmente. Introduce pares separados por espacio (ej: a z).',
     adv_seeds_custom_ph:'ej: a z',
-    adv_seeds_add_btn:'Añadir', adv_seeds_gen_btn:'Generar seed', adv_seeds_reset_btn:'Reiniciar',
+    adv_seeds_add_btn:'AÃ±adir', adv_seeds_gen_btn:'Generar seed', adv_seeds_reset_btn:'Reiniciar',
     adv_seeds_view_btn:'Ver abecedario', adv_seeds_custom_result_lbl:'Seed generada',
     adv_genkeys_page_title:'Generar claves (avanzado)',
-    adv_genkeys_digits_n_lbl:'Cifras de n', adv_genkeys_digits_n_sub:'Deja vacío para aleatorio (10-30 cifras).',
+    adv_genkeys_digits_n_lbl:'Cifras de n', adv_genkeys_digits_n_sub:'Deja vacÃ­o para aleatorio (10-30 cifras).',
     adv_genkeys_digits_n_ph:'ej: 200',
     adv_genkeys_digits_e_lbl:'Cifras de e',
-    adv_genkeys_digits_e_ph:'vacío = 65537',
+    adv_genkeys_digits_e_ph:'vacÃ­o = 65537',
     adv_genkeys_btn:'Generar',
     adv_genkeys_result_lbl:'Claves generadas',
-    adv_genkeys_dl_pub_btn:'↓ Clave B', adv_genkeys_dl_priv_btn:'↓ Clave A',
+    adv_genkeys_dl_pub_btn:'â†“ Clave B', adv_genkeys_dl_priv_btn:'â†“ Clave A',
     adv_sign_title:'Firma digital (avanzado)', adv_sign_create_title:'Firmar', adv_sign_create_sub:'Firma un mensaje',
     adv_sign_verify_title:'Verificar', adv_sign_verify_sub:'Comprueba una firma',
     or:'o pega el contenido',
-    valid:'Firma válida. El mensaje es auténtico.',
-    invalid:'Firma inválida. El mensaje puede haber sido alterado.',
+    valid:'Firma vÃ¡lida. El mensaje es autÃ©ntico.',
+    invalid:'Firma invÃ¡lida. El mensaje puede haber sido alterado.',
     generating:'Generando primos aleatorios...',
-    copied:'✓ Copiado',
+    copied:'âœ“ Copiado',
     err_prefix:'Error: ',
     err_enc_empty_msg:'Escribe el mensaje a cifrar.',
-    err_enc_need_pub:'Carga o pega la clave pública del destinatario.',
+    err_enc_need_pub:'Carga o pega la clave pÃºblica del destinatario.',
     err_need_priv:'Carga o pega tu clave privada.',
-    err_need_seed:'Introduce una seed o desactiva la opción.',
+    err_need_seed:'Introduce una seed o desactiva la opciÃ³n.',
     err_encrypt_prefix:'Error al cifrar: ',
     err_dec_need_cipher:'Carga o pega el mensaje cifrado.',
-    err_dec_need_pub:'Carga o pega la clave pública del emisor.',
+    err_dec_need_pub:'Carga o pega la clave pÃºblica del emisor.',
     err_decrypt_prefix:'Error al descifrar: ',
     err_sign_empty_msg:'Escribe el mensaje a firmar.',
     err_sign_prefix:'Error al firmar: ',
     err_verify_need_sign:'Carga o pega el archivo de firma.',
-    err_verify_need_pub:'Carga o pega la clave pública del firmante.',
+    err_verify_need_pub:'Carga o pega la clave pÃºblica del firmante.',
     err_empty_msg:'Escribe el mensaje.',
     err_verify_prefix:'Error al verificar: ',
     err_pem_need_block:'Pega o carga un bloque PEM.',
-    err_pem_invalid_header:'cabecera PEM inválida',
+    err_pem_invalid_header:'cabecera PEM invÃ¡lida',
     err_pem_unknown_type:'tipo no reconocido: ',
     pem_out_type:'Tipo',
     pem_out_encrypted_with:'Cifrado con',
@@ -2754,7 +2846,7 @@ const TR = {
     pem_out_signature:'firma',
   },
   en: {
-    back:'← back',
+    back:'â† back',
     home_title:'Encrypt messages.<br><em>Without the hassle.</em>',
     home_sub:'Each person keeps one key. Nobody else knows either of them.',
     home_card_gen_title:'Generate keys', home_card_gen_desc:'Generate both keys. Each person keeps theirs, without sharing it with anyone else.',
@@ -2771,27 +2863,27 @@ const TR = {
     kx_code_label:'Room code', kx_copy_code:'Copy',
     kx_waiting:'Waiting for your contact to download the key...',
     kx_receiver_code_lbl:'Room code', kx_receiver_btn:'Download key',
-    kx_result_lbl:'Key B received', kx_copy_key:'Copy', kx_download_key:'↓ Download', kx_reset:'↩ Start over',
+    kx_result_lbl:'Key B received', kx_copy_key:'Copy', kx_download_key:'â†“ Download', kx_reset:'â†© Start over',
     kx_drop_text:'Drag the file or click',
     gen_title:'Generate keys', gen_size:'Key size',
     gen_fast:'Fast', gen_fast_s:'~2s', gen_normal:'Normal', gen_normal_s:'~15s',
     gen_secure:'Secure', gen_secure_s:'~2min',
     gen_hint:'For personal use, "Normal" is more than enough.',
-    gen_btn:'Generate', gen_dl_pub:'↓ Key B', gen_dl_priv:'↓ Key A',
-    gen_sub:'Generate both keys. You keep one, your contact keeps the other. Neither shares theirs with anyone — not even each other.',
+    gen_btn:'Generate', gen_dl_pub:'â†“ Key B', gen_dl_priv:'â†“ Key A',
+    gen_sub:'Generate both keys. You keep one, your contact keeps the other. Neither shares theirs with anyone â€” not even each other.',
     or_paste:'or paste the content',
     drop_text:'Drag the file or click to select',
     drop_text_short:'Drag the file or click',
     drop_sign:'Drag the signature file or click',
-    seed_desc:' — custom alphabet',
+    seed_desc:' â€” custom alphabet',
     seed_ph:'type your seed...',
     gen_ok:'Keys generated. Download both files and keep them safe.',
     enc_title:'Encrypt message', enc_mode:'Mode',
     enc_pub_name:'With key B', enc_pub_sub:'Encrypt with B, recipient decrypts with A',
     enc_priv_name:'With key A', enc_priv_sub:'Encrypt with A, recipient decrypts with B',
     enc_key_lbl:'Your key', enc_msg_lbl:'Message', enc_msg_ph:'Write the message to encrypt...',
-    enc_seed_lbl:'Seed — custom alphabet', enc_btn:'Encrypt',
-    enc_result_lbl:'Encrypted message — share it with your contact',
+    enc_seed_lbl:'Seed â€” custom alphabet', enc_btn:'Encrypt',
+    enc_result_lbl:'Encrypted message â€” share it with your contact',
     enc_key_pub_ph:'-----BEGIN RSA PUBLIC KEY-----\n...\n-----END RSA PUBLIC KEY-----',
     enc_key_priv_ph:'-----BEGIN RSA PRIVATE KEY-----\n...\n-----END RSA PRIVATE KEY-----',
     dec_title:'Decrypt message',
@@ -2835,7 +2927,7 @@ const TR = {
     adv_text_seed_ph:'empty = normal alphabet',
     adv_text_seed_sub:'Generates a custom alphabet for extra obfuscation.',
     adv_text_btn:'Run', adv_text_result_lbl:'Result',
-    adv_pem_page_title:'Universal PEM', adv_pem_dec_title:'Decode', adv_pem_dec_sub:'PEM → values', adv_pem_enc_title:'Encode', adv_pem_enc_sub:'Values → PEM',
+    adv_pem_page_title:'Universal PEM', adv_pem_dec_title:'Decode', adv_pem_dec_sub:'PEM â†’ values', adv_pem_enc_title:'Encode', adv_pem_enc_sub:'Values â†’ PEM',
     adv_pem_decode_title:'Decode PEM', adv_pem_file_lbl:'PEM file',
     adv_pem_drop_text:'Drag the file or click',
     adv_pem_decode_ph:'-----BEGIN ...-----\n...\n-----END ...-----',
@@ -2849,7 +2941,7 @@ const TR = {
     pem_lbl_cipher_mode:'Encryption mode', pem_opt_cipher_e:'Encrypted with e', pem_opt_cipher_d:'Encrypted with d',
     pem_lbl_seed:'Seed', pem_ph_seed:'optional',
     pem_lbl_include_seed:'Include seed in the PEM?', yes:'Yes', no:'No',
-    adv_pem_encode_btn:'Generate PEM', adv_pem_encode_result_lbl:'Generated PEM', download:'↓ Download',
+    adv_pem_encode_btn:'Generate PEM', adv_pem_encode_result_lbl:'Generated PEM', download:'â†“ Download',
     adv_seeds_page_title:'Seeds', adv_seeds_lbl:'Seed',
     adv_seeds_ph:'type a seed or generate a random one',
     adv_seeds_random_btn:'Random', adv_seeds_result_lbl:'Alphabet',
@@ -2867,14 +2959,14 @@ const TR = {
     adv_genkeys_digits_e_ph:'empty = 65537',
     adv_genkeys_btn:'Generate',
     adv_genkeys_result_lbl:'Generated keys',
-    adv_genkeys_dl_pub_btn:'↓ Key B', adv_genkeys_dl_priv_btn:'↓ Key A',
+    adv_genkeys_dl_pub_btn:'â†“ Key B', adv_genkeys_dl_priv_btn:'â†“ Key A',
     adv_sign_title:'Digital signature (advanced)', adv_sign_create_title:'Sign', adv_sign_create_sub:'Sign a message',
     adv_sign_verify_title:'Verify', adv_sign_verify_sub:'Check a signature',
     or:'or paste the content',
     valid:'Valid signature. The message is authentic.',
     invalid:'Invalid signature. The message may have been altered.',
     generating:'Generating random primes...',
-    copied:'✓ Copied',
+    copied:'âœ“ Copied',
     err_prefix:'Error: ',
     err_enc_empty_msg:'Write the message to encrypt.',
     err_enc_need_pub:"Load or paste the recipient's public key.",
@@ -2990,12 +3082,12 @@ function applyLang(){
   se('verify-sign-drop-text',L.drop_sign); se('verify-pub-drop-text',L.drop_text_short);
   // or-paste dividers
   document.querySelectorAll('.or-divider').forEach(el=>el.textContent=L.or_paste);
-  // AVANZADO — menú principal
+  // AVANZADO â€” menÃº principal
   se('adv-title',L.adv_title); se('adv-sub',L.adv_sub);
   se('adv-pem-title',L.adv_pem_title); se('adv-pem-sub',L.adv_pem_sub);
   se('adv-seeds-title',L.adv_seeds_title); se('adv-seeds-sub',L.adv_seeds_sub);
   se('adv-genkeys-title',L.adv_genkeys_title); se('adv-genkeys-sub',L.adv_genkeys_sub);
-  // AVANZADO — cifrar/descifrar número
+  // AVANZADO â€” cifrar/descifrar nÃºmero
   se('adv-nums-title',L.adv_nums_title); se('adv-nums-mode-lbl',L.adv_nums_mode_lbl);
   se('adv-num-opt-enc-e',L.adv_num_opt_enc_e); se('adv-num-opt-enc-d',L.adv_num_opt_enc_d);
   se('adv-num-opt-dec-e',L.adv_num_opt_dec_e); se('adv-num-opt-dec-d',L.adv_num_opt_dec_d);
@@ -3003,7 +3095,7 @@ function applyLang(){
   sp('adv-num-n',L.adv_num_n_ph); sp('adv-num-exp',L.adv_num_exp_ph);
   se('adv-nums-btn',L.adv_nums_btn); se('adv-nums-result-lbl',L.adv_nums_result_lbl);
   se('adv-nums-copy-btn',L.copy);
-  // AVANZADO — cifrar/descifrar texto
+  // AVANZADO â€” cifrar/descifrar texto
   se('adv-text-title',L.adv_text_title); se('adv-text-mode-lbl',L.adv_text_mode_lbl);
   se('adv-text-opt-enc-e',L.adv_num_opt_enc_e); se('adv-text-opt-enc-d',L.adv_num_opt_enc_d);
   se('adv-text-opt-dec-e',L.adv_num_opt_dec_e); se('adv-text-opt-dec-d',L.adv_num_opt_dec_d);
@@ -3013,7 +3105,7 @@ function applyLang(){
   sp('adv-text-seed',L.adv_text_seed_ph);
   se('adv-text-btn',L.adv_text_btn); se('adv-text-result-lbl',L.adv_text_result_lbl);
   se('adv-text-copy-btn',L.copy);
-  // AVANZADO — PEM
+  // AVANZADO â€” PEM
   se('adv-pem-page-title',L.adv_pem_page_title);
   se('adv-pem-dec-title',L.adv_pem_dec_title); se('adv-pem-dec-sub',L.adv_pem_dec_sub);
   se('adv-pem-enc-title',L.adv_pem_enc_title); se('adv-pem-enc-sub',L.adv_pem_enc_sub);
@@ -3029,7 +3121,7 @@ function applyLang(){
   se('adv-pem-encode-btn',L.adv_pem_encode_btn); se('adv-pem-encode-result-lbl',L.adv_pem_encode_result_lbl);
   se('adv-pem-encode-copy-btn',L.copy); se('adv-pem-encode-dl-btn',L.download);
   updatePEMEncFields();
-  // AVANZADO — Seeds
+  // AVANZADO â€” Seeds
   se('adv-seeds-page-title',L.adv_seeds_page_title); se('adv-seeds-lbl',L.adv_seeds_lbl);
   sp('seed-input',L.adv_seeds_ph); sp('custom-seed-input',L.adv_seeds_custom_ph);
   se('adv-seeds-random-btn',L.adv_seeds_random_btn); se('adv-seeds-result-lbl',L.adv_seeds_result_lbl);
@@ -3038,7 +3130,7 @@ function applyLang(){
   se('adv-seeds-add-btn',L.adv_seeds_add_btn); se('adv-seeds-gen-btn',L.adv_seeds_gen_btn);
   se('adv-seeds-reset-btn',L.adv_seeds_reset_btn); se('adv-seeds-view-btn',L.adv_seeds_view_btn);
   se('adv-seeds-custom-result-lbl',L.adv_seeds_custom_result_lbl); se('adv-seeds-custom-copy-btn',L.copy);
-  // AVANZADO — Generar claves
+  // AVANZADO â€” Generar claves
   se('adv-genkeys-page-title',L.adv_genkeys_page_title);
   se('adv-genkeys-digits-n-lbl',L.adv_genkeys_digits_n_lbl); se('adv-genkeys-digits-n-sub',L.adv_genkeys_digits_n_sub);
   sp('adv-gen-digits-n',L.adv_genkeys_digits_n_ph);
@@ -3046,215 +3138,307 @@ function applyLang(){
   sp('adv-gen-digits-e',L.adv_genkeys_digits_e_ph); se('btn-adv-gen',L.adv_genkeys_btn);
   se('adv-genkeys-result-lbl',L.adv_genkeys_result_lbl);
   se('adv-genkeys-dl-pub-btn',L.adv_genkeys_dl_pub_btn); se('adv-genkeys-dl-priv-btn',L.adv_genkeys_dl_priv_btn);
-  // AVANZADO — Firma
+  // AVANZADO â€” Firma
   se('adv-sign-title',L.adv_sign_title);
   se('adv-sign-create-title',L.adv_sign_create_title); se('adv-sign-create-sub',L.adv_sign_create_sub);
   se('adv-sign-verify-title',L.adv_sign_verify_title); se('adv-sign-verify-sub',L.adv_sign_verify_sub);
 }
 
-// ═══════════════════════════════════════════════════════
-// ═══════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  KEY EXCHANGE (Cloudflare Worker)
-// ═══════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
-const KX_WORKER = 'https://cosa.ciphr.workers.dev';
-let _kxRole = null;
+// Replace this URL with the deployed ciphr-chat-worker.js endpoint.
+const KX_CHAT_WORKER = 'https://ciphr-chat.jxd21130.workers.dev/';
 let _kxRoomCode = null;
-let _kxReceivedKey = '';
-let _kxContentType = 'key'; // key | cipher | sign | text
+let _kxRoom = null;
+let _kxContentType = 'key';
+let _kxPoll = null;
 
 const KX_TYPES = {
-  key:    { es:'🔑 Clave B',           en:'🔑 Key B',              ph_es:'-----BEGIN RSA PUBLIC KEY-----\n...\n-----END RSA PUBLIC KEY-----', ph_en:'-----BEGIN RSA PUBLIC KEY-----\n...\n-----END RSA PUBLIC KEY-----' },
-  cipher: { es:'🔒 Mensaje cifrado',   en:'🔒 Encrypted message',  ph_es:'-----BEGIN RSA CIPHER-----\n...\n-----END RSA CIPHER-----',     ph_en:'-----BEGIN RSA CIPHER-----\n...\n-----END RSA CIPHER-----' },
-  sign:   { es:'✍️ Firma',             en:'✍️ Signature',           ph_es:'-----BEGIN RSA SIGN-----\n...\n-----END RSA SIGN-----',         ph_en:'-----BEGIN RSA SIGN-----\n...\n-----END RSA SIGN-----' },
-  text:   { es:'📝 Texto libre',       en:'📝 Free text',           ph_es:'Escribe o pega cualquier texto...',                               ph_en:'Type or paste any text...' },
+  key:    { es:'Clave B', ph_es:'-----BEGIN RSA PUBLIC KEY-----\n...\n-----END RSA PUBLIC KEY-----' },
+  cipher: { es:'Mensaje cifrado', ph_es:'-----BEGIN RSA CIPHER-----\n...\n-----END RSA CIPHER-----' },
+  sign:   { es:'Firma', ph_es:'-----BEGIN RSA SIGN-----\n...\n-----END RSA SIGN-----' },
+  text:   { es:'Texto libre', ph_es:'Escribe o pega cualquier texto...' }
 };
 
-function kxLoadFile(input) {
-  const file = input.files[0];
-  if (!file) return;
-  document.getElementById('kx-file-name').textContent = file.name;
-  const reader = new FileReader();
-  reader.onload = e => { document.getElementById('kx-sender-key-input').value = e.target.result.trim(); };
-  reader.readAsText(file);
+function kxNow() { return new Date().toISOString(); }
+function kxId(prefix='id') { return prefix + '_' + Math.random().toString(36).slice(2) + Date.now().toString(36); }
+function kxEsc(s) {
+  return String(s || '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 }
+function kxUserId() {
+  let id = localStorage.getItem('ciphr_chat_user_id');
+  if (!id) { id = kxId('user'); localStorage.setItem('ciphr_chat_user_id', id); }
+  return id;
+}
+function kxUsername() { return (localStorage.getItem('ciphr_chat_username') || '').trim(); }
+function kxRequireUser() {
+  const name = (document.getElementById('kx-username')?.value || kxUsername()).trim();
+  if (!name) throw new Error('Introduce un username primero.');
+  localStorage.setItem('ciphr_chat_username', name.slice(0, 32));
+  kxUserId();
+  return { id: kxUserId(), name: name.slice(0, 32) };
+}
+function kxRefs() {
+  try { return JSON.parse(localStorage.getItem('ciphr_chat_refs') || '{}'); }
+  catch { return {}; }
+}
+function kxSaveRefs(refs) { localStorage.setItem('ciphr_chat_refs', JSON.stringify(refs)); }
+function kxRemember(code, role, status='member') {
+  const refs = kxRefs();
+  refs[code] = { code, role, status, savedAt: kxNow() };
+  kxSaveRefs(refs);
+}
+function kxForget(code) {
+  const refs = kxRefs(); delete refs[code]; kxSaveRefs(refs);
+}
+function kxIsAdmin(room, userId = kxUserId()) {
+  return !!room && (room.ownerId === userId || (room.admins || []).includes(userId));
+}
+function kxMember(room, userId = kxUserId()) {
+  return (room?.members || []).find(m => m.id === userId);
+}
+function kxStatus(msg, type='info') {
+  const box = document.getElementById('kx-sync-alert');
+  if (!box) return;
+  if (!msg) { box.className = 'alert'; box.innerHTML = ''; return; }
+  showAlert('kx-sync-alert', msg, type);
+}
+async function kxFetchRoom(code) {
+  const res = await fetch(`${KX_CHAT_WORKER}/${encodeURIComponent(code)}`, { cache:'no-store' });
+  if (res.status === 404) throw new Error('Chat no encontrado. Revisa el codigo.');
+  if (!res.ok) throw new Error('Error al leer el chat: ' + res.status);
+  const text = await res.text();
+  const room = JSON.parse(text);
+  if (room.kind !== 'ciphr-chat') throw new Error('Este codigo no pertenece a un Ciphr chat.');
+  return room;
+}
+async function kxSaveRoom(code, room) {
+  room.updatedAt = kxNow();
+  const res = await fetch(`${KX_CHAT_WORKER}/${encodeURIComponent(code)}`, {
+    method:'PUT',
+    headers:{ 'Content-Type':'application/json' },
+    body: JSON.stringify(room)
+  });
+  if (!res.ok) throw new Error('El servidor no pudo guardar el chat: ' + res.status);
+  const check = await kxFetchRoom(code);
+  if (check.updatedAt !== room.updatedAt) {
+    throw new Error('El Worker actual no admite actualizar chats. Despliega el worker ciphr-chat-worker.js y cambia KX_CHAT_WORKER.');
+  }
+  _kxRoom = check;
+  return check;
+}
+async function kxCreateRemoteRoom(room) {
+  const res = await fetch(KX_CHAT_WORKER, {
+    method:'POST',
+    headers:{ 'Content-Type':'application/json' },
+    body: JSON.stringify(room)
+  });
+  if (!res.ok) throw new Error('Error al crear el chat: ' + res.status);
+  const text = (await res.text()).trim();
+  try {
+    const data = JSON.parse(text);
+    return (data.code || data.id || '').trim().toUpperCase();
+  } catch {
+    return text.trim().toUpperCase();
+  }
+}
+function kxInit() {
+  const input = document.getElementById('kx-username');
+  if (input) input.value = kxUsername();
+  kxUserId();
+  kxRenderLobby();
+  const status = document.getElementById('kx-user-status');
+  if (status) status.textContent = kxUsername() ? `Guardado como ${kxUsername()}` : 'El username se guarda en este navegador.';
+}
+function kxSaveUsername() {
+  const name = (document.getElementById('kx-username').value || '').trim();
+  if (!name) return alert('Introduce un username.');
+  localStorage.setItem('ciphr_chat_username', name.slice(0, 32));
+  kxUserId();
+  kxInit();
+}
+function kxRenderLobby() {
+  const list = document.getElementById('kx-my-chats');
+  if (!list) return;
+  const refs = Object.values(kxRefs()).sort((a,b) => (b.savedAt || '').localeCompare(a.savedAt || ''));
+  if (!refs.length) { list.innerHTML = '<div class="kx-empty">Todavia no hay chats guardados en este navegador.</div>'; return; }
+  list.innerHTML = refs.map(ref => `<div class="kx-chat-item"><div class="kx-chat-meta"><div><strong>${kxEsc(ref.code)}</strong></div><div class="kx-chat-code">${kxEsc(ref.role || 'miembro')} · ${kxEsc(ref.status || 'guardado')}</div></div><div class="kx-actions"><button class="btn btn-secondary" onclick="kxOpenChat('${kxEsc(ref.code)}')">Abrir</button><button class="btn btn-ghost" onclick="kxRemoveLocalChat('${kxEsc(ref.code)}')">Quitar</button></div></div>`).join('');
+}
+async function kxRefreshMyChats() {
+  kxRenderLobby();
+  for (const ref of Object.values(kxRefs())) {
+    try { await kxOpenChat(ref.code, true); kxLeaveChat(); }
+    catch { /* keep local entry */ }
+  }
+  kxRenderLobby();
+}
+function kxRemoveLocalChat(code) { kxForget(code); kxRenderLobby(); }
+async function kxCreateChat() {
+  try {
+    const user = kxRequireUser();
+    const room = {
+      kind:'ciphr-chat', version:1, createdAt:kxNow(), updatedAt:kxNow(), ownerId:user.id,
+      admins:[], members:[{ id:user.id, name:user.name, joinedAt:kxNow() }], pending:[], messages:[]
+    };
+    const code = await kxCreateRemoteRoom(room);
+    _kxRoomCode = code; _kxRoom = await kxFetchRoom(code);
+    kxRemember(code, 'creador', 'member');
+    kxEnterChat();
+  } catch(e) { alert(e.message); }
+}
+async function kxRequestJoin() {
+  try {
+    const user = kxRequireUser();
+    const code = document.getElementById('kx-join-code').value.trim().toUpperCase();
+    if (code.length < 4) throw new Error('Introduce el codigo del chat.');
+    const room = await kxFetchRoom(code);
+    if (kxMember(room, user.id)) { kxRemember(code, 'miembro', 'member'); _kxRoomCode = code; _kxRoom = room; kxEnterChat(); return; }
+    if (!(room.pending || []).some(p => p.id === user.id)) {
+      room.pending = room.pending || [];
+      room.pending.push({ id:user.id, name:user.name, requestedAt:kxNow() });
+      await kxSaveRoom(code, room);
+    }
+    kxRemember(code, 'solicitante', 'pending');
+    alert('Solicitud enviada. Aparecera para el creador o administradores cuando abran el chat.');
+    kxRenderLobby();
+  } catch(e) { alert(e.message); }
+}
+async function kxOpenChat(code, silent=false) {
+  try {
+    const room = await kxFetchRoom(code);
+    const uid = kxUserId();
+    const member = kxMember(room, uid);
+    const pending = (room.pending || []).some(p => p.id === uid);
+    if (!member) {
+      kxRemember(code, 'solicitante', pending ? 'pending' : 'not-member');
+      if (!silent) alert(pending ? 'Tu solicitud sigue pendiente.' : 'No eres miembro de este chat.');
+      return;
+    }
+    kxRemember(code, room.ownerId === uid ? 'creador' : 'miembro', 'member');
+    _kxRoomCode = code; _kxRoom = room; kxEnterChat();
+  } catch(e) { if (!silent) alert(e.message); }
+}
+function kxEnterChat() {
+  document.getElementById('kx-lobby').style.display = 'none';
+  document.getElementById('kx-chat').style.display = 'block';
+  document.getElementById('kx-room-code').textContent = _kxRoomCode;
+  kxRenderRoom();
+  clearInterval(_kxPoll);
+  _kxPoll = setInterval(kxPollRoom, 5000);
+}
+function kxLeaveChat() {
+  clearInterval(_kxPoll); _kxPoll = null; _kxRoomCode = null; _kxRoom = null;
+  document.getElementById('kx-chat').style.display = 'none';
+  document.getElementById('kx-lobby').style.display = 'block';
+  kxStatus('');
+  kxRenderLobby();
+}
+async function kxPollRoom() {
+  if (!_kxRoomCode) return;
+  try { _kxRoom = await kxFetchRoom(_kxRoomCode); kxRenderRoom(); }
+  catch(e) { kxStatus(e.message, 'error'); }
+}
+function kxRenderRoom() {
+  if (!_kxRoom) return;
+  const uid = kxUserId();
+  const canAdmin = kxIsAdmin(_kxRoom, uid);
+  const pendingPanel = document.getElementById('kx-pending-panel');
+  const pendingList = document.getElementById('kx-pending-list');
+  const pending = _kxRoom.pending || [];
+  pendingPanel.style.display = canAdmin && pending.length ? 'block' : 'none';
+  pendingList.innerHTML = pending.map(p => `<div class="kx-pending-item"><div><strong>${kxEsc(p.name)}</strong><div class="kx-chat-code">${new Date(p.requestedAt).toLocaleString()}</div></div><div class="kx-actions"><button class="btn btn-primary" onclick="kxAccept('${kxEsc(p.id)}')">Aceptar</button><button class="btn btn-secondary" onclick="kxReject('${kxEsc(p.id)}')">Rechazar</button></div></div>`).join('');
 
+  const members = _kxRoom.members || [];
+  document.getElementById('kx-member-list').innerHTML = members.map(m => {
+    const role = _kxRoom.ownerId === m.id ? 'creador' : (_kxRoom.admins || []).includes(m.id) ? 'admin' : 'miembro';
+    const adminBtn = canAdmin && _kxRoom.ownerId === uid && m.id !== uid
+      ? `<button class="btn btn-secondary" onclick="kxToggleAdmin('${kxEsc(m.id)}')">${role === 'admin' ? 'Quitar admin' : 'Hacer admin'}</button>` : '';
+    return `<div class="kx-member-item"><div><strong>${kxEsc(m.name)}</strong><div class="kx-chat-code">${role}</div></div><div class="kx-actions">${adminBtn}</div></div>`;
+  }).join('');
+
+  const history = document.getElementById('kx-history');
+  const messages = _kxRoom.messages || [];
+  history.innerHTML = messages.length ? messages.map(msg => `<div class="kx-message"><div class="kx-message-head"><strong>${kxEsc(msg.userName)}</strong><span>${new Date(msg.createdAt).toLocaleString()}</span><span class="kx-message-type">${kxEsc(KX_TYPES[msg.type]?.es || msg.type)}</span></div><div class="kx-message-content mono">${kxEsc(msg.content)}</div><div class="kx-actions" style="margin-top:8px"><button class="btn btn-secondary" onclick="kxCopyMessage('${kxEsc(msg.id)}')">Copiar</button><button class="btn btn-secondary" onclick="kxDownloadMessage('${kxEsc(msg.id)}')">Descargar</button></div></div>`).join('') : '<div class="kx-empty">Sin mensajes todavia.</div>';
+}
+async function kxAccept(userId) {
+  try {
+    const room = await kxFetchRoom(_kxRoomCode);
+    if (!kxIsAdmin(room)) throw new Error('Solo el creador o administradores pueden aceptar solicitudes.');
+    const req = (room.pending || []).find(p => p.id === userId);
+    if (!req) return;
+    room.pending = room.pending.filter(p => p.id !== userId);
+    room.members = room.members || [];
+    if (!room.members.some(m => m.id === userId)) room.members.push({ id:req.id, name:req.name, joinedAt:kxNow() });
+    room.messages = room.messages || [];
+    room.messages.push({ id:kxId('msg'), type:'text', userId:kxUserId(), userName:kxUsername(), createdAt:kxNow(), content:`${req.name} se ha unido al chat.` });
+    await kxSaveRoom(_kxRoomCode, room); kxRenderRoom();
+  } catch(e) { kxStatus(e.message, 'error'); }
+}
+async function kxReject(userId) {
+  try {
+    const room = await kxFetchRoom(_kxRoomCode);
+    if (!kxIsAdmin(room)) throw new Error('Solo el creador o administradores pueden rechazar solicitudes.');
+    room.pending = (room.pending || []).filter(p => p.id !== userId);
+    await kxSaveRoom(_kxRoomCode, room); kxRenderRoom();
+  } catch(e) { kxStatus(e.message, 'error'); }
+}
+async function kxToggleAdmin(userId) {
+  try {
+    const room = await kxFetchRoom(_kxRoomCode);
+    if (room.ownerId !== kxUserId()) throw new Error('Solo el creador puede cambiar administradores.');
+    room.admins = room.admins || [];
+    room.admins = room.admins.includes(userId) ? room.admins.filter(id => id !== userId) : room.admins.concat(userId);
+    await kxSaveRoom(_kxRoomCode, room); kxRenderRoom();
+  } catch(e) { kxStatus(e.message, 'error'); }
+}
 function kxSetType(type) {
   _kxContentType = type;
   document.querySelectorAll('.kx-type-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('kx-type-' + type).classList.add('active');
-  const t = KX_TYPES[type];
-  document.getElementById('kx-sender-key-input').placeholder = (_lang==='es' ? t.ph_es : t.ph_en).replace(/\n/g,'\n');
+  document.getElementById('kx-type-' + type)?.classList.add('active');
+  const input = document.getElementById('kx-message-input');
+  if (input) input.placeholder = KX_TYPES[type]?.ph_es || '';
 }
-
-function kxSetRole(role) {
-  _kxRole = role;
-  document.getElementById('kx-step-role').style.display = 'none';
-  document.getElementById('kx-reset-btn').style.display = 'inline-flex';
-  document.getElementById(role === 'sender' ? 'kx-step-sender' : 'kx-step-receiver').style.display = 'block';
+function kxLoadFile(input) {
+  const file = input.files[0]; if (!file) return;
+  document.getElementById('kx-file-name').textContent = file.name;
+  document.getElementById('kx-file-name').classList.add('show');
+  const reader = new FileReader();
+  reader.onload = e => { document.getElementById('kx-message-input').value = e.target.result.trim(); };
+  reader.readAsText(file);
 }
-
-async function kxCreateRoom() {
-  const content = document.getElementById('kx-sender-key-input').value.trim();
-  hideAlert('kx-sender-err');
-  if (!content) {
-    showAlert('kx-sender-err', _lang==='es'?'Pega el contenido o carga un archivo.':'Paste content or load a file.', 'error');
-    return;
-  }
-
-  const btn = document.getElementById('kx-sender-btn');
-  btn.disabled = true;
-  document.getElementById('kx-sender-btn-text').textContent = _lang==='es'?'Creando...':'Creating...';
-
+async function kxSendMessage() {
   try {
-    // Wrap content with type metadata
-    const payload = JSON.stringify({ type: _kxContentType, content });
-    const res = await fetch(KX_WORKER, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain' },
-      body: payload
-    });
-    if (!res.ok) throw new Error('Error ' + res.status);
-    _kxRoomCode = (await res.text()).trim();
-
-    document.getElementById('kx-step-sender').style.display = 'none';
-    document.getElementById('kx-step-sender-wait').style.display = 'block';
-    document.getElementById('kx-room-code').textContent = _kxRoomCode;
-    const ok = document.getElementById('kx-sender-ok');
-    ok.style.display = 'block';
-    const typeLabel = KX_TYPES[_kxContentType][_lang==='es'?'es':'en'];
-    ok.textContent = (_lang==='es'?'✓ ':'✓ ') + typeLabel + (_lang==='es'?' publicado. Expira en 15 min.':' published. Expires in 15 min.');
-    document.querySelector('#kx-step-sender-wait .kx-waiting').style.display = 'none';
-
-  } catch(e) {
-    btn.disabled = false;
-    document.getElementById('kx-sender-btn-text').textContent = _lang==='es'?'Crear sala':'Create room';
-    showAlert('kx-sender-err', (_lang==='es'?'Error: ':'Error: ')+e.message, 'error');
-  }
+    const user = kxRequireUser();
+    const content = document.getElementById('kx-message-input').value.trim();
+    if (!content) throw new Error('Pega contenido o carga un archivo.');
+    const room = await kxFetchRoom(_kxRoomCode);
+    if (!kxMember(room, user.id)) throw new Error('Todavia no eres miembro aceptado de este chat.');
+    room.messages = room.messages || [];
+    room.messages.push({ id:kxId('msg'), type:_kxContentType, userId:user.id, userName:user.name, createdAt:kxNow(), content });
+    await kxSaveRoom(_kxRoomCode, room);
+    document.getElementById('kx-message-input').value = '';
+    document.getElementById('kx-file-name').textContent = '';
+    document.getElementById('kx-file-name').classList.remove('show');
+    kxStatus('Mensaje enviado.', 'success');
+    kxRenderRoom();
+  } catch(e) { kxStatus(e.message, 'error'); }
 }
-
 function kxCopyCode() {
-  navigator.clipboard.writeText(_kxRoomCode).then(() => {
-    const btn = document.getElementById('kx-copy-code-btn');
-    const orig = btn.textContent;
-    btn.textContent = _lang==='es'?'✓ Copiado':'✓ Copied';
-    setTimeout(() => btn.textContent = orig, 2000);
-  });
+  navigator.clipboard.writeText(_kxRoomCode || '').then(() => kxStatus('Codigo copiado.', 'success'));
 }
-
-function kxSendAnother() {
-  document.getElementById('kx-step-sender-wait').style.display = 'none';
-  document.getElementById('kx-step-sender').style.display = 'block';
-  document.getElementById('kx-sender-key-input').value = '';
-  document.getElementById('kx-file-name').textContent = '';
-  document.getElementById('kx-sender-ok').style.display = 'none';
-  document.getElementById('kx-sender-btn').disabled = false;
-  document.getElementById('kx-sender-btn-text').textContent = _lang==='es'?'Crear sala':'Create room';
-  hideAlert('kx-sender-err');
+function kxFindMessage(id) { return (_kxRoom?.messages || []).find(m => m.id === id); }
+function kxCopyMessage(id) {
+  const msg = kxFindMessage(id); if (!msg) return;
+  navigator.clipboard.writeText(msg.content).then(() => kxStatus('Contenido copiado.', 'success'));
 }
-
-async function kxFetchKey() {
-  const code = document.getElementById('kx-code-input').value.trim().toUpperCase();
-  hideAlert('kx-receiver-err');
-  if (code.length < 4) {
-    showAlert('kx-receiver-err', _lang==='es'?'Introduce el código de sala.':'Enter the room code.', 'error');
-    return;
-  }
-
-  const btn = document.getElementById('kx-receiver-btn');
-  btn.disabled = true;
-  document.getElementById('kx-receiver-btn-text').textContent = _lang==='es'?'Descargando...':'Downloading...';
-
-  try {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 10000);
-    const res = await fetch(`${KX_WORKER}/${code}`, { signal: controller.signal });
-    clearTimeout(timeout);
-
-    if (res.status === 404) throw new Error(_lang==='es'?'Código no encontrado. ¿Es correcto? Puede haber expirado.':'Code not found. Correct? It may have expired.');
-    if (!res.ok) throw new Error('Error ' + res.status);
-
-    const raw = (await res.text()).trim();
-
-    // Try to parse as JSON (new format with type)
-    let content = raw;
-    let type = 'text';
-    try {
-      const parsed = JSON.parse(raw);
-      if (parsed.content) { content = parsed.content; type = parsed.type || 'text'; }
-    } catch { /* old format or plain text */ }
-
-    _kxReceivedKey = content;
-
-    // Show type badge
-    const badge = document.getElementById('kx-received-type-badge');
-    const typeLabel = KX_TYPES[type] ? KX_TYPES[type][_lang==='es'?'es':'en'] : type;
-    badge.textContent = typeLabel;
-    badge.style.display = 'inline-block';
-
-    document.getElementById('kx-step-receiver').style.display = 'none';
-    document.getElementById('kx-step-receiver-done').style.display = 'block';
-    document.getElementById('kx-received-key').textContent = content;
-    const rok = document.getElementById('kx-receiver-ok');
-    rok.classList.add('show');
-    rok.textContent = _lang==='es'
-      ?'✓ Recibido correctamente. Puedes volver a descargarlo mientras no expire.'
-      :'✓ Received successfully. You can download it again before it expires.';
-
-  } catch(e) {
-    btn.disabled = false;
-    document.getElementById('kx-receiver-btn-text').textContent = _lang==='es'?'Descargar':'Download';
-    const msg = e.name==='AbortError'
-      ?(_lang==='es'?'Tiempo agotado. Inténtalo de nuevo.':'Timed out. Try again.')
-      : e.message;
-    showAlert('kx-receiver-err', msg, 'error');
-  }
+function kxDownloadMessage(id) {
+  const msg = kxFindMessage(id); if (!msg) return;
+  dlText(msg.content, `ciphr_${msg.type}_${id}.txt`);
 }
-
-function kxReceiveAnother() {
-  document.getElementById('kx-step-receiver-done').style.display = 'none';
-  document.getElementById('kx-step-receiver').style.display = 'block';
-  document.getElementById('kx-code-input').value = '';
-  document.getElementById('kx-receiver-btn').disabled = false;
-  document.getElementById('kx-receiver-btn-text').textContent = _lang==='es'?'Descargar':'Download';
-  document.getElementById('kx-receiver-ok').classList.remove('show');
-  document.getElementById('kx-received-type-badge').style.display = 'none';
-  hideAlert('kx-receiver-err');
-}
-
-function kxCopyKey() {
-  navigator.clipboard.writeText(_kxReceivedKey).then(() => {
-    const btn = document.getElementById('kx-copy-btn');
-    const orig = btn.textContent;
-    btn.textContent = _lang==='es'?'✓ Copiado':'✓ Copied';
-    setTimeout(() => btn.textContent = orig, 2000);
-  });
-}
-
-function kxDownloadKey() {
-  const ext = _kxReceivedKey.includes('-----') ? 'txt' : 'txt';
-  dlText(_kxReceivedKey, 'ciphr_recibido.' + ext);
-}
-
-function kxReset() {
-  _kxRole = null; _kxRoomCode = null; _kxReceivedKey = ''; _kxContentType = 'key';
-  document.getElementById('kx-step-role').style.display = 'block';
-  ['kx-step-sender','kx-step-sender-wait','kx-step-receiver','kx-step-receiver-done']
-    .forEach(id => document.getElementById(id).style.display = 'none');
-  document.getElementById('kx-reset-btn').style.display = 'none';
-  document.getElementById('kx-sender-key-input').value = '';
-  document.getElementById('kx-file-name').textContent = '';
-  document.getElementById('kx-code-input').value = '';
-  document.getElementById('kx-sender-ok').style.display = 'none';
-  document.querySelectorAll('.kx-type-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('kx-type-key').classList.add('active');
-  hideAlert('kx-sender-err'); hideAlert('kx-receiver-err');
-  document.getElementById('kx-sender-btn').disabled = false;
-  document.getElementById('kx-sender-btn-text').textContent = _lang==='es'?'Crear sala':'Create room';
-  document.getElementById('kx-receiver-btn').disabled = false;
-  document.getElementById('kx-receiver-btn-text').textContent = _lang==='es'?'Descargar':'Download';
-}
-
+function kxReset() { kxLeaveChat(); }
 </script>
 
 
@@ -3262,3 +3446,5 @@ function kxReset() {
 
 
 </body></html>
+
+
