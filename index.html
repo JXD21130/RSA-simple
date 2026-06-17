@@ -1,4 +1,3 @@
-
 <html lang="es"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -735,7 +734,7 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
         <div class="size-opt-sub" id="gen-secure-s">~2min</div>
       </div>
     </div>
-    <div class="field-sub">Normal es mÃ¡s que suficiente para la mayorÃ­a de usos.</div>
+    <div class="field-sub">Normal es mÃ¡s que suficiente para la mayorÃ&shy;a de usos.</div>
   </div>
 
   <div class="progress-bar" id="gen-progress"><div class="progress-fill"></div></div>
@@ -1059,7 +1058,7 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
   <div class="field"><label class="field-label" id="adv-text-exp-lbl">Exponente (e o d)</label><input type="text" id="adv-text-exp" placeholder="exponente"></div>
   <div class="field">
     <label class="field-label" id="adv-text-seed-lbl">Seed (opcional)</label>
-    <input type="text" id="adv-text-seed" placeholder="vacÃ­o = abecedario normal">
+    <input type="text" id="adv-text-seed" placeholder="vacÃ&shy;o = abecedario normal">
     <div class="field-sub" id="adv-text-seed-sub">Genera un abecedario personalizado para mayor ofuscaciÃ³n.</div>
   </div>
   <div class="alert alert-error" id="adv-text-err"></div>
@@ -1182,11 +1181,11 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
   <div class="field">
     <label class="field-label" id="adv-genkeys-digits-n-lbl">Cifras de n</label>
     <input type="number" id="adv-gen-digits-n" placeholder="ej: 200" min="10" max="5000">
-    <div class="field-sub" id="adv-genkeys-digits-n-sub">Deja vacÃ­o para aleatorio (10-30 cifras).</div>
+    <div class="field-sub" id="adv-genkeys-digits-n-sub">Deja vacÃ&shy;o para aleatorio (10-30 cifras).</div>
   </div>
   <div class="field">
     <label class="field-label" id="adv-genkeys-digits-e-lbl">Cifras de e</label>
-    <input type="number" id="adv-gen-digits-e" placeholder="vacÃ­o = 65537" min="1" max="5000">
+    <input type="number" id="adv-gen-digits-e" placeholder="vacÃ&shy;o = 65537" min="1" max="5000">
   </div>
   <div class="progress-bar" id="adv-gen-progress"><div class="progress-fill"></div></div>
   <div class="generating-msg" id="adv-gen-msg">Generando primos...</div>
@@ -1477,7 +1476,7 @@ let ABECEDARIO = {...DEFAULT_ABC};
 let NUMERO_A_LETRA = Object.fromEntries(Object.entries(ABECEDARIO).map(([k,v])=>[v,k]));
 
 const MARCADOR_DIGITO = 27;
-const OFFSET_DIGITO  = 28;  // dÃ­gitos: 28(0) 29(1) ... 37(9)
+const OFFSET_DIGITO  = 28;  // dÃ&shy;gitos: 28(0) 29(1) ... 37(9)
 const ESPACIO        = 0;   // espacio sigue siendo 0
 
 function resetAbc() {
@@ -1828,7 +1827,7 @@ function renderFileList() {
   list.innerHTML = '';
   const names = Object.keys(files).sort();
   if (names.length === 0) {
-    list.innerHTML = '<div style="padding:12px;font-size:11px;color:var(--muted)">vacÃ­o</div>';
+    list.innerHTML = '<div style="padding:12px;font-size:11px;color:var(--muted)">vacÃ&shy;o</div>';
     return;
   }
   for (const name of names) {
@@ -2708,7 +2707,7 @@ const TR = {
     home_card_adv_title:'Avanzado', home_card_adv_desc:'Control total: claves, PEM, seeds y operaciones manuales.',
     home_card_kx_title:'Intercambiar claves', home_card_kx_desc:'Comparte tu clave B de forma segura, sin enviarla directamente.',
     kx_title:'Intercambiar claves',
-    kx_sub:'Comparte tu clave B sin enviarla directamente. Usa un cÃ³digo de sala efÃ­mero.',
+    kx_sub:'Comparte tu clave B sin enviarla directamente. Usa un cÃ³digo de sala efÃ&shy;mero.',
     kx_role_sender_name:'Enviar mi clave B', kx_role_sender_sub:'Creo la sala y comparto el cÃ³digo',
     kx_role_receiver_name:'Recibir clave B', kx_role_receiver_sub:'Introduzco el cÃ³digo que me han dado',
     kx_sender_key_lbl:'Tu clave B (pÃºblica)', kx_sender_btn:'Crear sala',
@@ -2776,7 +2775,7 @@ const TR = {
     adv_text_input_lbl:'Texto / NÃºmeros cifrados', adv_text_exp_lbl:'Exponente (e o d)',
     adv_text_input_ph:'Texto a cifrar o nÃºmeros separados por espacios...',
     adv_text_seed_lbl:'Seed (opcional)',
-    adv_text_seed_ph:'vacÃ­o = abecedario normal',
+    adv_text_seed_ph:'vacÃ&shy;o = abecedario normal',
     adv_text_seed_sub:'Genera un abecedario personalizado para mayor ofuscaciÃ³n.',
     adv_text_btn:'Ejecutar', adv_text_result_lbl:'Resultado',
     adv_pem_page_title:'PEM universal', adv_pem_dec_title:'Decodificar', adv_pem_dec_sub:'PEM â†’ valores', adv_pem_enc_title:'Codificar', adv_pem_enc_sub:'Valores â†’ PEM',
@@ -2792,7 +2791,7 @@ const TR = {
     pem_lbl_msg_nums:'NÃºmeros cifrados', pem_ph_msg_nums:'separados por espacios',
     pem_lbl_cipher_mode:'Modo de cifrado', pem_opt_cipher_e:'Cifrado con e', pem_opt_cipher_d:'Cifrado con d',
     pem_lbl_seed:'Seed', pem_ph_seed:'opcional',
-    pem_lbl_include_seed:'Â¿Incluir seed en el PEM?', yes:'SÃ­', no:'No',
+    pem_lbl_include_seed:'Â¿Incluir seed en el PEM?', yes:'SÃ&shy;', no:'No',
     adv_pem_encode_btn:'Generar PEM', adv_pem_encode_result_lbl:'PEM generado', download:'â†“ Descargar',
     adv_seeds_page_title:'Seeds', adv_seeds_lbl:'Seed',
     adv_seeds_ph:'escribe una seed o genera aleatoria',
@@ -2805,10 +2804,10 @@ const TR = {
     adv_seeds_add_btn:'AÃ±adir', adv_seeds_gen_btn:'Generar seed', adv_seeds_reset_btn:'Reiniciar',
     adv_seeds_view_btn:'Ver abecedario', adv_seeds_custom_result_lbl:'Seed generada',
     adv_genkeys_page_title:'Generar claves (avanzado)',
-    adv_genkeys_digits_n_lbl:'Cifras de n', adv_genkeys_digits_n_sub:'Deja vacÃ­o para aleatorio (10-30 cifras).',
+    adv_genkeys_digits_n_lbl:'Cifras de n', adv_genkeys_digits_n_sub:'Deja vacÃ&shy;o para aleatorio (10-30 cifras).',
     adv_genkeys_digits_n_ph:'ej: 200',
     adv_genkeys_digits_e_lbl:'Cifras de e',
-    adv_genkeys_digits_e_ph:'vacÃ­o = 65537',
+    adv_genkeys_digits_e_ph:'vacÃ&shy;o = 65537',
     adv_genkeys_btn:'Generar',
     adv_genkeys_result_lbl:'Claves generadas',
     adv_genkeys_dl_pub_btn:'â†“ Clave B', adv_genkeys_dl_priv_btn:'â†“ Clave A',
@@ -3150,7 +3149,7 @@ function applyLang(){
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 // Replace this URL with the deployed ciphr-chat-worker.js endpoint.
-const KX_CHAT_WORKER = 'https://ciphr-chat.jxd21130.workers.dev/';
+const KX_CHAT_WORKER = 'https://cosa.ciphr.workers.dev';
 let _kxRoomCode = null;
 let _kxRoom = null;
 let _kxContentType = 'key';
@@ -3445,6 +3444,7 @@ function kxReset() { kxLeaveChat(); }
 
 
 
+
+
+
 </body></html>
-
-
