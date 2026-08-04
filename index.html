@@ -788,6 +788,11 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
       <div class="card-title" id="home-card-sign-title">Firmar</div>
       <div class="card-desc" id="home-card-sign-desc">Demuestra que un mensaje es tuyo, o verifica si es de alguien.</div>
     </button>
+    <button class="card" onclick="showView('password')">
+      <div class="card-icon">🔐</div>
+      <div class="card-title" id="home-card-pass-title">Contraseña</div>
+      <div class="card-desc" id="home-card-pass-desc">Cifra con una contraseña que compartáis los dos, sin usar claves RSA.</div>
+    </button>
   </div>
   <button class="card-full" onclick="showView('advanced')">
     <div class="card-icon">⚙</div>
@@ -823,20 +828,20 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
   <div class="field">
     <label class="field-label" id="gen-size-lbl">Tamaño de clave</label>
     <div class="size-group">
-      <div class="size-opt selected" data-bits="512" onclick="selectSize(this)">
-        <div class="size-opt-name" id="gen-fast">Rápido</div>
-        <div class="size-opt-sub" id="gen-fast-s">~2s</div>
-      </div>
       <div class="size-opt" data-bits="1024" onclick="selectSize(this)">
-        <div class="size-opt-name" id="gen-normal">Normal</div>
-        <div class="size-opt-sub" id="gen-normal-s">~15s</div>
+        <div class="size-opt-name" id="gen-fast">1024 bits</div>
+        <div class="size-opt-sub" id="gen-fast-s">⚠️ No recomendado</div>
       </div>
-      <div class="size-opt" data-bits="2048" onclick="selectSize(this)">
-        <div class="size-opt-name" id="gen-secure">Seguro</div>
-        <div class="size-opt-sub" id="gen-secure-s">~2min</div>
+      <div class="size-opt selected" data-bits="2048" onclick="selectSize(this)">
+        <div class="size-opt-name" id="gen-normal">2048 bits</div>
+        <div class="size-opt-sub" id="gen-normal-s">Recomendado</div>
+      </div>
+      <div class="size-opt" data-bits="4096" onclick="selectSize(this)">
+        <div class="size-opt-name" id="gen-secure">4096 bits</div>
+        <div class="size-opt-sub" id="gen-secure-s">Máxima seguridad, más lento</div>
       </div>
     </div>
-    <div class="field-sub">Normal es más que suficiente para la mayoría de usos.</div>
+    <div class="field-sub">2048 bits es el mínimo real para uso serio. 1024 se puede romper con recursos suficientes — solo está aquí por compatibilidad/aprendizaje, no lo uses para nada real. Antes había una opción de 512 bits: se ha quitado porque hoy en día se factoriza en horas.</div>
   </div>
 
   <div class="progress-bar" id="gen-progress"><div class="progress-fill"></div></div>
@@ -897,8 +902,8 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
     <textarea id="enc-msg" placeholder="Escribe el mensaje a cifrar..."></textarea>
   </div>
 
-  <div class="seed-toggle-row" onclick="toggleEncSeed()">
-    <div class="seed-toggle-label" id="enc-seed-lbl"><strong>Seed</strong> — abecedario personalizado</div>
+  <div class="seed-toggle-row" onclick="toggleEncSeed()" style="opacity:0.55">
+    <div class="seed-toggle-label" id="enc-seed-lbl"><strong>Seed</strong> (heredado — ya no hace falta, el mensaje va protegido con AES-GCM)</div>
     <div class="sw" id="enc-seed-sw"></div>
   </div>
   <div class="seed-input-field" id="enc-seed-field">
@@ -971,8 +976,8 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
 -----END RSA CIPHER-----" oninput="onDecCipherPaste()"></textarea>
   </div>
 
-  <div class="seed-toggle-row" onclick="toggleDecSeed()">
-    <div class="seed-toggle-label" id="dec-seed-lbl"><strong>Seed</strong> — abecedario personalizado</div>
+  <div class="seed-toggle-row" onclick="toggleDecSeed()" style="opacity:0.55">
+    <div class="seed-toggle-label" id="dec-seed-lbl"><strong>Seed</strong> (heredado — ya no hace falta, el mensaje va protegido con AES-GCM)</div>
     <div class="sw" id="dec-seed-sw"></div>
   </div>
   <div class="seed-input-field" id="dec-seed-field">
@@ -1096,6 +1101,107 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
   <div class="alert alert-error" id="verify-err"></div>
   <button class="btn btn-primary btn-full" id="btn-verify" onclick="doVerify()">Verificar</button>
   <div class="alert" id="verify-result" style="margin-top:16px"></div>
+</div>
+
+<!--  PASSWORD (AES-256-GCM + PBKDF2) — hub  -->
+<div class="view" id="view-password">
+  <button class="section-back" data-back="" onclick="goHome()"> volver</button>
+  <div class="section-header">
+    <div class="section-title">Contraseña</div>
+  </div>
+  <p style="font-size:13px;color:var(--text2);margin-bottom:20px">Cifra con una contraseña que ya compartáis los dos por otro medio (en persona, por teléfono...). No hace falta generar claves RSA. Es compatible con la CLI de <code style="font-family:var(--mono)">ciphr</code> — lo que cifres aquí se puede descifrar allí, y al revés.</p>
+  <div class="home-cards">
+    <button class="card" onclick="showView('pass-encrypt')">
+      <div class="card-icon">🔒</div>
+      <div class="card-title">Cifrar</div>
+      <div class="card-desc">Cifra un mensaje con una contraseña.</div>
+    </button>
+    <button class="card" onclick="showView('pass-decrypt')">
+      <div class="card-icon">🔓</div>
+      <div class="card-title">Descifrar</div>
+      <div class="card-desc">Lee un mensaje cifrado con contraseña.</div>
+    </button>
+  </div>
+</div>
+
+<!--  PASSWORD: ENCRYPT  -->
+<div class="view" id="view-pass-encrypt">
+  <button class="section-back" data-back="" onclick="showView('password')"> volver</button>
+  <div class="section-header">
+    <div class="section-title">Cifrar con contraseña</div>
+  </div>
+
+  <div class="field">
+    <label class="field-label">Mensaje</label>
+    <textarea id="pass-enc-msg" placeholder="Escribe el mensaje a cifrar..."></textarea>
+  </div>
+
+  <div class="field">
+    <label class="field-label">Contraseña</label>
+    <div style="display:flex;gap:8px">
+      <input type="password" id="pass-enc-pw" placeholder="Escribe una contraseña..." style="flex:1" oninput="updatePwStrength('pass-enc-pw','pass-enc-strength')">
+      <button type="button" class="btn btn-secondary" onclick="togglePwVisibility('pass-enc-pw')" style="flex:0 0 auto">👁</button>
+    </div>
+    <div id="pass-enc-strength" style="margin-top:8px"></div>
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <button type="button" class="btn btn-secondary" style="flex:1" onclick="generateStrongPassword('pass-enc-pw','pass-enc-strength')">🎲 Generar contraseña segura</button>
+      <button type="button" class="btn btn-secondary" id="pass-enc-pw-dl-btn" style="flex:0 0 auto;display:none" onclick="downloadPassword('pass-enc-pw')">↓ Guardar</button>
+    </div>
+    <div class="field-sub" style="margin-top:6px">Si generas una, guárdala ahora — si la pierdes, nadie (ni tú) podrá recuperar el mensaje.</div>
+  </div>
+
+  <div class="alert alert-error" id="pass-enc-err"></div>
+  <button class="btn btn-primary btn-full" id="btn-pass-enc" onclick="doPassEncrypt()">Cifrar</button>
+
+  <div class="result-box" id="pass-enc-result">
+    <div class="result-label">Mensaje cifrado</div>
+    <div class="result-text mono" id="pass-enc-result-text"></div>
+    <div class="result-actions">
+      <button class="btn btn-secondary" onclick="copyResult('pass-enc-result-text')">Copiar</button>
+      <button class="btn btn-secondary" onclick="dlResult('pass-enc-result-text','mensaje_cifrado.txt')">↓ Descargar</button>
+      <button class="btn btn-secondary" onclick="saveResultLocal('pass-enc-result-text','mensaje_cifrado.txt',null)">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!--  PASSWORD: DECRYPT  -->
+<div class="view" id="view-pass-decrypt">
+  <button class="section-back" data-back="" onclick="showView('password')"> volver</button>
+  <div class="section-header">
+    <div class="section-title">Descifrar con contraseña</div>
+  </div>
+
+  <div class="field">
+    <label class="field-label">Mensaje cifrado</label>
+    <div class="file-drop">
+      <input type="file" accept=".txt" onchange="loadPassCipherFile(this)">
+      <div class="file-drop-icon">📄</div>
+      <div>Arrastra el archivo o haz clic para seleccionar</div>
+      <div class="file-drop-name" id="pass-dec-file-name"></div>
+    </div>
+    <button type="button" class="saved-pick-btn" onclick="openSavedPicker('pass-dec-cipher','pass-dec-file-name')">📁 <span data-i18n="saved_pick_btn">Usar archivo guardado</span></button>
+    <div class="or-divider" data-i18n="or_paste">o pega el contenido</div>
+    <textarea class="mono" id="pass-dec-cipher" placeholder="Pega aquí el texto cifrado (empieza en base64)..."></textarea>
+  </div>
+
+  <div class="field">
+    <label class="field-label">Contraseña</label>
+    <div style="display:flex;gap:8px">
+      <input type="password" id="pass-dec-pw" placeholder="Introduce la contraseña..." style="flex:1">
+      <button type="button" class="btn btn-secondary" onclick="togglePwVisibility('pass-dec-pw')" style="flex:0 0 auto">👁</button>
+    </div>
+  </div>
+
+  <div class="alert alert-error" id="pass-dec-err"></div>
+  <button class="btn btn-primary btn-full" id="btn-pass-dec" onclick="doPassDecrypt()">Descifrar</button>
+
+  <div class="result-box" id="pass-dec-result">
+    <div class="result-label">Mensaje</div>
+    <div class="result-text mono" id="pass-dec-result-text"></div>
+    <div class="result-actions">
+      <button class="btn btn-secondary" onclick="copyResult('pass-dec-result-text')">Copiar</button>
+    </div>
+  </div>
 </div>
 
 <!--  ADVANCED  -->
@@ -1784,8 +1890,9 @@ function genAbcWithSeed(seed) {
 
 function randomSeed(len = 8) {
   const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  const bytes = crypto.getRandomValues(new Uint8Array(len));
   let s = '';
-  for (let i = 0; i < len; i++) s += chars[Math.floor(Math.random() * chars.length)];
+  for (let i = 0; i < len; i++) s += chars[bytes[i] % chars.length];
   return s;
 }
 
@@ -2056,11 +2163,43 @@ function parseCipherPEM(pem) {
 
 // Detectar tipo de PEM por etiqueta
 function detectarTipoPEM(content) {
-  const labels = ['RSA PUBLIC KEY','RSA PRIVATE KEY','RSA CIPHER','RSA SIGN'];
+  const labels = ['RSA PUBLIC KEY','RSA PRIVATE KEY','RSA CIPHER','RSA HYBRID CIPHER','RSA SIGN'];
   for (const label of labels) {
     if (content.includes(`-----BEGIN ${label}-----`)) return label;
   }
   return null;
+}
+
+// ── FORMATO NUEVO (por defecto): cifrado híbrido RSA-OAEP + AES-GCM ──
+// Formato: 1B(tieneClaves) + [MPI(n)+MPI(e)] + 4B(lenKeyBlob)+keyBlob + 1B(lenIV)+iv + 4B(lenCT)+ciphertext
+function genHybridCipherPEM(encKeyBlob, iv, ciphertext, n, e, incluirClaves) {
+  const tieneClaves = incluirClaves ? 1 : 0;
+  let clavesPart = new Uint8Array(0);
+  if (tieneClaves) clavesPart = concat([encodeMPI(n), encodeMPI(e)]);
+  const kbLen = new Uint8Array(4); new DataView(kbLen.buffer).setUint32(0, encKeyBlob.length, false);
+  const ivLen = new Uint8Array([iv.length]);
+  const ctLen = new Uint8Array(4); new DataView(ctLen.buffer).setUint32(0, ciphertext.length, false);
+  return wrapPEM('RSA HYBRID CIPHER', concat([
+    new Uint8Array([tieneClaves]), clavesPart,
+    kbLen, encKeyBlob, ivLen, iv, ctLen, ciphertext
+  ]));
+}
+function parseHybridCipherPEM(pem) {
+  const data = stripPEM(pem);
+  let off = 0;
+  const tieneClaves = data[off++];
+  let n = null, e = null;
+  if (tieneClaves) {
+    const nR = decodeMPI(data, off); off = nR.next; n = nR.value;
+    const eR = decodeMPI(data, off); off = eR.next; e = eR.value;
+  }
+  const kbLen = new DataView(data.buffer, data.byteOffset + off, 4).getUint32(0, false); off += 4;
+  const encKeyBlob = data.slice(off, off + kbLen); off += kbLen;
+  const ivLen = data[off++];
+  const iv = data.slice(off, off + ivLen); off += ivLen;
+  const ctLen = new DataView(data.buffer, data.byteOffset + off, 4).getUint32(0, false); off += 4;
+  const ciphertext = data.slice(off, off + ctLen); off += ctLen;
+  return { n, e, encKeyBlob, iv, ciphertext };
 }
 
 function extraerPEM(content, label) {
@@ -2085,6 +2224,273 @@ async function sha256BigInt(msg) {
 }
 
 // 
+//  CIFRADO HÍBRIDO: RSA-OAEP (para la clave AES) + AES-GCM (para el mensaje)
+//  y FIRMAS RSASSA-PSS — implementados a mano (RFC 8017), probados exhaustivamente
+//  contra manipulación y con distintos tamaños de clave antes de integrarse aquí.
+// 
+
+async function sha256Bytes(bytes) {
+  const hash = await crypto.subtle.digest('SHA-256', bytes);
+  return new Uint8Array(hash);
+}
+function xorBytes(a, b) {
+  const out = new Uint8Array(a.length);
+  for (let i = 0; i < a.length; i++) out[i] = a[i] ^ b[i];
+  return out;
+}
+function i2osp(x, len) {
+  const out = new Uint8Array(len);
+  let v = x;
+  for (let i = len - 1; i >= 0; i--) { out[i] = Number(v & 0xFFn); v >>= 8n; }
+  if (v !== 0n) throw new Error('i2osp: número demasiado grande para la longitud dada');
+  return out;
+}
+function os2ip(bytes) {
+  let v = 0n;
+  for (const b of bytes) v = (v << 8n) | BigInt(b);
+  return v;
+}
+async function mgf1(seed, maskLen) {
+  const hLen = 32;
+  const chunks = [];
+  let produced = 0, counter = 0;
+  while (produced < maskLen) {
+    const c = i2osp(BigInt(counter), 4);
+    chunks.push(await sha256Bytes(concat([seed, c])));
+    produced += hLen; counter++;
+  }
+  return concat(chunks).slice(0, maskLen);
+}
+
+const OAEP_HLEN = 32;
+let _oaepLHash = null;
+async function oaepLHash() {
+  if (!_oaepLHash) _oaepLHash = await sha256Bytes(new Uint8Array(0));
+  return _oaepLHash;
+}
+async function oaepEncode(msg, k) {
+  const mLen = msg.length;
+  if (mLen > k - 2 * OAEP_HLEN - 2) throw new Error('Mensaje demasiado largo para esta clave RSA (usa una clave más grande)');
+  const LH = await oaepLHash();
+  const ps = new Uint8Array(k - mLen - 2 * OAEP_HLEN - 2);
+  const db = concat([LH, ps, new Uint8Array([0x01]), msg]);
+  const seed = crypto.getRandomValues(new Uint8Array(OAEP_HLEN));
+  const dbMask = await mgf1(seed, k - OAEP_HLEN - 1);
+  const maskedDB = xorBytes(db, dbMask);
+  const seedMask = await mgf1(maskedDB, OAEP_HLEN);
+  const maskedSeed = xorBytes(seed, seedMask);
+  return concat([new Uint8Array([0x00]), maskedSeed, maskedDB]);
+}
+async function oaepDecode(em, k) {
+  if (em.length !== k || k < 2 * OAEP_HLEN + 2) throw new Error('Bloque OAEP inválido');
+  const y = em[0];
+  const maskedSeed = em.slice(1, 1 + OAEP_HLEN);
+  const maskedDB = em.slice(1 + OAEP_HLEN);
+  const seedMask = await mgf1(maskedDB, OAEP_HLEN);
+  const seed = xorBytes(maskedSeed, seedMask);
+  const dbMask = await mgf1(seed, k - OAEP_HLEN - 1);
+  const db = xorBytes(maskedDB, dbMask);
+  const lHash2 = db.slice(0, OAEP_HLEN);
+  const rest = db.slice(OAEP_HLEN);
+  const LH = await oaepLHash();
+  const lHashOk = lHash2.every((v, i) => v === LH[i]);
+  let idx = -1;
+  for (let i = 0; i < rest.length; i++) { if (rest[i] === 0x01) { idx = i; break; } if (rest[i] !== 0x00) break; }
+  if (y !== 0 || !lHashOk || idx === -1) throw new Error('No se pudo descifrar: clave incorrecta o mensaje manipulado');
+  return rest.slice(idx + 1);
+}
+async function rsaOaepEncrypt(msg, n, e) {
+  const k = Math.ceil(n.toString(2).length / 8);
+  const em = await oaepEncode(msg, k);
+  return i2osp(modPow(os2ip(em), e, n), k);
+}
+async function rsaOaepDecrypt(cipherBytes, n, d) {
+  const k = Math.ceil(n.toString(2).length / 8);
+  const em = i2osp(modPow(os2ip(cipherBytes), d, n), k);
+  return await oaepDecode(em, k);
+}
+
+async function pssEncode(msgHash, modBits) {
+  const emLen = Math.ceil((modBits - 1) / 8);
+  const sLen = OAEP_HLEN;
+  const salt = crypto.getRandomValues(new Uint8Array(sLen));
+  if (emLen < OAEP_HLEN + sLen + 2) throw new Error('Clave demasiado pequeña para firmar con PSS');
+  const mPrime = concat([new Uint8Array(8), msgHash, salt]);
+  const h = await sha256Bytes(mPrime);
+  const ps = new Uint8Array(emLen - sLen - OAEP_HLEN - 2);
+  const db = concat([ps, new Uint8Array([0x01]), salt]);
+  const dbMask = await mgf1(h, emLen - OAEP_HLEN - 1);
+  const maskedDB = xorBytes(db, dbMask);
+  const nBitsClear = 8 * emLen - (modBits - 1);
+  if (nBitsClear > 0) maskedDB[0] &= (0xFF >> nBitsClear);
+  return concat([maskedDB, h, new Uint8Array([0xbc])]);
+}
+async function pssVerify(msgHash, em, modBits) {
+  const emLen = Math.ceil((modBits - 1) / 8);
+  const sLen = OAEP_HLEN;
+  if (em.length !== emLen || emLen < OAEP_HLEN + sLen + 2) return false;
+  if (em[em.length - 1] !== 0xbc) return false;
+  const maskedDB = em.slice(0, emLen - OAEP_HLEN - 1);
+  const h = em.slice(emLen - OAEP_HLEN - 1, emLen - 1);
+  const nBitsClear = 8 * emLen - (modBits - 1);
+  if (nBitsClear > 0 && (maskedDB[0] & (0xFF << (8 - nBitsClear)) & 0xFF) !== 0) return false;
+  const dbMask = await mgf1(h, emLen - OAEP_HLEN - 1);
+  const db = xorBytes(maskedDB, dbMask);
+  if (nBitsClear > 0) db[0] &= (0xFF >> nBitsClear);
+  const psLen = emLen - sLen - OAEP_HLEN - 2;
+  for (let i = 0; i < psLen; i++) if (db[i] !== 0) return false;
+  if (db[psLen] !== 0x01) return false;
+  const salt = db.slice(psLen + 1);
+  const mPrime = concat([new Uint8Array(8), msgHash, salt]);
+  const h2 = await sha256Bytes(mPrime);
+  return h2.every((v, i) => v === h[i]);
+}
+async function rsaPssSign(msgHash, n, d) {
+  const modBits = n.toString(2).length;
+  const em = await pssEncode(msgHash, modBits);
+  return modPow(os2ip(em), d, n);
+}
+async function rsaPssVerify(msgHash, sig, n, e) {
+  const modBits = n.toString(2).length;
+  const emLen = Math.ceil((modBits - 1) / 8);
+  const em = i2osp(modPow(sig, e, n), emLen);
+  return await pssVerify(msgHash, em, modBits);
+}
+
+// AES-256-GCM para el cuerpo del mensaje (clave aleatoria de un solo uso por mensaje)
+async function aesGcmEncrypt(keyBytes, plaintextBytes) {
+  const key = await crypto.subtle.importKey('raw', keyBytes, 'AES-GCM', false, ['encrypt']);
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const ct = new Uint8Array(await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, plaintextBytes));
+  return { iv, ciphertext: ct };
+}
+async function aesGcmDecrypt(keyBytes, iv, ciphertextBytes) {
+  const key = await crypto.subtle.importKey('raw', keyBytes, 'AES-GCM', false, ['decrypt']);
+  const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, key, ciphertextBytes);
+  return new Uint8Array(pt);
+}
+
+// 
+//  CIFRADO POR CONTRASEÑA (AES-256-GCM + PBKDF2-SHA256, 600.000 iteraciones)
+//  Mismo formato exacto que la CLI de Python: base64(salt[16] + nonce[12] + ciphertext)
+//  Probado en ambas direcciones (JS→Python y Python→JS) antes de integrarse aquí.
+// 
+const PASS_PBKDF2_ITER = 600000;
+
+async function derivePasswordKey(password, salt) {
+  const baseKey = await crypto.subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey']);
+  return await crypto.subtle.deriveKey(
+    { name: 'PBKDF2', salt, iterations: PASS_PBKDF2_ITER, hash: 'SHA-256' },
+    baseKey, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']
+  );
+}
+async function encryptWithPassword(text, password) {
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  const nonce = crypto.getRandomValues(new Uint8Array(12));
+  const key = await derivePasswordKey(password, salt);
+  const ct = new Uint8Array(await crypto.subtle.encrypt({ name: 'AES-GCM', iv: nonce }, key, new TextEncoder().encode(text)));
+  const paquete = concat([salt, nonce, ct]);
+  return toBase64(paquete);
+}
+async function decryptWithPassword(b64, password) {
+  let paquete;
+  try { paquete = fromBase64(b64.trim()); }
+  catch (ex) { throw new Error('El texto no parece un mensaje cifrado válido (debe ser base64).'); }
+  if (paquete.length < 16 + 12 + 16) throw new Error('El texto cifrado es demasiado corto o está incompleto.');
+  const salt = paquete.slice(0, 16);
+  const nonce = paquete.slice(16, 28);
+  const ct = paquete.slice(28);
+  const key = await derivePasswordKey(password, salt);
+  try {
+    const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: nonce }, key, ct);
+    return new TextDecoder().decode(pt);
+  } catch (ex) {
+    throw new Error('Contraseña incorrecta o mensaje modificado.');
+  }
+}
+
+// ── Medidor de fortaleza de contraseña ──
+function estimatePasswordBits(pw) {
+  if (!pw) return 0;
+  let charset = 0;
+  if (/[a-z]/.test(pw)) charset += 26;
+  if (/[A-Z]/.test(pw)) charset += 26;
+  if (/[0-9]/.test(pw)) charset += 10;
+  if (/[^a-zA-Z0-9]/.test(pw)) charset += 33;
+  if (charset === 0) return 0;
+  return pw.length * Math.log2(charset);
+}
+function pwStrengthLabel(bits) {
+  if (bits === 0) return { label: '', color: null, pct: 0 };
+  if (bits < 40) return { label: 'Muy débil — fácil de adivinar', color: 'var(--red)', pct: 20 };
+  if (bits < 60) return { label: 'Débil', color: 'var(--red)', pct: 40 };
+  if (bits < 80) return { label: 'Aceptable', color: 'var(--amber)', pct: 60 };
+  if (bits < 100) return { label: 'Fuerte', color: 'var(--green)', pct: 85 };
+  return { label: 'Muy fuerte', color: 'var(--green)', pct: 100 };
+}
+function updatePwStrength(inputId, meterId) {
+  const pw = document.getElementById(inputId).value;
+  const meter = document.getElementById(meterId);
+  const bits = estimatePasswordBits(pw);
+  const { label, color, pct } = pwStrengthLabel(bits);
+  if (!pw) { meter.innerHTML = ''; return; }
+  meter.innerHTML = `
+    <div style="height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+      <div style="height:100%;width:${pct}%;background:${color};transition:width .2s"></div>
+    </div>
+    <div style="font-size:12px;color:${color};margin-top:4px">${label}${bits ? ` (~${Math.round(bits)} bits)` : ''}</div>`;
+}
+function togglePwVisibility(inputId) {
+  const el = document.getElementById(inputId);
+  el.type = el.type === 'password' ? 'text' : 'password';
+}
+function generateStrongPassword(inputId, meterId, length = 24) {
+  const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+[]{}';
+  const bytes = crypto.getRandomValues(new Uint8Array(length));
+  let pw = '';
+  for (let i = 0; i < length; i++) pw += chars[bytes[i] % chars.length];
+  const el = document.getElementById(inputId);
+  el.value = pw;
+  el.type = 'text'; // mostrarla para que el usuario la vea y la guarde
+  updatePwStrength(inputId, meterId);
+  const dlBtn = document.getElementById(inputId + '-dl-btn');
+  if (dlBtn) dlBtn.style.display = '';
+}
+function downloadPassword(inputId) {
+  const pw = document.getElementById(inputId).value;
+  if (!pw) return;
+  dlText(pw, 'contrasena_ciphr.txt');
+}
+
+async function doPassEncrypt() {
+  hideAlert('pass-enc-err'); hideResult('pass-enc-result');
+  const msg = document.getElementById('pass-enc-msg').value;
+  const pw = document.getElementById('pass-enc-pw').value;
+  if (!msg.trim()) { showAlert('pass-enc-err', 'Escribe un mensaje.', 'error'); return; }
+  if (!pw) { showAlert('pass-enc-err', 'Escribe o genera una contraseña.', 'error'); return; }
+  try {
+    const b64 = await encryptWithPassword(msg, pw);
+    showResult('pass-enc-result', b64);
+  } catch (ex) { showAlert('pass-enc-err', 'Error al cifrar: ' + ex.message, 'error'); }
+}
+async function loadPassCipherFile(input) {
+  const text = await readFile(input); if (!text) return;
+  document.getElementById('pass-dec-cipher').value = text.trim();
+  setDropName('pass-dec-file-name', input.files[0].name);
+}
+async function doPassDecrypt() {
+  hideAlert('pass-dec-err'); hideResult('pass-dec-result');
+  const b64 = document.getElementById('pass-dec-cipher').value.trim();
+  const pw = document.getElementById('pass-dec-pw').value;
+  if (!b64) { showAlert('pass-dec-err', 'Pega o carga el mensaje cifrado.', 'error'); return; }
+  if (!pw) { showAlert('pass-dec-err', 'Escribe la contraseña.', 'error'); return; }
+  try {
+    const texto = await decryptWithPassword(b64, pw);
+    showResult('pass-dec-result', texto);
+  } catch (ex) { showAlert('pass-dec-err', ex.message, 'error'); }
+}
+
+// 
 //  FILE SYSTEM (in-memory)
 // 
 
@@ -2097,14 +2503,32 @@ function renderFileList() {
   list.innerHTML = '';
   const names = Object.keys(files).sort();
   if (names.length === 0) {
-    list.innerHTML = '<div style="padding:12px;font-size:11px;color:var(--muted)">vacío</div>';
+    const empty = document.createElement('div');
+    empty.style.cssText = 'padding:12px;font-size:11px;color:var(--muted)';
+    empty.textContent = 'vacío';
+    list.appendChild(empty);
     return;
   }
   for (const name of names) {
     const div = document.createElement('div');
     div.className = 'file-item' + (name === activeFile ? ' active' : '');
-    div.innerHTML = `<span class="fi-icon">▸</span><span class="fi-name" title="${name}">${name}</span><span class="fi-del" onclick="deleteFile('${name}',event)">✕</span>`;
-    div.onclick = (e) => { if (!e.target.classList.contains('fi-del')) openFile(name); };
+
+    const icon = document.createElement('span');
+    icon.className = 'fi-icon';
+    icon.textContent = '▸';
+
+    const nameSpan = document.createElement('span');
+    nameSpan.className = 'fi-name';
+    nameSpan.title = name;       // .title vía DOM no interpreta HTML, es seguro
+    nameSpan.textContent = name; // .textContent tampoco interpreta HTML, es seguro
+
+    const delSpan = document.createElement('span');
+    delSpan.className = 'fi-del';
+    delSpan.textContent = '✕';
+    delSpan.addEventListener('click', (e) => deleteFile(name, e)); // 'name' real, no reinterpolado como string
+
+    div.append(icon, nameSpan, delSpan);
+    div.addEventListener('click', (e) => { if (!e.target.classList.contains('fi-del')) openFile(name); });
     list.appendChild(div);
   }
 }
@@ -2203,10 +2627,20 @@ function listFiles() {
 // 
 
 function parsearTxtUnificado(content) {
-  // Intenta detectar cualquiera de los 4 tipos de PEM
+  // Intenta detectar cualquiera de los tipos de PEM
   const resultado = { tipo: null };
 
-  // RSA CIPHER (prioridad: contiene claves + mensaje)
+  // RSA HYBRID CIPHER (formato actual, con AES-GCM + RSA-OAEP)
+  if (content.includes('-----BEGIN RSA HYBRID CIPHER-----')) {
+    try {
+      const pem = extraerPEM(content, 'RSA HYBRID CIPHER');
+      if (pem) {
+        const parsed = parseHybridCipherPEM(pem);
+        return { tipo: 'RSA HYBRID CIPHER', ...parsed, pem };
+      }
+    } catch(ex) {}
+  }
+  // RSA CIPHER (formato antiguo, letra a letra — solo lectura por compatibilidad)
   if (content.includes('-----BEGIN RSA CIPHER-----')) {
     try {
       const pem = extraerPEM(content, 'RSA CIPHER');
@@ -2256,7 +2690,7 @@ function parsearTxtUnificado(content) {
 function detectKeysInTxt(content) { return parsearTxtUnificado(content); }
 function detectMessageInTxt(content) {
   const r = parsearTxtUnificado(content);
-  if (r.tipo === 'RSA CIPHER') return { tipo: 'pem_cipher', datos: r };
+  if (r.tipo === 'RSA HYBRID CIPHER' || r.tipo === 'RSA CIPHER') return { tipo: 'pem_cipher', datos: r };
   return { tipo: null, datos: null };
 }
 
@@ -2296,7 +2730,7 @@ let _verifySignData = null; // {firma}
 let _verifyPubKey = null;
 let _customSeedABC = null;
 let _customSwaps = [];
-let _keySize = 512;
+let _keySize = 2048;
 let _advGenN = null, _advGenE = null, _advGenD = null;
 
 // ── HELPERS ──
@@ -2348,9 +2782,43 @@ function getSavedFiles() {
 function setSavedFiles(list) {
   localStorage.setItem(SAVED_FILES_KEY, JSON.stringify(list));
 }
-function saveFileLocally(name, content, mime) {
+
+// ── Cifrado por contraseña para lo guardado en este dispositivo (localStorage) ──
+async function deriveAesKeyFromPassphrase(passphrase, salt) {
+  const baseKey = await crypto.subtle.importKey('raw', new TextEncoder().encode(passphrase), 'PBKDF2', false, ['deriveKey']);
+  return await crypto.subtle.deriveKey(
+    { name: 'PBKDF2', salt, iterations: 250000, hash: 'SHA-256' },
+    baseKey, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']
+  );
+}
+async function encryptStringWithPassphrase(text, passphrase) {
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const key = await deriveAesKeyFromPassphrase(passphrase, salt);
+  const ct = new Uint8Array(await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, new TextEncoder().encode(text)));
+  return { salt: toBase64(salt), iv: toBase64(iv), ct: toBase64(ct) };
+}
+async function decryptStringWithPassphrase(envelope, passphrase) {
+  const salt = fromBase64(envelope.salt);
+  const iv = fromBase64(envelope.iv);
+  const ct = fromBase64(envelope.ct);
+  const key = await deriveAesKeyFromPassphrase(passphrase, salt);
+  const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, key, ct);
+  return new TextDecoder().decode(pt);
+}
+
+async function saveFileLocally(name, content, mime) {
   const list = getSavedFiles();
-  list.unshift({ id: 'file_' + Date.now().toString(36) + Math.random().toString(36).slice(2), name, content, mime: mime || 'text/plain', savedAt: new Date().toISOString() });
+  let toStore = content, encrypted = false, salt = null, iv = null;
+  if (typeof content === 'string' && content.includes('-----BEGIN RSA PRIVATE KEY-----')) {
+    const pass = prompt('Vas a guardar una CLAVE PRIVADA en este dispositivo. Escribe una contraseña para cifrarla antes de guardarla (recomendado). Déjalo en blanco para guardarla sin cifrar:');
+    if (pass === null) return; // canceló → no guardar nada
+    if (pass) {
+      const env = await encryptStringWithPassphrase(content, pass);
+      toStore = env.ct; salt = env.salt; iv = env.iv; encrypted = true;
+    }
+  }
+  list.unshift({ id: 'file_' + Date.now().toString(36) + Math.random().toString(36).slice(2), name, content: toStore, mime: mime || 'text/plain', savedAt: new Date().toISOString(), encrypted, salt, iv });
   setSavedFiles(list);
   if (typeof renderSavedFiles === 'function') renderSavedFiles();
 }
@@ -2361,17 +2829,17 @@ function flashBtn(btnId, key) {
   btn.textContent = t(key);
   setTimeout(() => { btn.textContent = old; }, 1500);
 }
-function saveTextLocal(text, fname, btnId) {
+async function saveTextLocal(text, fname, btnId) {
   if (!text) return;
   try {
-    saveFileLocally(fname, text, 'text/plain');
+    await saveFileLocally(fname, text, 'text/plain');
     if (btnId) flashBtn(btnId, 'saved_ok');
   } catch (e) { alert(t('save_err')); }
 }
-function saveResultLocal(id, fname, btnId) {
+async function saveResultLocal(id, fname, btnId) {
   const el = document.getElementById(id);
   if (!el) return;
-  saveTextLocal(el.textContent, fname, btnId);
+  await saveTextLocal(el.textContent, fname, btnId);
 }
 function readFile(input) {
   return new Promise(res => {
@@ -2503,9 +2971,14 @@ async function loadCipherFile(input) {
   const text = await readFile(input); if (!text) return;
   const fname = input.files[0].name;
   try {
-    const pem = extraerPEM(text,'RSA CIPHER');
-    if (!pem) throw new Error('no se encontró RSA CIPHER en el archivo');
-    _cipherData = parseCipherPEM(pem);
+    const tipo = detectarTipoPEM(text);
+    if (tipo === 'RSA HYBRID CIPHER') {
+      _cipherData = parseHybridCipherPEM(extraerPEM(text,'RSA HYBRID CIPHER'));
+    } else if (tipo === 'RSA CIPHER') {
+      _cipherData = parseCipherPEM(extraerPEM(text,'RSA CIPHER')); // formato antiguo, sin encKeyBlob
+    } else {
+      throw new Error('no se encontró un mensaje cifrado de ciphr en el archivo');
+    }
     setDropName('dec-cipher-name', fname);
     hideAlert('dec-err');
   } catch(ex) { showAlert('dec-err', 'Error leyendo mensaje cifrado: '+ex.message, 'error'); }
@@ -2569,7 +3042,10 @@ function onDecPrivPaste() {
 function onDecCipherPaste() {
   const text = document.getElementById('dec-cipher-paste').value;
   try {
-    if (text.includes('-----BEGIN RSA CIPHER-----')) {
+    const tipo = detectarTipoPEM(text);
+    if (tipo === 'RSA HYBRID CIPHER') {
+      _cipherData = parseHybridCipherPEM(extraerPEM(text,'RSA HYBRID CIPHER'));
+    } else if (tipo === 'RSA CIPHER') {
       _cipherData = parseCipherPEM(extraerPEM(text,'RSA CIPHER'));
     }
   } catch(ex) { _cipherData = null; }
@@ -2656,35 +3132,26 @@ async function doEncrypt() {
   hideAlert('enc-err'); hideResult('enc-result');
   const pasteText = document.getElementById('enc-key-paste').value.trim();
   if (pasteText) onEncKeyPaste();
-  const msg = document.getElementById('enc-msg').value.trim();
-  if (!msg) { showAlert('enc-err',t('err_enc_empty_msg'),'error'); return; }
+  const msg = document.getElementById('enc-msg').value;
+  if (!msg.trim()) { showAlert('enc-err',t('err_enc_empty_msg'),'error'); return; }
   try {
-    let n, e, exp, modo;
+    let n, e, exp;
     if (_encMode==='pub') {
       if (!_encPubKey) { showAlert('enc-err',t('err_enc_need_pub'),'error'); return; }
-      n=_encPubKey.n; e=_encPubKey.e; exp=e; modo='e';
+      n=_encPubKey.n; e=_encPubKey.e; exp=e;
     } else {
       if (!_encPrivKey) { showAlert('enc-err',t('err_need_priv'),'error'); return; }
-      n=_encPrivKey.n; e=_encPrivKey.e; exp=_encPrivKey.d; modo='d';
+      n=_encPrivKey.n; e=_encPrivKey.e; exp=_encPrivKey.d;
     }
-    // Seed
-    let seed = '';
-    let inclSeed = false; // nunca incluir la seed en el PEM
-    if (_encSeedOn) {
-      seed = document.getElementById('enc-seed-val').value.trim();
-      if (!seed) { showAlert('enc-err',t('err_need_seed'),'error'); return; }
-      applyAbc(genAbcWithSeed(seed));
-    }
-    const nums = textoANumeros(msg);
-    const cifrados = nums.map(v => {
-      if (v===ESPACIO) return 0n;
-      return modPow(BigInt(v), exp, n);
-    });
-    resetAbc();
-    // La seed NO se guarda en el PEM — es un secreto aparte entre los dos
-    const pem = genCipherPEM(cifrados, null, null, null, modo, '', false, false);
+    // 1) Clave AES-256 aleatoria de un solo uso para este mensaje
+    const aesKey = crypto.getRandomValues(new Uint8Array(32));
+    // 2) Cifrar el mensaje completo con AES-GCM (rápido, seguro, sin patrones letra a letra)
+    const { iv, ciphertext } = await aesGcmEncrypt(aesKey, new TextEncoder().encode(msg));
+    // 3) Cifrar la clave AES con RSA-OAEP (esto es lo único que pasa por RSA)
+    const encKeyBlob = await rsaOaepEncrypt(aesKey, n, exp);
+    const pem = genHybridCipherPEM(encKeyBlob, iv, ciphertext, null, null, false);
     showResult('enc-result', pem);
-  } catch(ex) { resetAbc(); showAlert('enc-err',t('err_encrypt_prefix')+ex.message,'error'); }
+  } catch(ex) { showAlert('enc-err',t('err_encrypt_prefix')+ex.message,'error'); }
 }
 
 // ── DECRYPT (EASY) ──
@@ -2696,7 +3163,11 @@ async function doDecrypt() {
   if (cipherPaste && !_cipherData) onDecCipherPaste();
   if (!_cipherData) { showAlert('dec-err',t('err_dec_need_cipher'),'error'); return; }
   try {
-    const {n: nCipher, e: eCipher, modo, nums, seed} = _cipherData;
+    if (!_cipherData.encKeyBlob) {
+      showAlert('dec-err','Este mensaje usa el formato antiguo (letra a letra, sin relleno) — ya no es compatible con el descifrado seguro. Pide que te lo vuelvan a enviar con la versión nueva de ciphr.','error');
+      return;
+    }
+    const {n: nCipher, e: eCipher, encKeyBlob, iv, ciphertext} = _cipherData;
     let n, exp;
     if (_decMode==='priv') {
       if (!_decPrivKey) { showAlert('dec-err',t('err_need_priv'),'error'); return; }
@@ -2708,22 +3179,13 @@ async function doDecrypt() {
       n = nCipher ?? key.n;
       exp = eCipher ?? key.e;
     }
-    // Seed: solo del toggle manual — nunca del PEM (la seed es un secreto aparte)
-    let seedUsada = '';
-    if (_decSeedOn) {
-      const manualSeed = document.getElementById('dec-seed-val').value.trim();
-      if (!manualSeed) { showAlert('dec-err',t('err_need_seed'),'error'); return; }
-      seedUsada = manualSeed;
-    }
-    if (seedUsada) applyAbc(genAbcWithSeed(seedUsada));
-    const descifrados = nums.map(c => {
-      if (c===0n) return ESPACIO;
-      return Number(modPow(c, exp, n));
-    });
-    const texto = numerosATexto(descifrados);
-    resetAbc();
+    // 1) Recuperar la clave AES descifrando el bloque OAEP con RSA
+    const aesKey = await rsaOaepDecrypt(encKeyBlob, n, exp);
+    // 2) Descifrar el mensaje con esa clave AES
+    const msgBytes = await aesGcmDecrypt(aesKey, iv, ciphertext);
+    const texto = new TextDecoder().decode(msgBytes);
     showResult('dec-result', texto);
-  } catch(ex) { resetAbc(); showAlert('dec-err',t('err_decrypt_prefix')+ex.message,'error'); }
+  } catch(ex) { showAlert('dec-err',t('err_decrypt_prefix')+ex.message,'error'); }
 }
 
 // ── SIGN ──
@@ -2736,8 +3198,8 @@ async function doSign() {
   if (!msg.trim()) { showAlert('sign-err',t('err_sign_empty_msg'),'error'); return; }
   try {
     const {n,e,d} = _signPrivKey;
-    const hashBig = await sha256BigInt(msg);
-    const firma = modPow(hashBig, d, n);
+    const hashBytes = await sha256Bytes(new TextEncoder().encode(msg));
+    const firma = await rsaPssSign(hashBytes, n, d);
     const pem = genSignPEM(firma);
     showResult('sign-result', pem);
   } catch(ex) { showAlert('sign-err',t('err_sign_prefix')+ex.message,'error'); }
@@ -2758,11 +3220,10 @@ async function doVerify() {
   try {
     const {firma} = _verifySignData;
     const {n, e} = _verifyPubKey;
-    const hashBig = await sha256BigInt(msg);
-    const hashMod = hashBig % n;
-    const resultado = modPow(firma, e, n);
+    const hashBytes = await sha256Bytes(new TextEncoder().encode(msg));
+    const valido = await rsaPssVerify(hashBytes, firma, n, e);
     const el = document.getElementById('verify-result');
-    if (resultado === hashMod) {
+    if (valido) {
       el.className='alert alert-success show';
       el.innerHTML='<span>✓</span><span>'+t('valid')+'</span>';
     } else {
@@ -2831,8 +3292,15 @@ function doDecoPEM() {
     } else if (label==='RSA PRIVATE KEY') {
       const {n,e,d,p,q}=parsePrivKeyPEM(extraerPEM(text,'RSA PRIVATE KEY'));
       out+=`n = ${n}\ne = ${e}\nd = ${d}\np = ${p}\nq = ${q}`;
+    } else if (label==='RSA HYBRID CIPHER') {
+      const {n,e,encKeyBlob,iv,ciphertext}=parseHybridCipherPEM(extraerPEM(text,'RSA HYBRID CIPHER'));
+      out+=`Formato: cifrado híbrido (RSA-OAEP + AES-GCM)\n`;
+      if(n) out+=`n = ${n}\ne = ${e}\n`;
+      else out+=`${t('pem_out_keys')}: ${t('pem_out_not_included')}\n`;
+      out+=`Clave AES cifrada (RSA-OAEP): ${encKeyBlob.length} bytes\nIV: ${iv.length} bytes\nMensaje cifrado (AES-GCM): ${ciphertext.length} bytes`;
     } else if (label==='RSA CIPHER') {
       const {n,e,modo,seed,nums}=parseCipherPEM(extraerPEM(text,'RSA CIPHER'));
+      out+=`⚠️ Formato antiguo (letra a letra, sin relleno — inseguro, solo lectura)\n`;
       out+=`${t('pem_out_encrypted_with')}: ${modo}\n`;
       if(n) out+=`n = ${n}\ne = ${e}\n`;
       else out+=`${t('pem_out_keys')}: ${t('pem_out_not_included')}\n`;
@@ -3815,7 +4283,25 @@ function kxRenderRoom() {
 
   const history = document.getElementById('kx-history');
   const messages = _kxRoom.messages || [];
-  history.innerHTML = messages.length ? messages.map(msg => `<div class="kx-message"><div class="kx-message-head"><strong>${kxEsc(msg.userName)}</strong><span>${new Date(msg.createdAt).toLocaleString()}</span><span class="kx-message-type">${kxEsc(KX_TYPES[msg.type]?.es || msg.type)}</span></div><div class="kx-message-content mono">${kxEsc(msg.content)}</div><div class="kx-actions" style="margin-top:8px"><button class="btn btn-secondary" onclick="kxCopyMessage('${kxEsc(msg.id)}')">Copiar</button><button class="btn btn-secondary" onclick="kxDownloadMessage('${kxEsc(msg.id)}')">Descargar</button><button class="btn btn-secondary" onclick="kxSaveMessageLocal('${kxEsc(msg.id)}')">Guardar</button></div></div>`).join('') : '<div class="kx-empty">Sin mensajes todavía.</div>';
+  history.innerHTML = messages.length ? messages.map(msg => {
+    const isPub = msg.content.includes('-----BEGIN RSA PUBLIC KEY-----');
+    const fpBox = isPub ? `<div class="kx-message-content mono" style="margin-top:6px;font-size:12px" id="kx-fp-${kxEsc(msg.id)}">Calculando huella para verificar...</div>` : '';
+    return `<div class="kx-message"><div class="kx-message-head"><strong>${kxEsc(msg.userName)}</strong><span>${new Date(msg.createdAt).toLocaleString()}</span><span class="kx-message-type">${kxEsc(KX_TYPES[msg.type]?.es || msg.type)}</span></div><div class="kx-message-content mono">${kxEsc(msg.content)}</div>${fpBox}<div class="kx-actions" style="margin-top:8px"><button class="btn btn-secondary" onclick="kxCopyMessage('${kxEsc(msg.id)}')">Copiar</button><button class="btn btn-secondary" onclick="kxDownloadMessage('${kxEsc(msg.id)}')">Descargar</button><button class="btn btn-secondary" onclick="kxSaveMessageLocal('${kxEsc(msg.id)}')">Guardar</button></div></div>`;
+  }).join('') : '<div class="kx-empty">Sin mensajes todavía.</div>';
+
+  // Calcular huellas (SHA-256) de las claves públicas recibidas, para verificar por otro canal
+  // que nadie ha sustituido la clave por el camino (protege contra manipulación del servidor/código de sala).
+  messages.forEach(async msg => {
+    if (!msg.content.includes('-----BEGIN RSA PUBLIC KEY-----')) return;
+    const el = document.getElementById(`kx-fp-${msg.id}`);
+    if (!el) return;
+    try {
+      const hashBytes = await sha256Bytes(new TextEncoder().encode(msg.content));
+      const hex = Array.from(hashBytes).map(b => b.toString(16).padStart(2,'0')).join('');
+      const grupos = hex.match(/.{1,4}/g).slice(0, 8).join(' ');
+      el.textContent = `🔑 Huella: ${grupos}  — compárala por voz/otro canal con quien te la envió antes de confiar en ella`;
+    } catch (e) { el.textContent = ''; }
+  });
 }
 async function kxAccept(userId) {
   try {
@@ -3868,6 +4354,9 @@ async function kxSendMessage() {
     const user = kxRequireUser();
     const content = document.getElementById('kx-message-input').value.trim();
     if (!content) throw new Error('Pega contenido o carga un archivo.');
+    if (content.includes('-----BEGIN RSA PRIVATE KEY-----')) {
+      throw new Error('Esto es una CLAVE PRIVADA. Por seguridad, ciphr no permite enviarla por la sala en línea (el servidor la vería en texto plano). Compártela solo en persona o por QR local.');
+    }
     const room = await kxFetchRoom(_kxRoomCode);
     if (!kxMember(room, user.id)) throw new Error('Todavía no eres miembro aceptado de este chat.');
     room.messages = room.messages || [];
@@ -4117,17 +4606,31 @@ function selectSavedPickerFile(id) {
   if (nameElId) setDropName(nameElId, f.name);
   closeSavedPicker();
 }
-function copySavedFile(id) {
+async function copySavedFile(id) {
   const f = findSavedFile(id); if (!f) return;
-  navigator.clipboard.writeText(f.content);
+  let content = f.content;
+  if (f.encrypted) {
+    const pass = prompt('Esta clave está cifrada. Escribe la contraseña para copiarla:');
+    if (!pass) return;
+    try { content = await decryptStringWithPassphrase({ salt: f.salt, iv: f.iv, ct: f.content }, pass); }
+    catch (e) { alert('Contraseña incorrecta o dato corrupto.'); return; }
+  }
+  navigator.clipboard.writeText(content);
 }
-function dlSavedFile(id) {
+async function dlSavedFile(id) {
   const f = findSavedFile(id); if (!f) return;
   if ((f.mime || '').startsWith('image/')) {
     const a = document.createElement('a'); a.href = f.content; a.download = f.name; a.click();
-  } else {
-    dlText(f.content, f.name);
+    return;
   }
+  let content = f.content;
+  if (f.encrypted) {
+    const pass = prompt('Esta clave está cifrada. Escribe la contraseña para descargarla:');
+    if (!pass) return;
+    try { content = await decryptStringWithPassphrase({ salt: f.salt, iv: f.iv, ct: f.content }, pass); }
+    catch (e) { alert('Contraseña incorrecta o dato corrupto.'); return; }
+  }
+  dlText(content, f.name);
 }
 function deleteSavedFile(id) {
   setSavedFiles(getSavedFiles().filter(f => f.id !== id));
@@ -4152,7 +4655,9 @@ function renderSavedFiles() {
   wrap.innerHTML = list.map(f => {
     const isImg = (f.mime || '').startsWith('image/');
     const date = new Date(f.savedAt).toLocaleString();
-    const body = isImg
+    const body = f.encrypted
+      ? `<div class="kx-message-content mono" style="max-height:90px;overflow:auto">🔒 Clave privada cifrada con contraseña — pulsa Copiar/Descargar para introducirla</div>`
+      : isImg
       ? `<img src="${f.content}" style="max-width:160px;max-height:160px;border-radius:8px;border:1px solid var(--border);display:block">`
       : `<div class="kx-message-content mono" style="max-height:90px;overflow:auto">${kxEsc(f.content.slice(0,400))}</div>`;
     const copyBtn = isImg ? '' : `<button class="btn btn-secondary" onclick="copySavedFile('${kxEsc(f.id)}')">${t('copy')}</button>`;
