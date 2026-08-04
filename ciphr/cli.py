@@ -209,6 +209,9 @@ def cifras_a_bits(cifras):
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
+from cryptography.hazmat.primitives.kdf.hkdf import HKDF
+from cryptography.hazmat.primitives.asymmetric import ec
+from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
 
 _OAEP_HLEN = 32  # SHA-256
 
@@ -414,20 +417,121 @@ def pedir_password_con_medidor(prompt: str = 'Contraseña: ', permitir_generar: 
             print(f"Fortaleza: {etiqueta}")
         return pw
 
+# ──────────────────────────────────────────────
+# DIFFIE-HELLMAN (ECDH P-256 + HKDF) — método OPCIONAL para acordar la
+# contraseña de AES sin tener que compartirla directamente. Nunca es
+# obligatorio: "manual" sigue siendo la opción por defecto (Enter).
+# Mismo formato de mensaje que el modo contraseña normal — solo cambia
+# cómo se deriva la clave AES (HKDF sobre el secreto ECDH en vez de
+# PBKDF2 sobre texto escrito). Verificado con interoperabilidad real
+# contra la versión web antes de integrarse aquí.
+# ──────────────────────────────────────────────
+
+def dh_generate_key_pair():
+    return ec.generate_private_key(ec.SECP256R1())
+
+def dh_export_public_key(private_key) -> str:
+    raw = private_key.public_key().public_bytes(Encoding.X962, PublicFormat.UncompressedPoint)
+    return base64.b64encode(raw).decode('utf-8')
+
+def dh_import_public_key(b64: str):
+    raw = base64.b64decode(b64.strip())
+    return ec.EllipticCurvePublicKey.from_encoded_point(ec.SECP256R1(), raw)
+
+def dh_derive_shared_secret(private_key, peer_public_key) -> bytes:
+    return private_key.exchange(ec.ECDH(), peer_public_key)
+
+def hkdf_derive_aes_key(secret_bytes: bytes, salt: bytes, info: bytes = b'ciphr-aes-v1') -> bytes:
+    return HKDF(algorithm=hashes.SHA256(), length=32, salt=salt, info=info).derive(secret_bytes)
+
+def cifrar_con_secreto(texto_claro: str, secret_bytes: bytes) -> str:
+    salt = secrets.token_bytes(16)
+    nonce = secrets.token_bytes(12)
+    clave = hkdf_derive_aes_key(secret_bytes, salt)
+    ct = AESGCM(clave).encrypt(nonce, texto_claro.encode('utf-8'), None)
+    return base64.b64encode(salt + nonce + ct).decode('utf-8')
+
+def descifrar_con_secreto(texto_cifrado_b64: str, secret_bytes: bytes) -> str:
+    try:
+        paquete = base64.b64decode(texto_cifrado_b64.strip())
+    except Exception:
+        raise ValueError('El texto no parece un mensaje cifrado válido (debe ser base64).')
+    if len(paquete) < 16 + 12 + 16:
+        raise ValueError('El texto cifrado es demasiado corto o está incompleto.')
+    salt, nonce, ct = paquete[:16], paquete[16:28], paquete[28:]
+    clave = hkdf_derive_aes_key(secret_bytes, salt)
+    try:
+        return AESGCM(clave).decrypt(nonce, ct, None).decode('utf-8')
+    except Exception:
+        raise ValueError('Contraseña incorrecta o mensaje modificado.')
+
+def dh_exchange_flow():
+    print("\nIntercambio Diffie-Hellman")
+    print("Paso 1 — esta es tu clave pública DH. Compártela con la otra persona")
+    print("(no es secreta, puede verla cualquiera; solo el resultado final lo es).")
+    priv = dh_generate_key_pair()
+    mi_pub = dh_export_public_key(priv)
+    print(f"\n{mi_pub}\n")
+    guardar = input("¿Guardarla en un archivo para enviarla? (y/n): ").strip().lower()
+    if guardar in ('y', 'si', 's', ''):
+        nombre = input("Nombre (Enter = mi_clave_dh.txt): ").strip() or 'mi_clave_dh.txt'
+        with open(nombre, 'w', encoding='utf-8') as f:
+            f.write(mi_pub + '\n')
+        print(f"✓ Guardado: {nombre}")
+
+    print("\nPaso 2 — pega la clave pública DH que te ha enviado la otra persona")
+    print("1 → pegarla\n2 → cargar desde archivo")
+    op = input("Opción: ").strip()
+    if op == '2':
+        ruta = input("Ruta del archivo: ").strip()
+        if not os.path.exists(ruta):
+            print(f"✗ No encontrado: {ruta}")
+            return None
+        with open(ruta, 'r', encoding='utf-8') as f:
+            peer_pub_b64 = f.read().strip()
+    else:
+        peer_pub_b64 = input("Clave pública DH: ").strip()
+
+    try:
+        peer_pub = dh_import_public_key(peer_pub_b64)
+        secreto = dh_derive_shared_secret(priv, peer_pub)
+    except Exception as ex:
+        print(f"✗ No se pudo calcular la clave compartida: {ex}")
+        return None
+
+    huella = hashlib.sha256(secreto).hexdigest()
+    grupos = ' '.join(huella[i:i+4] for i in range(0, 16, 4))
+    print(f"\n🔑 Huella de la contraseña compartida: {grupos}")
+    print("   Compárala por voz/otro canal con la otra persona antes de fiarte —")
+    print("   si coincide, nadie ha interceptado el intercambio.")
+    return secreto
+
 def menu_password():
     print("\n" + "─" * 40)
     print("Cifrado por contraseña (AES-256-GCM)")
     print("Compatible con la versión web de ciphr — lo que cifres aquí se puede")
     print("descifrar allí, y al revés.")
+    print("\n¿Cómo vais a conseguir la contraseña?")
+    print("1 → la escribo/genero yo (manual)")
+    print("2 → Diffie-Hellman (se acuerda sola entre los dos, sin enviarla nunca)")
+    metodo = input("Opción [Enter = manual]: ").strip()
+
     print("\n1 → Cifrar\n2 → Descifrar")
     op = input("Opción: ").strip()
+
     if op == '1':
         mensaje = input("\nMensaje a cifrar: ")
-        pw = pedir_password_con_medidor()
-        if not pw:
-            print("✗ Necesitas una contraseña.")
-            return
-        resultado = cifrar_con_password(mensaje, pw)
+        if metodo == '2':
+            secreto = dh_exchange_flow()
+            if secreto is None:
+                return
+            resultado = cifrar_con_secreto(mensaje, secreto)
+        else:
+            pw = pedir_password_con_medidor()
+            if not pw:
+                print("✗ Necesitas una contraseña.")
+                return
+            resultado = cifrar_con_password(mensaje, pw)
         print(f"\n🔒 Mensaje cifrado:\n{resultado}")
         guardar = input("\n¿Guardar en archivo? (y/n): ").strip().lower()
         if guardar in ('y', 'si', 's', ''):
@@ -435,6 +539,7 @@ def menu_password():
             with open(nombre, 'w', encoding='utf-8') as f:
                 f.write(resultado + '\n')
             print(f"✓ Guardado: {nombre}")
+
     elif op == '2':
         print("\n1 → pegar el texto cifrado\n2 → cargar desde archivo")
         op_c = input("Opción: ").strip()
@@ -447,12 +552,23 @@ def menu_password():
                 codigo = f.read().strip()
         else:
             codigo = input("\nPega el mensaje cifrado: ").strip()
-        pw = input("Contraseña: ")
-        try:
-            resultado = descifrar_con_password(codigo, pw)
-            print(f"\n🔓 Mensaje:\n{resultado}")
-        except ValueError as ex:
-            print(f"\n❌ {ex}")
+
+        if metodo == '2':
+            secreto = dh_exchange_flow()
+            if secreto is None:
+                return
+            try:
+                resultado = descifrar_con_secreto(codigo, secreto)
+                print(f"\n🔓 Mensaje:\n{resultado}")
+            except ValueError as ex:
+                print(f"\n❌ {ex}")
+        else:
+            pw = input("Contraseña: ")
+            try:
+                resultado = descifrar_con_password(codigo, pw)
+                print(f"\n🔓 Mensaje:\n{resultado}")
+            except ValueError as ex:
+                print(f"\n❌ {ex}")
 
 # ──────────────────────────────────────────────
 # DER HELPERS
