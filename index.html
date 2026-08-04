@@ -83,29 +83,6 @@ header {
 .lang-btn:hover { opacity: 0.7; }
 .lang-btn.active { background: var(--surface); opacity: 1; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
 
-/* ── VERSIÓN RSA / AES ── */
-.header-actions { display: flex; align-items: center; gap: 10px; }
-.ver-sw {
-  display: flex;
-  gap: 3px;
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 3px;
-}
-.ver-btn {
-  background: none; border: none; border-radius: 5px;
-  padding: 0 12px; height: 30px; cursor: pointer;
-  font-family: var(--mono);
-  font-size: 12px; letter-spacing: 0.06em;
-  color: var(--text2);
-  opacity: 0.6;
-  transition: all 0.15s;
-  -webkit-tap-highlight-color: transparent;
-}
-.ver-btn:hover { opacity: 0.9; color: var(--text); }
-.ver-btn.active { background: var(--text); color: var(--bg); opacity: 1; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-
 main { flex: 1; padding: 48px 32px; max-width: 680px; margin: 0 auto; width: 100%; }
 
 /* ── VIEWS ── */
@@ -778,15 +755,9 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
 
 <header>
   <a class="logo" href="#" onclick="goHome();return false;">ciphr</a>
-  <div class="header-actions">
-    <div class="ver-sw" role="tablist" aria-label="Versión / Version">
-      <button class="ver-btn active" id="ver-rsa" role="tab" onclick="setVersion('rsa')">RSA</button>
-      <button class="ver-btn" id="ver-aes" role="tab" onclick="setVersion('aes')">AES</button>
-    </div>
-    <div class="lang-sw">
-      <button class="lang-btn active" id="lang-es" onclick="setLang('es')" title="Español">🇪🇸</button>
-      <button class="lang-btn" id="lang-en" onclick="setLang('en')" title="English">🇺🇸</button>
-    </div>
+  <div class="lang-sw">
+    <button class="lang-btn active" id="lang-es" onclick="setLang('es')" title="Español">🇪🇸</button>
+    <button class="lang-btn" id="lang-en" onclick="setLang('en')" title="English">🇺🇸</button>
   </div>
 </header>
 
@@ -796,7 +767,19 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
 <div class="view active" id="view-home">
   <div class="home-title" id="home-main-title">Cifra mensajes.<br><em>Sin complicaciones.</em></div>
   <p class="home-sub" id="home-main-sub">Cada uno guarda una clave. Nadie más sabe ninguna de las dos.</p>
-  <div class="home-cards">
+
+  <div class="size-group" style="margin-bottom:20px">
+    <div class="size-opt selected" data-ciphrmode="rsa" onclick="setCiphrMode('rsa')">
+      <div class="size-opt-name">RSA</div>
+      <div class="size-opt-sub">Clave pública/privada — sin quedar antes en nada</div>
+    </div>
+    <div class="size-opt" data-ciphrmode="aes" onclick="setCiphrMode('aes')">
+      <div class="size-opt-name">AES</div>
+      <div class="size-opt-sub">Una contraseña compartida — más simple y rápido</div>
+    </div>
+  </div>
+
+  <div class="home-cards" id="home-cards-rsa">
     <button class="card" onclick="showView('genkeys')">
       <div class="card-icon">🔑</div>
       <div class="card-title" id="home-card-gen-title">Generar claves</div>
@@ -818,14 +801,28 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
       <div class="card-desc" id="home-card-sign-desc">Demuestra que un mensaje es tuyo, o verifica si es de alguien.</div>
     </button>
   </div>
-  <button class="card-full" onclick="showView('advanced')">
+
+  <div class="home-cards" id="home-cards-aes" style="display:none">
+    <button class="card" onclick="showView('pass-encrypt')">
+      <div class="card-icon">🔒</div>
+      <div class="card-title">Cifrar</div>
+      <div class="card-desc">Cifra un mensaje con una contraseña compartida (a mano o por Diffie-Hellman).</div>
+    </button>
+    <button class="card" onclick="showView('pass-decrypt')">
+      <div class="card-icon">🔓</div>
+      <div class="card-title">Descifrar</div>
+      <div class="card-desc">Lee un mensaje cifrado con contraseña.</div>
+    </button>
+  </div>
+
+  <button class="card-full" onclick="showView('advanced')" id="home-card-adv" data-ciphrmode="rsa">
     <div class="card-icon">⚙</div>
     <div class="card-full-text">
       <div class="card-title" id="home-card-adv-title">Avanzado</div>
       <div class="card-desc" id="home-card-adv-desc">Control total: claves, PEM, seeds y operaciones manuales.</div>
     </div>
   </button>
-  <button class="card-full" onclick="showView('kxmethod')">
+  <button class="card-full" onclick="showView('kxmethod')" id="home-card-kx" data-ciphrmode="rsa">
     <div class="card-icon">🤝</div>
     <div class="card-full-text">
       <div class="card-title" id="home-card-kx-title">Intercambiar claves</div>
@@ -837,36 +834,6 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
     <div class="card-full-text">
       <div class="card-title" id="home-card-saved-title">Archivos guardados</div>
       <div class="card-desc" id="home-card-saved-desc">Guarda copias dentro de la app, sin pasar por las descargas del móvil.</div>
-    </div>
-  </button>
-</div>
-
-<!--  HOME AES (versión contraseña)  -->
-<div class="view" id="view-home-aes">
-  <div class="home-title" id="home-aes-title">Cifra con una contraseña.<br><em>La misma en los dos lados.</em></div>
-  <p class="home-sub" id="home-aes-sub">Versión AES: mensajes protegidos con AES-256-GCM usando una contraseña compartida. Acordadla por otro canal, o cread juntos una contraseña nueva con Diffie-Hellman sin enviarla por ningún sitio.</p>
-  <div class="home-cards">
-    <button class="card" onclick="showView('pass-encrypt')">
-      <div class="card-icon">🔒</div>
-      <div class="card-title" id="home-aes-enc-title">Cifrar con contraseña</div>
-      <div class="card-desc" id="home-aes-enc-desc">Cifra un mensaje con una contraseña que solo conozcáis vosotros dos.</div>
-    </button>
-    <button class="card" onclick="showView('pass-decrypt')">
-      <div class="card-icon">🔓</div>
-      <div class="card-title" id="home-aes-dec-title">Descifrar con contraseña</div>
-      <div class="card-desc" id="home-aes-dec-desc">Lee un mensaje cifrado con contraseña.</div>
-    </button>
-    <button class="card" onclick="showView('dhexchange')">
-      <div class="card-icon">🤝</div>
-      <div class="card-title" id="home-aes-dh-title">Intercambiar contraseña</div>
-      <div class="card-desc" id="home-aes-dh-desc">Cread juntos la misma contraseña con Diffie-Hellman, sin enviarla nunca.</div>
-    </button>
-  </div>
-  <button class="card-full" onclick="showView('savedfiles')">
-    <div class="card-icon">🗂️</div>
-    <div class="card-full-text">
-      <div class="card-title" id="home-aes-saved-title">Archivos guardados</div>
-      <div class="card-desc" id="home-aes-saved-desc">Guarda copias dentro de la app, sin pasar por las descargas del móvil.</div>
     </div>
   </button>
 </div>
@@ -1157,11 +1124,9 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
   <div class="alert" id="verify-result" style="margin-top:16px"></div>
 </div>
 
-<!--  (el hub de contraseñas ahora es la vista home-aes)  -->
-
 <!--  PASSWORD: ENCRYPT  -->
 <div class="view" id="view-pass-encrypt">
-  <button class="section-back" data-back="" onclick="showView('home-aes')"> volver</button>
+  <button class="section-back" data-back="" onclick="goHome()"> volver</button>
   <div class="section-header">
     <div class="section-title">Cifrar con contraseña</div>
   </div>
@@ -1172,21 +1137,59 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
   </div>
 
   <div class="field">
-    <label class="field-label">Contraseña</label>
-    <div style="display:flex;gap:8px">
-      <input type="password" id="pass-enc-pw" placeholder="Escribe una contraseña..." style="flex:1" oninput="updatePwStrength('pass-enc-pw','pass-enc-strength')">
-      <button type="button" class="btn btn-secondary" onclick="togglePwVisibility('pass-enc-pw')" style="flex:0 0 auto">👁</button>
+    <label class="field-label">¿Cómo conseguís la contraseña?</label>
+    <div class="size-group" id="pass-enc-method">
+      <div class="size-opt selected" data-passmethod="manual" onclick="setPassMethod('enc','manual')">
+        <div class="size-opt-name">Manual</div>
+        <div class="size-opt-sub">La escribís o generáis vosotros</div>
+      </div>
+      <div class="size-opt" data-passmethod="dh" onclick="setPassMethod('enc','dh')">
+        <div class="size-opt-name">Diffie-Hellman</div>
+        <div class="size-opt-sub">Se acuerda sola, sin enviarla nunca</div>
+      </div>
     </div>
-    <div id="pass-enc-strength" style="margin-top:8px"></div>
-    <div style="display:flex;gap:8px;margin-top:8px">
-      <button type="button" class="btn btn-secondary" style="flex:1" onclick="generateStrongPassword('pass-enc-pw','pass-enc-strength')">🎲 Generar contraseña segura</button>
-      <button type="button" class="btn btn-secondary" id="pass-enc-pw-dl-btn" style="flex:0 0 auto;display:none" onclick="downloadPassword('pass-enc-pw')">↓ Guardar</button>
-    </div>
-    <div class="field-sub" style="margin-top:6px">Si generas una, guárdala ahora — si la pierdes, nadie (ni tú) podrá recuperar el mensaje.</div>
   </div>
 
-  <div class="or-divider">o</div>
-  <button type="button" class="btn btn-secondary btn-full" id="pass-dh-hint" onclick="showView('dhexchange')">🤝 Intercambiar contraseña con Diffie-Hellman</button>
+  <div id="pass-enc-manual-block">
+    <div class="field">
+      <label class="field-label">Contraseña</label>
+      <div style="display:flex;gap:8px">
+        <input type="password" id="pass-enc-pw" placeholder="Escribe una contraseña..." style="flex:1" oninput="updatePwStrength('pass-enc-pw','pass-enc-strength')">
+        <button type="button" class="btn btn-secondary" onclick="togglePwVisibility('pass-enc-pw')" style="flex:0 0 auto">👁</button>
+      </div>
+      <div id="pass-enc-strength" style="margin-top:8px"></div>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <button type="button" class="btn btn-secondary" style="flex:1" onclick="generateStrongPassword('pass-enc-pw','pass-enc-strength')">🎲 Generar contraseña segura</button>
+        <button type="button" class="btn btn-secondary" id="pass-enc-pw-dl-btn" style="flex:0 0 auto;display:none" onclick="downloadPassword('pass-enc-pw')">↓ Guardar</button>
+      </div>
+      <div class="field-sub" style="margin-top:6px">Si generas una, guárdala ahora — si la pierdes, nadie (ni tú) podrá recuperar el mensaje.</div>
+    </div>
+  </div>
+
+  <div id="pass-enc-dh-block" style="display:none">
+    <div class="field">
+      <label class="field-label">Paso 1 — genera tu clave DH</label>
+      <button type="button" class="btn btn-secondary btn-full" onclick="dhGenerateForView('enc')">Generar mi clave DH</button>
+      <div class="result-box" id="pass-enc-dh-mypub-box">
+        <div class="result-label">Tu clave pública DH — envíasela a la otra persona (no es secreta)</div>
+        <div class="result-text mono" id="pass-enc-dh-mypub-text"></div>
+        <div class="result-actions">
+          <button class="btn btn-secondary" onclick="copyResult('pass-enc-dh-mypub-text')">Copiar</button>
+          <button class="btn btn-secondary" onclick="dlResult('pass-enc-dh-mypub-text','mi_clave_dh.txt')">↓ Descargar</button>
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <label class="field-label">Paso 2 — pega la clave pública DH que te han enviado</label>
+      <textarea class="mono" id="pass-enc-dh-peerpub" placeholder="Pega aquí la clave pública DH de la otra persona..."></textarea>
+      <button type="button" class="btn btn-secondary btn-full" style="margin-top:8px" onclick="dhComputeForView('enc')">Calcular contraseña compartida</button>
+      <div class="result-box" id="pass-enc-dh-fp-box">
+        <div class="result-label">Huella de la contraseña compartida</div>
+        <div class="result-text mono" id="pass-enc-dh-fp-text"></div>
+        <div class="field-sub" style="margin-top:6px">Compárala por voz/otro canal con la otra persona antes de cifrar nada importante — si coincide, nadie ha interceptado el intercambio.</div>
+      </div>
+    </div>
+  </div>
 
   <div class="alert alert-error" id="pass-enc-err"></div>
   <button class="btn btn-primary btn-full" id="btn-pass-enc" onclick="doPassEncrypt()">Cifrar</button>
@@ -1204,7 +1207,7 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
 
 <!--  PASSWORD: DECRYPT  -->
 <div class="view" id="view-pass-decrypt">
-  <button class="section-back" data-back="" onclick="showView('home-aes')"> volver</button>
+  <button class="section-back" data-back="" onclick="goHome()"> volver</button>
   <div class="section-header">
     <div class="section-title">Descifrar con contraseña</div>
   </div>
@@ -1223,10 +1226,51 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
   </div>
 
   <div class="field">
-    <label class="field-label">Contraseña</label>
-    <div style="display:flex;gap:8px">
-      <input type="password" id="pass-dec-pw" placeholder="Introduce la contraseña..." style="flex:1">
-      <button type="button" class="btn btn-secondary" onclick="togglePwVisibility('pass-dec-pw')" style="flex:0 0 auto">👁</button>
+    <label class="field-label">¿Cómo conseguís la contraseña?</label>
+    <div class="size-group" id="pass-dec-method">
+      <div class="size-opt selected" data-passmethod="manual" onclick="setPassMethod('dec','manual')">
+        <div class="size-opt-name">Manual</div>
+        <div class="size-opt-sub">La escribís vosotros</div>
+      </div>
+      <div class="size-opt" data-passmethod="dh" onclick="setPassMethod('dec','dh')">
+        <div class="size-opt-name">Diffie-Hellman</div>
+        <div class="size-opt-sub">Se acuerda sola, sin enviarla nunca</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="pass-dec-manual-block">
+    <div class="field">
+      <label class="field-label">Contraseña</label>
+      <div style="display:flex;gap:8px">
+        <input type="password" id="pass-dec-pw" placeholder="Introduce la contraseña..." style="flex:1">
+        <button type="button" class="btn btn-secondary" onclick="togglePwVisibility('pass-dec-pw')" style="flex:0 0 auto">👁</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="pass-dec-dh-block" style="display:none">
+    <div class="field">
+      <label class="field-label">Paso 1 — genera tu clave DH</label>
+      <button type="button" class="btn btn-secondary btn-full" onclick="dhGenerateForView('dec')">Generar mi clave DH</button>
+      <div class="result-box" id="pass-dec-dh-mypub-box">
+        <div class="result-label">Tu clave pública DH — envíasela a la otra persona (no es secreta)</div>
+        <div class="result-text mono" id="pass-dec-dh-mypub-text"></div>
+        <div class="result-actions">
+          <button class="btn btn-secondary" onclick="copyResult('pass-dec-dh-mypub-text')">Copiar</button>
+          <button class="btn btn-secondary" onclick="dlResult('pass-dec-dh-mypub-text','mi_clave_dh.txt')">↓ Descargar</button>
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <label class="field-label">Paso 2 — pega la clave pública DH que te han enviado</label>
+      <textarea class="mono" id="pass-dec-dh-peerpub" placeholder="Pega aquí la clave pública DH de la otra persona..."></textarea>
+      <button type="button" class="btn btn-secondary btn-full" style="margin-top:8px" onclick="dhComputeForView('dec')">Calcular contraseña compartida</button>
+      <div class="result-box" id="pass-dec-dh-fp-box">
+        <div class="result-label">Huella de la contraseña compartida</div>
+        <div class="result-text mono" id="pass-dec-dh-fp-text"></div>
+        <div class="field-sub" style="margin-top:6px">Compárala por voz/otro canal con la otra persona antes de fiarte del mensaje — si coincide, nadie ha interceptado el intercambio.</div>
+      </div>
     </div>
   </div>
 
@@ -1240,57 +1284,6 @@ textarea.mono { font-family: var(--mono); font-size: 12px; min-height: 140px; }
       <button class="btn btn-secondary" onclick="copyResult('pass-dec-result-text')">Copiar</button>
     </div>
   </div>
-</div>
-
-<!--  DH: INTERCAMBIO DE CONTRASEÑA (Diffie-Hellman ECDH P-256)  -->
-<div class="view" id="view-dhexchange">
-  <button class="section-back" data-back="" onclick="goHome()"> volver</button>
-  <div class="section-header">
-    <div class="section-title" id="dh-title">Intercambiar contraseña (Diffie-Hellman)</div>
-    <div class="section-sub" id="dh-sub">Dos personas acaban con la misma contraseña sin que esa contraseña viaje por ningún canal. Solo se intercambian claves públicas: el secreto se calcula en cada dispositivo.</div>
-  </div>
-
-  <div class="alert alert-error" id="dh-alert"></div>
-
-  <div class="kx-panel">
-    <div class="kx-panel-title" id="dh-mine-title">1 · Tu clave (tu clave privada nunca sale de tu dispositivo)</div>
-    <div class="kx-actions" style="margin-bottom:12px">
-      <button class="btn btn-primary" id="dh-gen-btn" onclick="dhGenerate()">Generar mi par de claves</button>
-      <button class="btn btn-secondary" id="dh-copy-pub" onclick="dhCopyPub()" disabled>Copiar mi clave pública</button>
-      <button class="btn btn-secondary" id="dh-qr-btn" onclick="dhShowQR()" disabled>Mostrar QR</button>
-    </div>
-    <textarea class="mono" id="dh-my-pub" rows="3" readonly placeholder="Tu clave pública aparecerá aquí..."></textarea>
-    <div class="kx-status-line" id="dh-mine-fp"></div>
-    <div class="qr-canvas-wrap" id="dh-qr-canvas" style="display:none"></div>
-  </div>
-
-  <div class="kx-panel">
-    <div class="kx-panel-title" id="dh-other-title">2 · La clave pública de la otra persona</div>
-    <div class="field" style="margin-bottom:12px">
-      <label class="field-label" id="dh-other-lbl">Clave pública</label>
-      <textarea class="mono" id="dh-other-pub" rows="3" placeholder="Pega aquí la clave pública que te ha enviado (WhatsApp, correo, papel, chat de ciphr...)"></textarea>
-    </div>
-    <button class="btn btn-primary" id="dh-compute-btn" onclick="dhCompute()">Calcular contraseña compartida</button>
-    <div class="kx-status-line" id="dh-other-fp"></div>
-  </div>
-
-  <div class="result-box" id="dh-result">
-    <div class="result-label" id="dh-result-lbl">Contraseña compartida</div>
-    <div class="kx-status-line" id="dh-result-note" style="color:var(--green)">✓ Contraseña calculada. La otra persona obtiene exactamente la misma si ha pegado TU clave pública.</div>
-    <div class="result-text mono" id="dh-result-text"></div>
-    <div class="result-actions">
-      <button class="btn btn-secondary" id="dh-copy-pass" onclick="dhCopyPass()">Copiar</button>
-      <button class="btn btn-secondary" id="dh-dl-pass" onclick="dhDownloadPass()">↓ Guardar</button>
-      <button class="btn btn-primary" id="dh-use-btn" onclick="dhUsePassword()">Usar en Cifrar →</button>
-    </div>
-  </div>
-
-  <div class="alert alert-warn" id="dh-warn" style="display:flex;align-items:flex-start;gap:10px">
-    <span>⚠️</span>
-    <span><strong>Antes de confiar, verificad por voz u otro canal la huella</strong> de la clave pública (la que se muestra bajo cada clave). Si alguien interceptara el intercambio, las huellas no coincidirían y la contraseña no sería secreta.</span>
-  </div>
-
-  <button class="btn btn-ghost" id="dh-reset-btn" onclick="dhReset()">Reiniciar</button>
 </div>
 
 <!--  ADVANCED  -->
@@ -2554,11 +2547,18 @@ function downloadPassword(inputId) {
 async function doPassEncrypt() {
   hideAlert('pass-enc-err'); hideResult('pass-enc-result');
   const msg = document.getElementById('pass-enc-msg').value;
-  const pw = document.getElementById('pass-enc-pw').value;
   if (!msg.trim()) { showAlert('pass-enc-err', 'Escribe un mensaje.', 'error'); return; }
-  if (!pw) { showAlert('pass-enc-err', 'Escribe o genera una contraseña.', 'error'); return; }
   try {
-    const b64 = await encryptWithPassword(msg, pw);
+    let b64;
+    if (_passMethod.enc === 'dh') {
+      const secret = _dhState.enc.sharedSecret;
+      if (!secret) { showAlert('pass-enc-err', 'Primero calcula la contraseña compartida con Diffie-Hellman (pasos 1 y 2 de arriba).', 'error'); return; }
+      b64 = await encryptWithSharedSecret(msg, secret);
+    } else {
+      const pw = document.getElementById('pass-enc-pw').value;
+      if (!pw) { showAlert('pass-enc-err', 'Escribe o genera una contraseña.', 'error'); return; }
+      b64 = await encryptWithPassword(msg, pw);
+    }
     showResult('pass-enc-result', b64);
   } catch (ex) { showAlert('pass-enc-err', 'Error al cifrar: ' + ex.message, 'error'); }
 }
@@ -2570,151 +2570,115 @@ async function loadPassCipherFile(input) {
 async function doPassDecrypt() {
   hideAlert('pass-dec-err'); hideResult('pass-dec-result');
   const b64 = document.getElementById('pass-dec-cipher').value.trim();
-  const pw = document.getElementById('pass-dec-pw').value;
   if (!b64) { showAlert('pass-dec-err', 'Pega o carga el mensaje cifrado.', 'error'); return; }
-  if (!pw) { showAlert('pass-dec-err', 'Escribe la contraseña.', 'error'); return; }
   try {
-    const texto = await decryptWithPassword(b64, pw);
+    let texto;
+    if (_passMethod.dec === 'dh') {
+      const secret = _dhState.dec.sharedSecret;
+      if (!secret) { showAlert('pass-dec-err', 'Primero calcula la contraseña compartida con Diffie-Hellman (pasos 1 y 2 de arriba).', 'error'); return; }
+      texto = await decryptWithSharedSecret(b64, secret);
+    } else {
+      const pw = document.getElementById('pass-dec-pw').value;
+      if (!pw) { showAlert('pass-dec-err', 'Escribe la contraseña.', 'error'); return; }
+      texto = await decryptWithPassword(b64, pw);
+    }
     showResult('pass-dec-result', texto);
   } catch (ex) { showAlert('pass-dec-err', ex.message, 'error'); }
 }
 
 // 
-//  INTERCAMBIO DE CONTRASEÑA — DIFFIE-HELLMAN (ECDH P-256)
-//  Dos personas generan un par de claves ECDH cada una, intercambian SOLO las
-//  claves públicas y ambas derivan el mismo secreto → contraseña AES-256.
-//  La contraseña resultante se usa después como cualquier contraseña propia
-//  (misma compatibilidad con la CLI).
+//  DIFFIE-HELLMAN (ECDH P-256 + HKDF) — método OPCIONAL para acordar la
+//  contraseña de AES sin tener que compartirla directamente. Nunca es
+//  obligatorio: "Contraseña manual" sigue siendo la opción por defecto.
+//  Mismo formato de mensaje que el modo contraseña normal — solo cambia
+//  cómo se deriva la clave AES (HKDF sobre el secreto ECDH en vez de
+//  PBKDF2 sobre texto escrito). Verificado con interoperabilidad real
+//  contra la CLI de Python antes de integrarse aquí.
 // 
-let _dh = { priv: null, pubB64: null, otherPub: null, otherB64: null, pass: null };
+let _passMethod = { enc: 'manual', dec: 'manual' };
+let _dhState = { enc: {}, dec: {} };
 
-function b64uEncode(bytes) {
-  let s = '';
-  for (let i = 0; i < bytes.length; i++) s += String.fromCharCode(bytes[i]);
-  return btoa(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-}
-function b64uDecode(s) {
-  s = String(s).replace(/-/g, '+').replace(/_/g, '/');
-  while (s.length % 4) s += '=';
-  const bin = atob(s);
-  const out = new Uint8Array(bin.length);
-  for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
-  return out;
-}
-async function dhFingerprintText(b64) {
-  try {
-    const hash = await sha256Bytes(b64uDecode(b64));
-    const hex = Array.from(hash).map(b => b.toString(16).padStart(2, '0')).join('');
-    const grupos = (hex.match(/.{1,4}/g) || []).slice(0, 8).join(' ');
-    return '🔑 Huella: ' + grupos + '  — compárala con la otra persona por un canal distinto antes de confiar';
-  } catch (e) { return ''; }
-}
-async function dhGenerate() {
-  hideAlert('dh-alert'); hideResult('dh-result');
-  document.getElementById('dh-qr-canvas').style.display = 'none';
-  document.getElementById('dh-mine-fp').textContent = '';
-  try {
-    const kp = await crypto.subtle.generateKey({ name: 'ECDH', namedCurve: 'P-256' }, false, ['deriveBits']);
-    _dh.priv = kp.privateKey;
-    const spki = new Uint8Array(await crypto.subtle.exportKey('spki', kp.publicKey));
-    _dh.pubB64 = b64uEncode(spki);
-    document.getElementById('dh-my-pub').value = _dh.pubB64;
-    document.getElementById('dh-copy-pub').disabled = false;
-    document.getElementById('dh-qr-btn').disabled = false;
-    document.getElementById('dh-gen-btn').textContent = t('dh_gen_btn') + ' ✓';
-    document.getElementById('dh-mine-fp').textContent = await dhFingerprintText(_dh.pubB64);
-  } catch (e) {
-    showAlert('dh-alert', t('dh_err_gen') + e.message, 'error');
-  }
-}
-function dhShowQR() {
-  hideAlert('dh-alert');
-  const wrap = document.getElementById('dh-qr-canvas');
-  if (!_dh.pubB64) return;
-  let svg = null;
-  for (const ec of ['M', 'L']) {
-    try {
-      const qr = qrcode(0, ec);
-      qr.addData(_dh.pubB64, 'Byte');
-      qr.make();
-      svg = qr.createSvgTag(6, 24);
-      break;
-    } catch (e) { svg = null; }
-  }
-  if (!svg) { showAlert('dh-alert', 'La clave no cabe en un QR de este tamaño.', 'error'); return; }
-  wrap.innerHTML = svg;
-  wrap.style.display = '';
-}
-function dhCopyPub() {
-  if (!_dh.pubB64) return;
-  navigator.clipboard.writeText(_dh.pubB64).then(() => {
-    const el = document.getElementById('dh-copy-pub');
-    if (!el) return;
-    const old = el.textContent; el.textContent = '✓ ' + old;
-    setTimeout(() => el.textContent = old, 1500);
+function setPassMethod(view, method) {
+  _passMethod[view] = method;
+  document.querySelectorAll(`#pass-${view}-method .size-opt`).forEach(el => {
+    el.classList.toggle('selected', el.dataset.passmethod === method);
   });
+  document.getElementById(`pass-${view}-manual-block`).style.display = method === 'manual' ? '' : 'none';
+  document.getElementById(`pass-${view}-dh-block`).style.display = method === 'dh' ? '' : 'none';
 }
-async function dhImportOther() {
-  const b64 = document.getElementById('dh-other-pub').value.trim();
-  if (!b64) { showAlert('dh-alert', t('dh_err_no_other'), 'error'); return null; }
+
+async function dhGenerateKeyPair() {
+  return await crypto.subtle.generateKey({ name: 'ECDH', namedCurve: 'P-256' }, true, ['deriveBits']);
+}
+async function dhExportPublicKey(keyPair) {
+  const raw = await crypto.subtle.exportKey('raw', keyPair.publicKey);
+  return toBase64(new Uint8Array(raw));
+}
+async function dhImportPublicKey(b64) {
+  const raw = fromBase64(b64.trim());
+  return await crypto.subtle.importKey('raw', raw, { name: 'ECDH', namedCurve: 'P-256' }, false, []);
+}
+async function dhDeriveSharedSecret(privateKey, peerPublicKey) {
+  const bits = await crypto.subtle.deriveBits({ name: 'ECDH', public: peerPublicKey }, privateKey, 256);
+  return new Uint8Array(bits);
+}
+async function hkdfDeriveAesKey(secretBytes, salt, infoStr = 'ciphr-aes-v1') {
+  const baseKey = await crypto.subtle.importKey('raw', secretBytes, 'HKDF', false, ['deriveKey']);
+  return await crypto.subtle.deriveKey(
+    { name: 'HKDF', hash: 'SHA-256', salt, info: new TextEncoder().encode(infoStr) },
+    baseKey, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']
+  );
+}
+async function encryptWithSharedSecret(text, secretBytes) {
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  const nonce = crypto.getRandomValues(new Uint8Array(12));
+  const key = await hkdfDeriveAesKey(secretBytes, salt);
+  const ct = new Uint8Array(await crypto.subtle.encrypt({ name: 'AES-GCM', iv: nonce }, key, new TextEncoder().encode(text)));
+  return toBase64(concat([salt, nonce, ct]));
+}
+async function decryptWithSharedSecret(b64, secretBytes) {
+  let paquete;
+  try { paquete = fromBase64(b64.trim()); }
+  catch (ex) { throw new Error('El texto no parece un mensaje cifrado válido (debe ser base64).'); }
+  if (paquete.length < 16 + 12 + 16) throw new Error('El texto cifrado es demasiado corto o está incompleto.');
+  const salt = paquete.slice(0, 16), nonce = paquete.slice(16, 28), ct = paquete.slice(28);
+  const key = await hkdfDeriveAesKey(secretBytes, salt);
   try {
-    _dh.otherPub = await crypto.subtle.importKey('spki', b64uDecode(b64), { name: 'ECDH', namedCurve: 'P-256' }, false, []);
-    _dh.otherB64 = b64;
-    document.getElementById('dh-other-fp').textContent = await dhFingerprintText(b64);
-    return _dh.otherPub;
-  } catch (e) {
-    showAlert('dh-alert', t('dh_err_invalid_other'), 'error');
-    return null;
-  }
+    const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: nonce }, key, ct);
+    return new TextDecoder().decode(pt);
+  } catch (ex) { throw new Error('Contraseña incorrecta o mensaje modificado.'); }
 }
-async function dhCompute() {
-  hideAlert('dh-alert'); hideResult('dh-result');
-  if (!_dh.priv) { showAlert('dh-alert', t('dh_err_no_mine'), 'error'); return; }
-  const other = await dhImportOther();
-  if (!other) return;
+
+async function dhGenerateForView(view) {
+  const kp = await dhGenerateKeyPair();
+  _dhState[view].privateKey = kp.privateKey;
+  _dhState[view].sharedSecret = null; // invalidar cualquier cálculo anterior
+  const pub = await dhExportPublicKey(kp);
+  const box = document.getElementById(`pass-${view}-dh-mypub-box`);
+  document.getElementById(`pass-${view}-dh-mypub-text`).textContent = pub;
+  box.classList.add('show');
+  const fpBox = document.getElementById(`pass-${view}-dh-fp-box`);
+  if (fpBox) fpBox.classList.remove('show');
+}
+async function dhComputeForView(view) {
+  const errId = `pass-${view}-err`;
+  hideAlert(errId);
   try {
-    const bits = new Uint8Array(await crypto.subtle.deriveBits({ name: 'ECDH', public: other }, _dh.priv, 256));
-    const hash = new Uint8Array(await crypto.subtle.digest('SHA-256', bits));
-    _dh.pass = b64uEncode(hash);
-    showResult('dh-result', _dh.pass);
-    const note = document.getElementById('dh-result-note');
-    if (note) note.textContent = t('dh_result_note');
-  } catch (e) {
-    showAlert('dh-alert', t('dh_err_derive') + e.message, 'error');
+    if (!_dhState[view].privateKey) throw new Error('Primero genera tu clave DH (paso 1).');
+    const peerB64 = document.getElementById(`pass-${view}-dh-peerpub`).value.trim();
+    if (!peerB64) throw new Error('Pega la clave pública DH de la otra persona.');
+    const peerPublicKey = await dhImportPublicKey(peerB64);
+    const secret = await dhDeriveSharedSecret(_dhState[view].privateKey, peerPublicKey);
+    _dhState[view].sharedSecret = secret;
+    const hashBytes = await sha256Bytes(secret);
+    const hex = Array.from(hashBytes).map(b => b.toString(16).padStart(2, '0')).join('');
+    const grupos = hex.match(/.{1,4}/g).slice(0, 8).join(' ');
+    const box = document.getElementById(`pass-${view}-dh-fp-box`);
+    document.getElementById(`pass-${view}-dh-fp-text`).textContent = grupos;
+    box.classList.add('show');
+  } catch (ex) {
+    showAlert(errId, 'No se pudo calcular la clave compartida: ' + ex.message, 'error');
   }
-}
-function dhCopyPass() {
-  if (!_dh.pass) return;
-  navigator.clipboard.writeText(_dh.pass).then(() => flashBtn('dh-copy-pass', 'copied'));
-}
-function dhDownloadPass() {
-  if (!_dh.pass) return;
-  dlText(_dh.pass, 'contrasena_diffiehellman.txt');
-}
-function dhUsePassword() {
-  if (!_dh.pass) { showAlert('dh-alert', t('dh_err_no_pass'), 'error'); return; }
-  const el = document.getElementById('pass-enc-pw');
-  if (el) {
-    el.value = _dh.pass;
-    el.type = 'text';
-    updatePwStrength('pass-enc-pw', 'pass-enc-strength');
-    const d = document.getElementById('pass-enc-pw-dl-btn');
-    if (d) d.style.display = '';
-  }
-  showView('pass-encrypt');
-}
-function dhReset() {
-  _dh = { priv: null, pubB64: null, otherPub: null, otherB64: null, pass: null };
-  const my = document.getElementById('dh-my-pub'); if (my) my.value = '';
-  const o = document.getElementById('dh-other-pub'); if (o) o.value = '';
-  const fp1 = document.getElementById('dh-mine-fp'); if (fp1) fp1.textContent = '';
-  const fp2 = document.getElementById('dh-other-fp'); if (fp2) fp2.textContent = '';
-  const qr = document.getElementById('dh-qr-canvas');
-  if (qr) { qr.innerHTML = ''; qr.style.display = 'none'; }
-  const cp = document.getElementById('dh-copy-pub'); if (cp) cp.disabled = true;
-  const qb = document.getElementById('dh-qr-btn'); if (qb) qb.disabled = true;
-  const gb = document.getElementById('dh-gen-btn'); if (gb) gb.textContent = t('dh_gen_btn');
-  hideAlert('dh-alert'); hideResult('dh-result');
 }
 
 // 
@@ -2923,29 +2887,7 @@ function detectMessageInTxt(content) {
 
 // ── VIEW ROUTING ──
 let _prevViewId = null;
-// Versión activa: 'rsa' o 'aes'. Cada versión tiene su propia pantalla de inicio.
-let _version = 'rsa';
-const _RSA_VIEWS = new Set(['genkeys','encrypt','decrypt','sign','sign-create','sign-verify','advanced','adv-nums','adv-text','adv-pem','adv-pem-decode','adv-pem-encode','adv-seeds','adv-genkeys','adv-sign','keyexchange','kxmethod','kxqrmethod','kxqrgen','kxqrscan']);
-const _AES_VIEWS = new Set(['home-aes','pass-encrypt','pass-decrypt','dhexchange']);
-function _syncVersionTab() {
-  const bRsa = document.getElementById('ver-rsa');
-  const bAes = document.getElementById('ver-aes');
-  if (bRsa) bRsa.classList.toggle('active', _version === 'rsa');
-  if (bAes) bAes.classList.toggle('active', _version === 'aes');
-}
-function setVersion(v) {
-  _version = v === 'aes' ? 'aes' : 'rsa';
-  try { localStorage.setItem('ciphr_version', _version); } catch (e) {}
-  _syncVersionTab();
-  showView(_version === 'aes' ? 'home-aes' : 'home');
-}
 function showView(id) {
-  // Si es la vista home genérica, mostrar la de la versión activa
-  if (id === 'home' && _version === 'aes') id = 'home-aes';
-  // Al entrar en una vista de una versión concreta, sincronizar la pestaña
-  if (_RSA_VIEWS.has(id)) _version = 'rsa';
-  else if (_AES_VIEWS.has(id)) _version = 'aes';
-  _syncVersionTab();
   if (_prevViewId === 'kxqrscan' && id !== 'kxqrscan' && typeof stopKxScan === 'function') stopKxScan();
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   const el = document.getElementById('view-' + id);
@@ -2962,6 +2904,21 @@ function showView(id) {
   _prevViewId = id;
 }
 function goHome() { showView('home'); }
+
+let _ciphrMode = 'rsa';
+function setCiphrMode(mode) {
+  _ciphrMode = mode;
+  document.querySelectorAll('[data-ciphrmode]').forEach(el => {
+    const match = el.dataset.ciphrmode === mode;
+    if (el.classList.contains('size-opt')) {
+      el.classList.toggle('selected', match);
+    } else {
+      el.style.display = match ? '' : 'none';
+    }
+  });
+  document.getElementById('home-cards-rsa').style.display = mode === 'rsa' ? '' : 'none';
+  document.getElementById('home-cards-aes').style.display = mode === 'aes' ? '' : 'none';
+}
 
 // ── STATE ──
 let _genPubPEM = null, _genPrivPEM = null;
@@ -3785,10 +3742,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   updatePEMEncFields();
   document.getElementById('seed-input').addEventListener('keydown',e=>{if(e.key==='Enter')showSeedABC();});
-  // Restaurar versión RSA/AES guardada
-  let savedVersion = 'rsa';
-  try { savedVersion = localStorage.getItem('ciphr_version') || 'rsa'; } catch (e) {}
-  setVersion(savedVersion === 'aes' ? 'aes' : 'rsa');
 });
 
 
@@ -3807,35 +3760,6 @@ const TR = {
     home_card_adv_title:'Avanzado', home_card_adv_desc:'Control total: claves, PEM, seeds y operaciones manuales.',
     home_card_kx_title:'Intercambiar claves', home_card_kx_desc:'Comparte tu clave B de forma segura, sin enviarla directamente.',
     home_card_saved_title:'Archivos guardados', home_card_saved_desc:'Guarda copias dentro de la app, sin pasar por las descargas del móvil.',
-    home_aes_title:'Cifra con una contraseña.<br><em>La misma en los dos lados.</em>',
-    home_aes_sub:'Versión AES: mensajes protegidos con AES-256-GCM usando una contraseña compartida. Acordadla por otro canal, o cread juntos una contraseña nueva con Diffie-Hellman sin enviarla por ningún sitio.',
-    home_aes_enc_title:'Cifrar con contraseña', home_aes_enc_desc:'Cifra un mensaje con una contraseña que solo conozcáis vosotros dos.',
-    home_aes_dec_title:'Descifrar con contraseña', home_aes_dec_desc:'Lee un mensaje cifrado con contraseña.',
-    home_aes_dh_title:'Intercambiar contraseña', home_aes_dh_desc:'Cread juntos la misma contraseña con Diffie-Hellman, sin enviarla nunca.',
-    home_aes_saved_title:'Archivos guardados', home_aes_saved_desc:'Guarda copias dentro de la app, sin pasar por las descargas del móvil.',
-    pass_dh_hint:'🤝 Intercambiar contraseña con Diffie-Hellman',
-    dh_title:'Intercambiar contraseña (Diffie-Hellman)',
-    dh_sub:'Dos personas acaban con la misma contraseña sin que esa contraseña viaje por ningún canal. Solo se intercambian claves públicas: el secreto se calcula en cada dispositivo.',
-    dh_mine_title:'1 · Tu clave (tu clave privada nunca sale de tu dispositivo)',
-    dh_gen_btn:'Generar mi par de claves',
-    dh_copy_pub:'Copiar mi clave pública',
-    dh_qr_btn:'Mostrar QR',
-    dh_my_pub_ph:'Tu clave pública aparecerá aquí...',
-    dh_other_title:'2 · La clave pública de la otra persona',
-    dh_other_lbl:'Clave pública',
-    dh_other_ph:'Pega aquí la clave pública que te ha enviado (WhatsApp, correo, papel, chat de ciphr...)',
-    dh_compute_btn:'Calcular contraseña compartida',
-    dh_result_lbl:'Contraseña compartida',
-    dh_result_note:'✓ Contraseña calculada. La otra persona obtiene exactamente la misma si ha pegado TU clave pública.',
-    dh_copy_pass:'Copiar', dh_dl_pass:'↓ Guardar', dh_use_btn:'Usar en Cifrar →',
-    dh_reset_btn:'Reiniciar',
-    dh_err_gen:'No se pudo generar la clave: ',
-    dh_err_no_other:'Pega primero la clave pública de la otra persona.',
-    dh_err_invalid_other:'Esa clave pública no es válida (debe ser la que genera ciphr en "Generar mi par de claves").',
-    dh_err_no_mine:'Primero genera tu par de claves en el paso 1.',
-    dh_err_derive:'No se pudo calcular el secreto compartido: ',
-    dh_err_no_pass:'Primero calcula la contraseña compartida.',
-    dh_warn:'<strong>Antes de confiar, verificad por voz u otro canal la huella</strong> de la clave pública (la que se muestra bajo cada clave). Si alguien interceptara el intercambio, las huellas no coincidirían y la contraseña no sería secreta.',
     saved_title:'Archivos guardados', saved_sub:'Copias guardadas dentro de la aplicación, sin pasar por las descargas del móvil. Solo están en este dispositivo y este navegador.',
     saved_empty:'No hay archivos guardados todavía.', saved_clear_btn:'Vaciar todo',
     saved_clear_confirm:'¿Seguro que quieres borrar todos los archivos guardados? No se puede deshacer.',
@@ -4007,35 +3931,6 @@ const TR = {
     home_card_adv_title:'Advanced', home_card_adv_desc:'Full control: keys, PEM, seeds and manual operations.',
     home_card_kx_title:'Exchange keys', home_card_kx_desc:'Share your key B with your contact securely, without sending it directly.',
     home_card_saved_title:'Saved files', home_card_saved_desc:'Keep copies inside the app, without going through your phone\'s downloads.',
-    home_aes_title:'Encrypt with a password.<br><em>The same on both sides.</em>',
-    home_aes_sub:'AES version: messages protected with AES-256-GCM using a shared password. Agree on one through another channel, or create a new password together with Diffie-Hellman without sending it anywhere.',
-    home_aes_enc_title:'Encrypt with password', home_aes_enc_desc:'Encrypt a message with a password only the two of you know.',
-    home_aes_dec_title:'Decrypt with password', home_aes_dec_desc:'Read a message encrypted with a password.',
-    home_aes_dh_title:'Exchange password', home_aes_dh_desc:'Create the same password together with Diffie-Hellman, without ever sending it.',
-    home_aes_saved_title:'Saved files', home_aes_saved_desc:'Keep copies inside the app, without going through your phone\'s downloads.',
-    pass_dh_hint:'🤝 Exchange a password with Diffie-Hellman',
-    dh_title:'Exchange password (Diffie-Hellman)',
-    dh_sub:'Two people end up with the same password without that password travelling through any channel. Only public keys are exchanged: the secret is computed on each device.',
-    dh_mine_title:'1 · Your key (your private key never leaves your device)',
-    dh_gen_btn:'Generate my key pair',
-    dh_copy_pub:'Copy my public key',
-    dh_qr_btn:'Show QR',
-    dh_my_pub_ph:'Your public key will appear here...',
-    dh_other_title:'2 · The other person\'s public key',
-    dh_other_lbl:'Public key',
-    dh_other_ph:'Paste the public key they sent you (WhatsApp, email, paper, ciphr chat...)',
-    dh_compute_btn:'Compute shared password',
-    dh_result_lbl:'Shared password',
-    dh_result_note:'✓ Password computed. The other person gets exactly the same one if they pasted YOUR public key.',
-    dh_copy_pass:'Copy', dh_dl_pass:'↓ Save', dh_use_btn:'Use in Encrypt →',
-    dh_reset_btn:'Reset',
-    dh_err_gen:'Could not generate the key: ',
-    dh_err_no_other:'First paste the other person\'s public key.',
-    dh_err_invalid_other:'That public key is not valid (it must be the one ciphr generates in "Generate my key pair").',
-    dh_err_no_mine:'First generate your key pair in step 1.',
-    dh_err_derive:'Could not compute the shared secret: ',
-    dh_err_no_pass:'First compute the shared password.',
-    dh_warn:'<strong>Before trusting it, verify the fingerprint out of band</strong> (by voice or another channel) — it is shown under each key. If someone intercepted the exchange, the fingerprints would not match and the password would not be secret.',
     saved_title:'Saved files', saved_sub:'Copies saved inside the app, without going through your phone\'s downloads. They only exist on this device and browser.',
     saved_empty:'No saved files yet.', saved_clear_btn:'Clear all',
     saved_clear_confirm:'Are you sure you want to delete all saved files? This cannot be undone.',
@@ -4227,23 +4122,6 @@ function applyLang(){
   se('home-card-adv-title',L.home_card_adv_title); se('home-card-adv-desc',L.home_card_adv_desc);
   se('home-card-kx-title',L.home_card_kx_title); se('home-card-kx-desc',L.home_card_kx_desc);
   se('home-card-saved-title',L.home_card_saved_title); se('home-card-saved-desc',L.home_card_saved_desc);
-  // HOME AES
-  sh('home-aes-title',L.home_aes_title); se('home-aes-sub',L.home_aes_sub);
-  se('home-aes-enc-title',L.home_aes_enc_title); se('home-aes-enc-desc',L.home_aes_enc_desc);
-  se('home-aes-dec-title',L.home_aes_dec_title); se('home-aes-dec-desc',L.home_aes_dec_desc);
-  se('home-aes-dh-title',L.home_aes_dh_title); se('home-aes-dh-desc',L.home_aes_dh_desc);
-  se('home-aes-saved-title',L.home_aes_saved_title); se('home-aes-saved-desc',L.home_aes_saved_desc);
-  se('pass-dh-hint',L.pass_dh_hint);
-  // DH
-  se('dh-title',L.dh_title); se('dh-sub',L.dh_sub);
-  se('dh-mine-title',L.dh_mine_title); se('dh-gen-btn',L.dh_gen_btn);
-  se('dh-copy-pub',L.dh_copy_pub); se('dh-qr-btn',L.dh_qr_btn);
-  sp('dh-my-pub',L.dh_my_pub_ph);
-  se('dh-other-title',L.dh_other_title); se('dh-other-lbl',L.dh_other_lbl);
-  sp('dh-other-pub',L.dh_other_ph); se('dh-compute-btn',L.dh_compute_btn);
-  se('dh-result-lbl',L.dh_result_lbl); se('dh-result-note',L.dh_result_note);
-  se('dh-copy-pass',L.dh_copy_pass); se('dh-dl-pass',L.dh_dl_pass); se('dh-use-btn',L.dh_use_btn);
-  se('dh-reset-btn',L.dh_reset_btn); sh('dh-warn',L.dh_warn);
   se('saved-title',L.saved_title); se('saved-sub',L.saved_sub);
   se('saved-files-empty',L.saved_empty); se('saved-clear-btn',L.saved_clear_btn);
   document.querySelectorAll('.saved-pick-btn span').forEach(el=>el.textContent=L.saved_pick_btn);
