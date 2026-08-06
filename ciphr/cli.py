@@ -506,6 +506,146 @@ def dh_exchange_flow():
     print("   si coincide, nadie ha interceptado el intercambio.")
     return secreto
 
+# ──────────────────────────────────────────────
+# REDUCIR MENSAJE — para poder escribirlo a mano en papel.
+# Cambia la codificación de base64 (con +, /, = y letras que se confunden:
+# 0/O, 1/l/I) a Base58 (alfabeto de Bitcoin), agrupado en bloques de 5,
+# con una comprobación al final para detectar errores al copiarlo a mano.
+# También comprime el mensaje antes de cifrar cuando eso lo hace más corto.
+# Mismo formato exacto que la versión web — probado con compatibilidad
+# cruzada real antes de integrarse aquí.
+# ──────────────────────────────────────────────
+
+import gzip
+import io
+
+BASE58_ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'  # sin 0, O, I, l
+
+def base58_encode(data: bytes) -> str:
+    if len(data) == 0:
+        return ''
+    num = int.from_bytes(data, 'big')
+    encoded = ''
+    while num > 0:
+        num, rem = divmod(num, 58)
+        encoded = BASE58_ALPHABET[rem] + encoded
+    leading_zeros = 0
+    for b in data:
+        if b == 0:
+            leading_zeros += 1
+        else:
+            break
+    return '1' * leading_zeros + encoded
+
+def base58_decode(s: str) -> bytes:
+    if len(s) == 0:
+        return b''
+    leading_ones = 0
+    for ch in s:
+        if ch == '1':
+            leading_ones += 1
+        else:
+            break
+    resto = s[leading_ones:]
+    if not resto:
+        return b'\x00' * leading_ones
+    num = 0
+    for ch in resto:
+        if ch not in BASE58_ALPHABET:
+            raise ValueError(f"Carácter no válido: '{ch}' (revisa que lo copiaste bien — este formato no usa 0, O, I, l, ni símbolos)")
+        num = num * 58 + BASE58_ALPHABET.index(ch)
+    num_bytes = num.to_bytes((num.bit_length() + 7) // 8, 'big') if num > 0 else b''
+    return b'\x00' * leading_ones + num_bytes
+
+def group_for_paper(s: str, group_size: int = 5) -> str:
+    return ' '.join(s[i:i+group_size] for i in range(0, len(s), group_size))
+
+def ungroup_for_paper(s: str) -> str:
+    return re.sub(r'\s+', '', s)
+
+def gzip_compress(data: bytes) -> bytes:
+    buf = io.BytesIO()
+    with gzip.GzipFile(fileobj=buf, mode='wb', mtime=0) as f:
+        f.write(data)
+    return buf.getvalue()
+
+def gzip_decompress(data: bytes) -> bytes:
+    return gzip.decompress(data)
+
+def pack_for_paper(packet_bytes: bytes) -> str:
+    checksum = hashlib.sha256(packet_bytes).digest()[:4]
+    con_checksum = packet_bytes + checksum
+    return group_for_paper(base58_encode(con_checksum), 5)
+
+def unpack_from_paper(texto: str) -> bytes:
+    plano = ungroup_for_paper(texto.strip())
+    data = base58_decode(plano)
+    if len(data) < 5:
+        raise ValueError('El texto es demasiado corto para ser un mensaje reducido válido.')
+    packet_bytes, checksum = data[:-4], data[-4:]
+    esperado = hashlib.sha256(packet_bytes).digest()[:4]
+    if checksum != esperado:
+        raise ValueError('Este código no pasa su propia comprobación — probablemente hay un error al copiarlo. Revísalo carácter a carácter.')
+    return packet_bytes
+
+def looks_like_reduced_format(texto: str) -> bool:
+    limpio = texto.strip()
+    if not limpio:
+        return False
+    if re.search(r'[+/=]', limpio):
+        return False
+    return bool(re.search(r'\s', limpio)) or bool(re.fullmatch(r'[1-9A-HJ-NP-Za-km-z]+', limpio))
+
+def cifrar_con_password_reducido(texto_claro: str, contrasena: str) -> str:
+    salt = secrets.token_bytes(8)  # más corta que en el modo normal (16)
+    nonce = secrets.token_bytes(12)
+    clave = _derivar_clave_password(contrasena, salt)
+    plano = texto_claro.encode('utf-8')
+    comprimido = gzip_compress(plano)
+    usar_comprimido = len(comprimido) < len(plano)
+    cuerpo = (b'\x01' if usar_comprimido else b'\x00') + (comprimido if usar_comprimido else plano)
+    ct = AESGCM(clave).encrypt(nonce, cuerpo, None)
+    return pack_for_paper(salt + nonce + ct)
+
+def descifrar_con_password_reducido(texto: str, contrasena: str) -> str:
+    packet = unpack_from_paper(texto)
+    if len(packet) < 8 + 12:
+        raise ValueError('El mensaje reducido está incompleto.')
+    salt, nonce, ct = packet[:8], packet[8:20], packet[20:]
+    clave = _derivar_clave_password(contrasena, salt)
+    try:
+        cuerpo = AESGCM(clave).decrypt(nonce, ct, None)
+    except Exception:
+        raise ValueError('Contraseña incorrecta o mensaje modificado.')
+    flag, resto = cuerpo[0], cuerpo[1:]
+    final = gzip_decompress(resto) if flag == 1 else resto
+    return final.decode('utf-8')
+
+def cifrar_con_secreto_reducido(texto_claro: str, secret_bytes: bytes) -> str:
+    salt = secrets.token_bytes(8)
+    nonce = secrets.token_bytes(12)
+    clave = hkdf_derive_aes_key(secret_bytes, salt)
+    plano = texto_claro.encode('utf-8')
+    comprimido = gzip_compress(plano)
+    usar_comprimido = len(comprimido) < len(plano)
+    cuerpo = (b'\x01' if usar_comprimido else b'\x00') + (comprimido if usar_comprimido else plano)
+    ct = AESGCM(clave).encrypt(nonce, cuerpo, None)
+    return pack_for_paper(salt + nonce + ct)
+
+def descifrar_con_secreto_reducido(texto: str, secret_bytes: bytes) -> str:
+    packet = unpack_from_paper(texto)
+    if len(packet) < 8 + 12:
+        raise ValueError('El mensaje reducido está incompleto.')
+    salt, nonce, ct = packet[:8], packet[8:20], packet[20:]
+    clave = hkdf_derive_aes_key(secret_bytes, salt)
+    try:
+        cuerpo = AESGCM(clave).decrypt(nonce, ct, None)
+    except Exception:
+        raise ValueError('Contraseña incorrecta o mensaje modificado.')
+    flag, resto = cuerpo[0], cuerpo[1:]
+    final = gzip_decompress(resto) if flag == 1 else resto
+    return final.decode('utf-8')
+
 def menu_password():
     print("\n" + "─" * 40)
     print("Cifrado por contraseña (AES-256-GCM)")
@@ -521,18 +661,20 @@ def menu_password():
 
     if op == '1':
         mensaje = input("\nMensaje a cifrar: ")
+        reducir = input("¿Reducir para escribirlo a mano en papel? (y/n) [Enter = no]: ").strip().lower() in ('y', 'si', 's')
         if metodo == '2':
             secreto = dh_exchange_flow()
             if secreto is None:
                 return
-            resultado = cifrar_con_secreto(mensaje, secreto)
+            resultado = cifrar_con_secreto_reducido(mensaje, secreto) if reducir else cifrar_con_secreto(mensaje, secreto)
         else:
             pw = pedir_password_con_medidor()
             if not pw:
                 print("✗ Necesitas una contraseña.")
                 return
-            resultado = cifrar_con_password(mensaje, pw)
-        print(f"\n🔒 Mensaje cifrado:\n{resultado}")
+            resultado = cifrar_con_password_reducido(mensaje, pw) if reducir else cifrar_con_password(mensaje, pw)
+        etiqueta = "reducido, listo para copiar a mano" if reducir else "cifrado"
+        print(f"\n🔒 Mensaje {etiqueta}:\n{resultado}")
         guardar = input("\n¿Guardar en archivo? (y/n): ").strip().lower()
         if guardar in ('y', 'si', 's', ''):
             nombre = input("Nombre (Enter = mensaje_cifrado.txt): ").strip() or 'mensaje_cifrado.txt'
@@ -551,21 +693,27 @@ def menu_password():
             with open(ruta, 'r', encoding='utf-8') as f:
                 codigo = f.read().strip()
         else:
+            print("(Si lo tienes escrito a mano, cópialo tal cual — los espacios no importan,")
+            print(" ciphr detecta solo si es formato reducido o normal)")
             codigo = input("\nPega el mensaje cifrado: ").strip()
+
+        es_reducido = looks_like_reduced_format(codigo)
 
         if metodo == '2':
             secreto = dh_exchange_flow()
             if secreto is None:
                 return
             try:
-                resultado = descifrar_con_secreto(codigo, secreto)
+                resultado = (descifrar_con_secreto_reducido(codigo, secreto) if es_reducido
+                             else descifrar_con_secreto(codigo, secreto))
                 print(f"\n🔓 Mensaje:\n{resultado}")
             except ValueError as ex:
                 print(f"\n❌ {ex}")
         else:
             pw = input("Contraseña: ")
             try:
-                resultado = descifrar_con_password(codigo, pw)
+                resultado = (descifrar_con_password_reducido(codigo, pw) if es_reducido
+                             else descifrar_con_password(codigo, pw))
                 print(f"\n🔓 Mensaje:\n{resultado}")
             except ValueError as ex:
                 print(f"\n❌ {ex}")
